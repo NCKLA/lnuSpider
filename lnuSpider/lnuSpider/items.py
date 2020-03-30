@@ -17,5 +17,11 @@ class LnuspiderItem(scrapy.Item):
     tags = scrapy.Field()
     date = scrapy.Field()
     url = scrapy.Field()
+    path = scrapy.Field()
+    pass
+
+
+class ImageItem(scrapy.Item):
     src = scrapy.Field()
+    path = scrapy.Field()
     pass

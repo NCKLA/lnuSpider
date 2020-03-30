@@ -49,7 +49,7 @@ class SohucaijingSpiderSpider(scrapy.Spider):
             text = tag_p.xpath(".//text()").get()
             if text is not None:
                 contents.append(text.strip())
-            else:
+            elif text is not None:
                 src = tag_p.xpath("./img/@src").get()
 
             # 如果有strong子标签则在末尾加一个句号。
@@ -60,11 +60,12 @@ class SohucaijingSpiderSpider(scrapy.Spider):
             contents.pop(0)
         if "责任编辑" in contents[len(contents)-1]:
             contents.pop(len(contents)-1)
+
         item['content'] = "".join(contents).strip()
         # 评论先等等
 
         print("=====子页面爬取完毕 准备yield=====")
         yield item
 
-
+# 这里也加一句批话
 

@@ -14,6 +14,7 @@ class LnuspiderPipeline(object):
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
         self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+        self.fp.write(b"[")
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
 
     def open_spider(self, spider):
@@ -21,10 +22,12 @@ class LnuspiderPipeline(object):
 
     def process_item(self, item, spider):
         self.exporter.export_item(item)
+        self.fp.write(b",")
         return item
 
     def close_spider(self, spider):
         self.exporter.finish_exporting()
+        self.fp.write(b"]")
         self.fp.close()
         print("=====爬虫结束力=====")
 
