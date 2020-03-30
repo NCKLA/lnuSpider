@@ -10,3 +10,4 @@ cmdline.execute("scrapy crawl sohucaijing_Spider".split())
 # with open("lnuSpider/data/image/sohucaijing/ceshi_image.png", 'wb') as file_writer:
 #     file_writer.write(r.data)
 # file_writer.close()
+#
