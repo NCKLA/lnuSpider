@@ -67,9 +67,11 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
    'lnuSpider.pipelines.LnuspiderPipeline': 300,
+   # 'lnuSpider.pipelines.SohuImagePipeline': 300,
 }
 IMAGES_STORE = 'lnuSpider/data/image'
-IMAGES_URLS_FIELD = 'src'
+IMAGES_URLS_FIELD = 'images_src'
+# MEDIA_ALLOW_REDIRECTS = True
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

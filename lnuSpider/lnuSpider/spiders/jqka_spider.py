@@ -3,7 +3,7 @@ import random
 import time
 
 import scrapy
-from jqka.items import JqkaItem
+from lnuSpider.items import JqkaItem
 from scrapy import Request
 from scrapy.http.response.html import HtmlResponse
 from scrapy.selector.unified import SelectorList

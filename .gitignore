@@ -134,3 +134,5 @@ data/
 json/
 image/
 *.cfg
+*.xml
+*.iml

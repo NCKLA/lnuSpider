@@ -8,11 +8,12 @@ class SohucaijingSpiderSpider(scrapy.Spider):
     name = 'sohucaijing_Spider'
     allowed_domains = ['mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t&_'
                        'f=index_pagemp_1&spm=smpc.ch15.top-subnav.8.1585379351817DgmoPb1',
-                       'www.sohu.com/a/']
+                       'www.sohu.com/',
+                       '5b0988e595225.cdn.sohucs.com/images']
     start_urls = ['http://mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t&_'
                   'f=index_pagemp_1&spm=smpc.ch15.top-subnav.8.1585379351817DgmoPb1/']
 
-    # 需求内容： 标题 正文  日期  原链接  标签  类别暂时没有  评论
+    # 需求内容： 标题 正文  日期  原链接  标签  类别暂时没有  评论 图片
     def parse(self, response):
         infos = response.xpath("//ul[@class='feed-list-area feed-normal-list-area']/li")
         for info in infos:
@@ -26,15 +27,20 @@ class SohucaijingSpiderSpider(scrapy.Spider):
 
             tags = info.xpath(".//article/div/div/span/a//text()").getall()
 
-            item['url'] = "http:"+url
+            item['url'] = "https:"+url
             item['tags'] = tags
+
             print("=====准备进入子页面=====")
-            yield scrapy.Request(item['url'], meta={'item': item}, callback=self.detail_parse)
+            print("============"+item['url'])
+            yield scrapy.Request(item['url'], meta={'item': item}, callback=self.detail_parse, dont_filter=True)
         return
 
     def detail_parse(self, response):
         print("=====进入子页面成功=====")
         item = response.meta['item']
+        # item['images_src'] = ""
+        item['images_src'] = [response.xpath("//article[@id='mp-editor']//img/@src").getall()]
+
         item['title'] = response.xpath("//div[@class='text-title']/h1//text()").get().strip()
         item['date'] = response.xpath("//span[@id='news-time']//text()").get().strip()
         # 按照要求给strong的标签文字末尾加个句号  以后还会加图片路径
@@ -47,10 +53,11 @@ class SohucaijingSpiderSpider(scrapy.Spider):
             # contents.append(tag_p.xpath(".//text()").get().strip())
 
             text = tag_p.xpath(".//text()").get()
-            if text is not None:
-                contents.append(text.strip())
+            src = tag_p.xpath("./img/@src").get()
+            if src is not None:
+                contents.append("(图片:" + src.split('/')[-1] + ")")
             elif text is not None:
-                src = tag_p.xpath("./img/@src").get()
+                contents.append(text.strip())
 
             # 如果有strong子标签则在末尾加一个句号。
             if tag_p.xpath("./strong//text()").get() is not None:
@@ -67,5 +74,5 @@ class SohucaijingSpiderSpider(scrapy.Spider):
         print("=====子页面爬取完毕 准备yield=====")
         yield item
 
-# 这里也加一句批话
+
 
