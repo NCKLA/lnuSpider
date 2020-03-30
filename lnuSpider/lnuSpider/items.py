@@ -19,6 +19,7 @@ class LnuspiderItem(scrapy.Item):
     url = scrapy.Field()
     src = scrapy.Field()
     pass
+<<<<<<< HEAD
 
 
 class JqkaItem(scrapy.Item):
@@ -30,3 +31,5 @@ class JqkaItem(scrapy.Item):
     date = scrapy.Field()
     source_name = scrapy.Field()
     cont = scrapy.Field()
+=======
+>>>>>>> d01c6c6ed8c7556865dc1c7f44d4be6f2e1920fa
