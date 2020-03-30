@@ -25,3 +25,17 @@ class ImageItem(scrapy.Item):
     src = scrapy.Field()
     path = scrapy.Field()
     pass
+<<<<<<< HEAD
+
+
+class JqkaItem(scrapy.Item):
+    # define the fields for your item here like:
+    # name = scrapy.Field()
+    tag = scrapy.Field()
+    url = scrapy.Field()
+    title = scrapy.Field()
+    date = scrapy.Field()
+    source_name = scrapy.Field()
+    cont = scrapy.Field()
+=======
+>>>>>>> d01c6c6ed8c7556865dc1c7f44d4be6f2e1920fa

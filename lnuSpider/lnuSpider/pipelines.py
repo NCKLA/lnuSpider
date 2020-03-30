@@ -7,7 +7,11 @@
 
 from scrapy.exporters import JsonLinesItemExporter
 import time
+<<<<<<< HEAD
+import json
+=======
 
+>>>>>>> d01c6c6ed8c7556865dc1c7f44d4be6f2e1920fa
 
 class LnuspiderPipeline(object):
 
@@ -31,3 +35,23 @@ class LnuspiderPipeline(object):
         self.fp.close()
         print("=====爬虫结束力=====")
 
+<<<<<<< HEAD
+
+class JqkaPipeline(object):
+    def __init__(self):
+        self.fp = open("jqka.json", 'w', encoding='utf-8')
+
+    def open_spider(self, spider):
+        print ('爬虫开始了')
+
+    def process_item(self, item, spider):
+        #item变成字典类型dict()
+        item_json = json.dumps(dict(item), ensure_ascii=False)
+        self.fp.write(item_json+'\n')
+        return item
+
+    def close_spider(self, spider):
+        self.fp.close()
+        print ('爬虫结束了')
+=======
+>>>>>>> d01c6c6ed8c7556865dc1c7f44d4be6f2e1920fa
