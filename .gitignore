@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-#ignore this file
+# ignore this file
 *.json
 data/
 json/
@@ -137,3 +137,4 @@ image/
 *.xml
 *.iml
 草稿本.py
+.exe

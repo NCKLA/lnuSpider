@@ -2,9 +2,14 @@
 import scrapy
 
 from lnuSpider.items import LnuspiderItem
+from selenium import webdriver
 
 
 class SohucaijingSpiderSpider(scrapy.Spider):
+    def __init__(self):
+        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+        # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows\bin\phantomjs.exe')
+
     name = 'sohucaijing_Spider'
     allowed_domains = ['mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t&_'
                        'f=index_pagemp_1&spm=smpc.ch15.top-subnav.8.1585379351817DgmoPb1',
@@ -27,8 +32,10 @@ class SohucaijingSpiderSpider(scrapy.Spider):
 
             tags = info.xpath(".//article/div/div/span/a//text()").getall()
 
-            item['url'] = "https:"+url
-            item['tags'] = tags
+            # item['url'] = "https:"+url
+            item['url'] = url
+
+            # item['tags'] = tags
 
             print("=====准备进入子页面=====")
             print("============"+item['url'])
@@ -38,39 +45,41 @@ class SohucaijingSpiderSpider(scrapy.Spider):
     def detail_parse(self, response):
         print("=====进入子页面成功=====")
         item = response.meta['item']
-        # item['images_src'] = ""
-        item['images_src'] = [response.xpath("//article[@id='mp-editor']//img/@src").getall()]
-
-        item['title'] = response.xpath("//div[@class='text-title']/h1//text()").get().strip()
-        item['date'] = response.xpath("//span[@id='news-time']//text()").get().strip()
-        # 按照要求给strong的标签文字末尾加个句号  以后还会加图片路径
-        tag_ps = response.xpath("//article[@id='mp-editor']/p")
-        # 先获取所有p标签
-        contents = []
-        for tag_p in tag_ps:
-            # 先直接获取所有文本
-
-            # contents.append(tag_p.xpath(".//text()").get().strip())
-
-            text = tag_p.xpath(".//text()").get()
-            src = tag_p.xpath("./img/@src").get()
-            if src is not None:
-                contents.append("(图片:" + src.split('/')[-1] + ")")
-            elif text is not None:
-                contents.append(text.strip())
-
-            # 如果有strong子标签则在末尾加一个句号。
-            if tag_p.xpath("./strong//text()").get() is not None:
-                contents.append("。")
-        # 数据特点是开头可能会有个“原标题：xxxxx”   末尾可能会有个 ”责任编辑“  还都不显示  但是爬出来了  得去掉
-        if "原标题" in contents[0]:
-            contents.pop(0)
-        if "责任编辑" in contents[len(contents)-1]:
-            contents.pop(len(contents)-1)
-
-        item['content'] = "".join(contents).strip()
+        # # item['images_src'] = ""
+        # item['images_src'] = [response.xpath("//article[@id='mp-editor']//img/@src").getall()]
+        #
+        # item['title'] = response.xpath("//div[@class='text-title']/h1//text()").get().strip()
+        # item['date'] = response.xpath("//span[@id='news-time']//text()").get().strip()
+        # # 按照要求给strong的标签文字末尾加个句号  以后还会加图片路径
+        # tag_ps = response.xpath("//article[@id='mp-editor']/p")
+        # # 先获取所有p标签
+        # contents = []
+        # for tag_p in tag_ps:
+        #     # 先直接获取所有文本
+        #
+        #     # contents.append(tag_p.xpath(".//text()").get().strip())
+        #
+        #     text = tag_p.xpath(".//text()").get()
+        #     src = tag_p.xpath("./img/@src").get()
+        #     if src is not None:
+        #         contents.append("(图片:" + src.split('/')[-1] + ")")
+        #     elif text is not None:
+        #         contents.append(text.strip())
+        #
+        #     # 如果有strong子标签则在末尾加一个句号。
+        #     if tag_p.xpath("./strong//text()").get() is not None:
+        #         contents.append("。")
+        # # 数据特点是开头可能会有个“原标题：xxxxx”   末尾可能会有个 ”责任编辑“  还都不显示  但是爬出来了  得去掉
+        # if "原标题" in contents[0]:
+        #     contents.pop(0)
+        # if "责任编辑" in contents[len(contents)-1]:
+        #     contents.pop(len(contents)-1)
+        #
+        # item['content'] = "".join(contents).strip()
         # 评论先等等
-
+        print("=====准备打印一下评论信息====")
+        ss = "zsbd==="+"".join(response.xpath("//div[@class='c-comment-content']").getall())
+        print(ss)
         print("=====子页面爬取完毕 准备yield=====")
         yield item
 
