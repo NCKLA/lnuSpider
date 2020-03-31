@@ -137,4 +137,4 @@ image/
 *.xml
 *.iml
 草稿本.py
-.exe
+*.exe
