@@ -39,7 +39,9 @@
       <li><a href="#info" class=" ">info</a></li>
       <li class="separator"></li>
       <li><strong>进阶操作部分</strong></li>
-      <li><a href="#test" class=" ">测试操作</a></li>
+      <li><a href="#fanye" class=" ">爬虫翻页</a></li>
+      <li><a href="#in" class=" ">爬取内页</a></li>
+      <li><a href="#redis" class=" ">连接redis数据库</a></li>
       <li><strong>文档编写部分</strong></li>
       <li><a href="#write_doc" class=" ">文档编写</a></li>
       <li><a href="#write_left_bar" class=" ">侧边栏档编写</a></li>
@@ -53,22 +55,93 @@
 
 
       <h2> 进阶操作部分</h2>
-      <h3 id="test">测试操作</h3>
+      <h3 id="fanye">爬虫翻页操作</h3>
       <ul>
-        <li>我试一下这块展示代码</li>
+        <li>代码实现</li>
       </ul>
 
       <pre class="prettyprint">
-            def __init__(self):
-            ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-            self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
-            self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
-            # self.http = urllib3.PoolManager()
+             print("========准备翻页========")
+             next_url = response.xpath("//span[@class='num-container']/a[last()]/@href").getall()
+             next_url = "".join(next_url)
+             if not next_url:
+                 print("===结束===")
+             return
+                 else:
+             yield scrapy.Request(next_url, callback=self.parse)
+             print("=====翻页成功======")
       </pre>
-        <p>
-            我放个图片看看
-        </p>
-        <img src="pic/微信图片_20200402181017.png" alt="ce shi tu pian">
+        <ul>
+        <li>效果图展示</li>
+        </ul>
+        <img src="pic/fanye.png" alt="ce shi tu pian">
+        <h3 id="in">爬取内页</h3>
+        <ul>
+        <li>代码实现</li>
+      </ul>
+      <pre class="prettyprint">
+             （1） 获取内页的url以及当前页所得到的数据，并跳转到detail函数
+                 yield scrapy.Request(item['url'], meta={'item': item}, callback=self.detail)
+             （2）  detail函数代码，获取内页中所需数据：
+ 	             def detail(self, response):
+      		           # 接收上级已爬取的数据
+      		               print("========已经进入内页=========")
+       		               item = response.meta['item']
+                       # 一级内页数据提取
+                           item['date'] = "".join(item['date']).strip()
+       			           item['cont'] = response.xpath("//div[@class='main-text atc-content']/p/text()").getall()
+      			           item['cont'] = "".join(item['cont']).strip()
+        		           yield item
+      </pre>
+        <ul>
+        <li>效果图展示</li>
+        </ul>
+        <img src="pic/in.png" alt="ce shi tu pian">
+        <h3 id="redis">redis数据库部分操作</h3>
+        <ul>
+        <li>修改配置文件代码实现</li>
+      </ul>
+      <pre class="prettyprint">
+             # 1. 增加了一个去重容器类的配置, 作用使用Redis的set集合来存储请求的指纹数据, 从而实现请求去重的持久化
+                    DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+             # 2. 增加了调度的配置, 作用: 把请求对象存储到Redis数据, 从而实现请求的持久化.
+                    SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+             # 3. 配置调度器是否要持久化, 也就是当爬虫结束了, 要不要清空Redis中请求队列和去重指纹的set
+             # 如果是True, 就表示要持久化存储, 就不清空数据, 否则清空数据
+                    SCHEDULER_PERSIST = True
+             # 4 方式:
+             # REDIS_HOST = '127.0.0.1'
+             # REDIS_PORT = 6379
+             # 5. 如果需要把数据存储到Redis数据库中, 可以配置RedisPipeline
+                    ITEM_PIPELINES = {
+                                          # 把爬虫爬取的数据存储到Redis数据库中
+                                          'scrapy_redis.pipelines.RedisPipeline': 400,
+                                       }
+      </pre>
+        <ul>
+        <li>修改spider.py代码实现</li>
+      </ul>
+      <pre class="prettyprint">
+             # -*- coding: utf-8 -*-
+                    import random
+                    import time
+                    import scrapy
+                    from jqka.items import JqkaItem
+                    from scrapy import Request
+                    from scrapy.http.response.html import HtmlResponse
+                    from scrapy.selector.unified import SelectorList
+                    from scrapy_redis.spiders import RedisSpider
+                    class JqkaSpiderSpider(RedisSpider):
+                            name = 'jqka_spider'
+                            # allowed_domains = ['news.10jqka.com.cn']
+                            # 分布式需要删掉增加redis_key
+                            # start_urls = ['http://news.10jqka.com.cn/today_list/index_2.shtml']
+                            redis_key = "Jqka"
+      </pre>
+         <ul>
+        <li>效果图展示</li>
+        </ul>
+        <img src="pic/redis.png" alt="ce shi tu pian">
       <h2> 文档编写部分</h2>
         <h3 id="write_doc">文档编写</h3>
         <p>
