@@ -37,8 +37,8 @@ class SohucaijingSpiderSpider(scrapy.Spider):
 
             # item['tags'] = tags
 
-            print("=====准备进入子页面=====")
-            print("============"+item['url'])
+            # print("=====准备进入子页面=====")
+            print("parse方法发起的请求链接："+item['url'])
             yield scrapy.Request(item['url'], meta={'item': item}, callback=self.detail_parse, dont_filter=True)
         return
 
@@ -76,9 +76,10 @@ class SohucaijingSpiderSpider(scrapy.Spider):
         #     contents.pop(len(contents)-1)
         #
         # item['content'] = "".join(contents).strip()
+
         # 评论先等等
-        print("=====准备打印一下评论信息====")
-        ss = "zsbd==="+"".join(response.xpath("//div[@class='c-comment-content']").getall())
+        # print("=====准备打印一下评论信息====")
+        ss = "评论信息的打印==="+"".join(response.xpath("//div[@class='c-comment-content']").getall())
         print(ss)
         print("=====子页面爬取完毕 准备yield=====")
         yield item

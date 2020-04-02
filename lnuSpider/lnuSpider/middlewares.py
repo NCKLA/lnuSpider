@@ -143,12 +143,12 @@ class SeleniumSpiderMiddleware(object):
             url = request.url
             if 'https://' in request.url:
                 url = request.url[9:]
-            print("request.url========"+url)
+            print("在中间件请求的连接："+url)
             spider.driver.get(url)
             for x in range(1, 12, 2):
                 i = float(x) / 11
                 # scrollTop 从上往下的滑动距离
-                print("准备执行这个滚动js")
+                print("中间件：准备执行这个滚动js")
                 js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
                 spider.driver.execute_script(js)
                 time.sleep(1)
@@ -157,6 +157,6 @@ class SeleniumSpiderMiddleware(object):
                                     body=spider.driver.page_source,
                                     encoding='utf-8',
                                     request=request)
-            print("准备return这个response")
+            print("中间件：准备return这个response")
             # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过下载中间件，将response的值传递给引擎，引擎又传递给 spider进行解析
             return response
