@@ -1,0 +1,120 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+     SyntaxHighlighter.all();
+</script>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>LnuSpider帮助文档Demo</title>
+<link rel="alternate" type="application/rss+xml" title="egrappler.com" href="feed/index.html">
+<link href="http://fonts.googleapis.com/css?family=Raleway:700,300" rel="stylesheet"
+        type="text/css">
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/prettify.css">
+</head>
+<body>
+<nav>
+  <div class="container">
+    <h1>空的，还没写 甚至可能删除</h1>
+    <div id="menu">
+      <ul class="toplinks">
+        <li><a href="#">别点 点了也没用</a></li>
+      </ul>
+    </div>
+    <a id="menu-toggle" href="#" class=" ">&#9776;</a> </div>
+</nav>
+<header>
+  <div class="container">
+    <h2 class="docs-header">LnuSpider 帮助文档</h2>
+  </div>
+</header>
+<section>
+  <div class="container">
+    <ul class="docs-nav" id="menu-left">
+      <li><strong>scrapy爬虫基本操作介绍</strong></li>
+      <li><a href="#info" class=" ">info</a></li>
+      <li class="separator"></li>
+      <li><strong>进阶操作部分</strong></li>
+      <li><a href="#test" class=" ">测试操作</a></li>
+      <li><strong>文档编写部分</strong></li>
+      <li><a href="#write_doc" class=" ">文档编写</a></li>
+      <li><a href="#write_left_bar" class=" ">侧边栏档编写</a></li>
+    </ul>
+    <div class="docs-content">
+      <h2> 准备好踩爬虫坑了吗？</h2>
+      <h3 id="info"> info</h3>
+      <p> 很显然，这里什么都没准备写</p>
+      
+      <p> 真的没写</p>
+
+
+      <h2> 进阶操作部分</h2>
+      <h3 id="test">测试操作</h3>
+      <ul>
+        <li>我试一下这块展示代码</li>
+      </ul>
+
+      <pre class="prettyprint">
+            def __init__(self):
+            ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+            self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+            self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
+            # self.http = urllib3.PoolManager()
+      </pre>
+
+      <h2> 文档编写部分</h2>
+        <h3 id="write_doc">文档编写</h3>
+        <p>
+            文档的编写比较简单，直接使用&lt;p&gt;标签，在标签内写入文本，若需要换行则可以再加上一个&lt;p&gt;标签。
+        </p>
+      <ul>
+        <li>如果你想要这种前面带个点的标题效果，请使用&lt;ul&gt; &lt;li&gt;标签</li>
+      </ul>
+        <pre class="prettyprint">
+           如果你需要插入一段代码 则需要使用&lt;pre class="prettyprint"&gt;标签
+           虽然不保证跟ide一样的识别度。但是变色高亮总是让人看的舒服。下面是一段代码示例
+
+            =============================================
+            def __init__(self):
+            ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+            self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+            self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
+            # self.http = urllib3.PoolManager()
+        </pre>
+        <p>
+            值得注意的事 前面您所看到的标签，虽然有着正确的写法，但是却没有发挥其再html中应有的效果。
+            那是因为在源码编写时用了 & it;   和   & gt;  来表示一对尖括号
+        </p>
+        <h3 id="write_left_bar">侧边栏编写</h3>
+        <p>
+            首先需要写出一个h3的标题标签，比如&lt;h3 id="write_left_bar"&gt;侧边栏编写&lt;/h3&gt;
+            , id如果需要的话记得加下划线。其次需要在&ltul class="docs-nav" id="menu-left"&gt;中加入一条li标签，id格式需要对应。
+        </p>
+        <p>
+            有些时候刚打开页面未加载完全时侧边栏不会跟随浏览一起移动，或者代码段没有高亮变色，此时等待网页加载完全即可。
+        </p>
+    </div>
+  </div>
+</section>
+<section class="vibrant centered">
+  <div class="container">
+    <h4> 本文档尚在编写中。。。 <a href="#"> here</a></h4>
+  </div>
+</section>
+<footer>
+
+</footer>
+
+<script src="js/jquery.min.js"></script>
+
+<script type="text/javascript" src="js/prettify/prettify.js"></script> 
+<script src="https://google-code-prettify.googlecode.com/svn/loader/run_prettify.js?lang=css&skin=sunburst"></script>
+<script src="js/layout.js"></script>
+ <script src="js/jquery.localscroll-1.2.7.js" type="text/javascript"></script>
+ <script src="js/jquery.scrollTo-1.4.3.1.js" type="text/javascript"></script>
+</body>
+</html>
