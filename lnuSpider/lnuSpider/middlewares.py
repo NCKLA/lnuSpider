@@ -275,3 +275,34 @@ class JqkaDownloaderMiddleware(object):
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
 
+
+class dongtaiMiddleware(object):
+    def __init__(self):
+        # 配置你的路径 max linux必须在/usr/local/bin   win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去
+        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+
+    def process_request(self, request, spider):
+        # 这里的爬虫名换成你自己的
+        if spider.name == 'sohucaijing_Spider':
+
+            url = request.url
+            # 我自己用的时候出现了访问网页多出‘https:///’的情况，如果存在会把这段剪去
+            if 'https://' in request.url:
+                url = request.url[9:]
+
+            # print("在中间件请求的连接：" + url)
+            spider.driver.get(url)
+            for x in range(1, 12, 2):
+                i = float(x) / 11
+                # scrollTop 从上往下的滑动距离
+                js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
+                time.sleep(1)
+                spider.driver.execute_script(js)
+                time.sleep(1)
+
+            response = HtmlResponse(url=url,
+                                    body=spider.driver.page_source,
+                                    encoding='utf-8',
+                                    request=request)
+            # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过下载中间件，将response的值传递给引擎，引擎又传递给 spider进行解析
+            return response

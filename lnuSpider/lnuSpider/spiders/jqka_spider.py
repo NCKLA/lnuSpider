@@ -7,7 +7,7 @@ from lnuSpider.items import JqkaItem
 from scrapy import Request
 from scrapy.http.response.html import HtmlResponse
 from scrapy.selector.unified import SelectorList
-from scrapy_redis.spiders import RedisSpider
+# from scrapy_redis.spiders import RedisSpider
 
 
 class JqkaSpiderSpider(scrapy.Spider):
