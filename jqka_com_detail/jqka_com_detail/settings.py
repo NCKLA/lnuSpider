@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for jqka project
+# Scrapy settings for jqka_com_detail project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'lnuSpider.spiders'
+BOT_NAME = 'jqka_com_detail'
 
-SPIDER_MODULES = ['lnuSpider.spiders']
-NEWSPIDER_MODULE = 'lnuSpider.spiders'
+SPIDER_MODULES = ['jqka_com_detail.spiders']
+NEWSPIDER_MODULE = 'jqka_com_detail.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'jqka (+http://www.yourdomain.com)'
+#USER_AGENT = 'jqka_com_detail (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -27,8 +27,7 @@ ROBOTSTXT_OBEY = False
 # Configure a delay for requests for the same website (default: 0)
 # See https://docs.scrapy.org/en/latest/topics/settings.html#download-delay
 # See also autothrottle settings and docs
-DOWNLOAD_DELAY = 1
-HTTPERROR_ALLOWED_CODES = [403]
+#DOWNLOAD_DELAY = 3
 # The download delay setting will honor only one of:
 #CONCURRENT_REQUESTS_PER_DOMAIN = 16
 #CONCURRENT_REQUESTS_PER_IP = 16
@@ -43,20 +42,20 @@ HTTPERROR_ALLOWED_CODES = [403]
 DEFAULT_REQUEST_HEADERS = {
    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
    'Accept-Language': 'en',
-   'user-agent': 'Mozilla/5.0 (X11; Ubuntu; Linux i686; rv:10.0) Gecko/20100101 Firefox/10.0 '
+   'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'
 }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'jqka.middlewares.JqkaSpiderMiddleware': 543,
+#    'jqka_com_detail.middlewares.JqkaComDetailSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'jqka.middlewares.JqkaDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    'jqka_com_detail.middlewares.JqkaComDetailDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -67,7 +66,7 @@ DEFAULT_REQUEST_HEADERS = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'lnuSpider.pipelines.JqkaPipeline': 300,
+    'jqka_com_detail.pipelines.JqkaComDetailPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
@@ -90,22 +89,3 @@ ITEM_PIPELINES = {
 #HTTPCACHE_DIR = 'httpcache'
 #HTTPCACHE_IGNORE_HTTP_CODES = []
 #HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
-# # 1. 增加了一个去重容器类的配置, 作用使用Redis的set集合来存储请求的指纹数据, 从而实现请求去重的持久化
-# DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-# # 2. 增加了调度的配置, 作用: 把请求对象存储到Redis数据, 从而实现请求的持久化.
-# SCHEDULER = "scrapy_redis.scheduler.Scheduler"
-# # 3. 配置调度器是否要持久化, 也就是当爬虫结束了, 要不要清空Redis中请求队列和去重指纹的set
-# # 如果是True, 就表示要持久化存储, 就不清空数据, 否则清空数据
-# SCHEDULER_PERSIST = True
-# # 4.1 方式1:
-# # REDIS_HOST = '127.0.0.1'
-# # REDIS_PORT = 6379
-#
-# # 4.2 方式2: redis_url进行配置(推荐)
-# REDIS_URL = 'redis://127.0.0.1:6379'
-#
-# # 5. 如果需要把数据存储到Redis数据库中, 可以配置RedisPipeline
-# ITEM_PIPELINES = {
-#     # 把爬虫爬取的数据存储到Redis数据库中
-#     'scrapy_redis.pipelines.RedisPipeline': 400,
-# }
