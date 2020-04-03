@@ -6,15 +6,15 @@
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
 from scrapy import signals
-from selenium.webdriver import Firefox
-from selenium.webdriver.common.by import By
-from selenium.webdriver.common.keys import Keys
-from selenium.webdriver.firefox.options import Options
-from selenium.webdriver.support import expected_conditions as expected
-from selenium.webdriver.support.wait import WebDriverWait
+# from selenium.webdriver import Firefox
+# from selenium.webdriver.common.by import By
+# from selenium.webdriver.common.keys import Keys
+# from selenium.webdriver.firefox.options import Options
+# from selenium.webdriver.support import expected_conditions as expected
+# from selenium.webdriver.support.wait import WebDriverWait
 from selenium import webdriver
 from scrapy.http.response.html import HtmlResponse
-from scrapy.http.response import Response
+# from scrapy.http.response import Response
 import time
 
 
@@ -120,7 +120,8 @@ class SeleniumSpiderMiddleware(object):
         # self.driver = None
 
         self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-        # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows\bin\phantomjs.exe')
+        # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows
+        # \bin\phantomjs.exe')
 
     def process_request(self, request, spider):
         if spider.name == 'sohucaijing_Spider':
@@ -140,23 +141,41 @@ class SeleniumSpiderMiddleware(object):
             #     'headless firefox' + Keys.ENTER)
             # wait.until(expected.visibility_of_element_located((By.CSS_SELECTOR, '#ires a'))).click()
             # print(self.driver.page_source)
+
+            # 整数 额外获取的数据包数量，一包20条新闻，只要初始的20条就改成0
+            ex_packages_amount = 4
+
             url = request.url
             if 'https://' in request.url:
                 url = request.url[9:]
-            print("在中间件请求的连接："+url)
+
+            # print("在中间件请求的连接：" + url)
             spider.driver.get(url)
-            for x in range(1, 12, 2):
-                i = float(x) / 11
-                # scrollTop 从上往下的滑动距离
-                print("中间件：准备执行这个滚动js")
-                js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
-                spider.driver.execute_script(js)
-                time.sleep(1)
+
+            if 'mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t' in url:
+                for temp in range(0, ex_packages_amount):
+                    for x in range(1, 12, 2):
+                        i = (float(x) / 11)/(temp+1) + temp/(temp+1)
+                        # scrollTop 从上往下的滑动距离
+                        # print("中间件：准备执行这个滚动js")
+                        js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
+                        time.sleep(1)
+                        spider.driver.execute_script(js)
+                        time.sleep(1)
+            else:
+                for x in range(1, 12, 2):
+                    i = float(x) / 11
+                    # scrollTop 从上往下的滑动距离
+                    # print("中间件：准备执行这个滚动js")
+                    js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
+                    time.sleep(1)
+                    spider.driver.execute_script(js)
+                    time.sleep(1)
 
             response = HtmlResponse(url=url,
                                     body=spider.driver.page_source,
                                     encoding='utf-8',
                                     request=request)
-            print("中间件：准备return这个response")
+            # print("中间件：准备return这个response")
             # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过下载中间件，将response的值传递给引擎，引擎又传递给 spider进行解析
             return response

@@ -60,7 +60,7 @@
 
         <hr>
       <h2> 进阶操作</h2>
-      <h3 id="fanye">爬虫翻页作</h3>
+      <h3 id="fanye">爬虫翻页</h3>
       <ul>
         <li>代码实现</li>
       </ul>
@@ -170,13 +170,21 @@
         <h4>数据格式及内容：</h4>
         <ul>
             <li>title:  string 新闻的标题</li>
-            <li>content:  string 新闻的正文内容。其中，图片部分的格式为  (图片:6bbe9fc38da24fe69361365c35d51576.jpeg)
+            <li>content:  string 新闻的正文内容。其中，图片部分的格式为  (图片:xxxxxxxx.jpeg)
             括号和冒号均为英文符号。正文中黑体字标题部分获取了其文字并在尾部添加了一个句号</li>
             <li>tags:  list(string) 新闻的标题，数量0-3不等，大多为3个</li>
             <li>date:  string 日期 ，格式为 年-月-日 时:分</li>
             <li>url:  string 子页面链接，也就是单个新闻的链接</li>
-            <li>comments:  list(object/dict) 评论信息，最小为0最大可能有几百。单个评论信息还没定一会写</li>
             <li>images_src:  list(string) 图片的原链接，按照爬取的顺序存放，0到多个，一般不超过十个</li>
+            <li>comments:  list(object/dict) 评论信息，单个评论信息的数组，数量最小为0最大还不知道有多少</li>
+            <ul>
+                <a>单个评论内容</a>
+                <li>username:  string 用户名</li>
+                <li>location:  string 所在地，格式为某省某市，由一对英文括号包住</li>
+                <li>date:  string 评论日期，x月x日 xx:xx，需要注意的是，与当前时间间隔在一小时以内时会变成相对时间，比如：15分钟前【*有可能为空】</li>
+                <li>discuss:  string 评论内容 可能会有emoji之类的特殊字符【*有可能为空】</li>
+                <li>thumb:  int 点赞数【*有可能为空】</li>
+            </ul>
         </ul>
 
         <hr>
@@ -209,7 +217,8 @@
         <h3 id="write_left_bar">侧边栏编写</h3>
         <p>
             首先需要写出一个h3的标题标签，比如&lt;h3 id="write_left_bar"&gt;侧边栏编写&lt;/h3&gt;
-            , id如果需要的话记得加下划线。其次需要在&ltul class="docs-nav" id="menu-left"&gt;中加入一条li标签，id格式需要对应。
+            , id如果需要的话记得加下划线。其次需要在&ltul class="docs-nav" id="menu-left"&gt;中加入一条li标签，
+            id格式需要对应，记得加#号。
         </p>
         <p>
             有些时候刚打开页面未加载完全时侧边栏不会跟随浏览一起移动，或者代码段没有高亮变色，此时等待网页加载完全即可。
