@@ -118,10 +118,11 @@ class LnuspiderPipeline(object):
 
 class JqkaPipeline(object):
     def __init__(self):
-        self.fp = open("jqka.json", 'w', encoding='utf-8')
+        ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+        self.fp = open("jqka"+ssstime+".json", 'w', encoding='utf-8')
 
     def open_spider(self, spider):
-        print ('爬虫开始了')
+        print('爬虫开始了')
 
     def process_item(self, item, spider):
         #item变成字典类型dict()
@@ -131,4 +132,4 @@ class JqkaPipeline(object):
 
     def close_spider(self, spider):
         self.fp.close()
-        print ('爬虫结束了')
+        print('爬虫结束了')

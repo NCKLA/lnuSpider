@@ -7,15 +7,17 @@ from lnuSpider.items import JqkaItem
 from scrapy import Request
 from scrapy.http.response.html import HtmlResponse
 from scrapy.selector.unified import SelectorList
+from scrapy_redis.spiders import RedisSpider
 
 
 class JqkaSpiderSpider(scrapy.Spider):
     name = 'jqka_spider'
     allowed_domains = ['news.10jqka.com.cn']
+    # redis_key = "jqka"
     start_urls = ['http://news.10jqka.com.cn/today_list/index_3.shtml']
 
     def start_requests(self):
-        yield Request("http://news.10jqka.com.cn/today_list/index_3.shtml", headers={'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"})
+         yield Request("http://news.10jqka.com.cn/today_list/index_3.shtml", headers={'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"})
 
     def parse(self, response):
 
