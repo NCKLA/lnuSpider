@@ -11,13 +11,14 @@ import scrapy
 class LnuspiderItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    # title = scrapy.Field()
-    # content = scrapy.Field()
-    # comments = scrapy.Field()
-    # tags = scrapy.Field()
-    # date = scrapy.Field()
+
+    title = scrapy.Field()
+    content = scrapy.Field()
+    comments = scrapy.Field()
+    tags = scrapy.Field()
+    date = scrapy.Field()
     url = scrapy.Field()
-    # images_src = scrapy.Field()
+    images_src = scrapy.Field()
     pass
 
 
