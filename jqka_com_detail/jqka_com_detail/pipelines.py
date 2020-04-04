@@ -1,28 +1,26 @@
 # -*- coding: utf-8 -*-
-
 # Define your item pipelines here
 #
 # Don't forget to add your pipeline to the ITEM_PIPELINES setting
 # See: https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-
 from scrapy.exporters import JsonLinesItemExporter
 import time
 import json
-from lnuSpider import settings_wzh
+from jqka_com_detail import settings
 import urllib3
 
 
 class JqkaComDetailPipeline(object):
     def __init__(self):
-        ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open("C:\python\lnuSpider\data\json\同花顺"+ssstime+".json", 'wb')
+        now_time = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+        self.fp = open(r"C:\python\lnuSpider\data\json\同花顺上市公司"+now_time+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         # self.http = urllib3.PoolManager()
 
     def open_spider(self, spider):
         print("=====爬虫开始力=====")
 
-    def process_item(self, item, spider):
+    def process_item(self, company_detail, spider):
         # dir_path = '%s/%s' % (settings_wzh.IMAGES_STORE, "sohucaijing")
         # # 下载图片
         # for src in item['images_src'][0]:
@@ -31,9 +29,8 @@ class JqkaComDetailPipeline(object):
         #     with open(file_path, 'wb') as f:
         #         f.write(r.data)
         #     f.close()
-
-        self.exporter.export_item(item)
-        return item
+        self.exporter.export_item(company_detail)
+        return company_detail
 
     def close_spider(self, spider):
         self.exporter.finish_exporting()
