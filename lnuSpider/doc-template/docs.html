@@ -56,9 +56,9 @@
     <div class="docs-content">
       <h2> 准备好踩爬虫坑了吗？</h2>
       <h3 id="info"> info</h3>
-      <p> 很显然，这里什么都没准备写</p>
+      <p> 还没写，以后再说</p>
       
-      <p> 真的没写</p>
+      <p> 咕咕咕</p>
 
         <hr>
       <h2> 进阶操作</h2>
@@ -188,6 +188,9 @@
         def __init__(self):
             # 配置你的路径 max linux必须在/usr/local/bin   win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去
             self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+            # 设置timeout 不设置大概会像我一样卡死
+            self.driver.set_page_load_timeout(40)
+
 
         def process_request(self, request, spider):
             # 这里的爬虫名换成你自己的

@@ -120,6 +120,7 @@ class SeleniumSpiderMiddleware(object):
         # self.driver = None
 
         self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+        self.driver.set_page_load_timeout(40)
         # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows
         # \bin\phantomjs.exe')
 
@@ -142,7 +143,7 @@ class SeleniumSpiderMiddleware(object):
             # wait.until(expected.visibility_of_element_located((By.CSS_SELECTOR, '#ires a'))).click()
             # print(self.driver.page_source)
 
-            # 整数 额外获取的数据包数量，一包20条新闻，只要初始的20条就改成0
+            # 整数 额外获取的数据包数量，一包20条新闻，只要初始的20条就改成0  不保证因为网卡产生的数据损失
             ex_packages_amount = 4
 
             url = request.url
@@ -280,6 +281,8 @@ class dongtaiMiddleware(object):
     def __init__(self):
         # 配置你的路径 max linux必须在/usr/local/bin   win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去
         self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+        # 设置timeout 不设置大概会像我一样卡死
+        self.driver.set_page_load_timeout(40)
 
     def process_request(self, request, spider):
         # 这里的爬虫名换成你自己的
