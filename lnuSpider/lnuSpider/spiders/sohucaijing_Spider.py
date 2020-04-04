@@ -87,7 +87,6 @@ class SohucaijingSpiderSpider(scrapy.Spider):
             contents.pop(len(contents)-1)
         item['content'] = "".join(contents).strip()
 
-
         # 评论
         # print("=====准备打印一下评论信息====")
         comments = list()

@@ -291,7 +291,7 @@ class dongtaiMiddleware(object):
                 url = request.url[9:]
 
             # print("在中间件请求的连接：" + url)
-            spider.driver.get(url)
+            spider.driver.get(url, timeout=3)
             for x in range(1, 12, 2):
                 i = float(x) / 11
                 # scrollTop 从上往下的滑动距离
