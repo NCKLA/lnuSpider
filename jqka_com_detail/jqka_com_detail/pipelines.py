@@ -13,7 +13,7 @@ import urllib3
 class JqkaComDetailPipeline(object):
     def __init__(self):
         now_time = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open(r"C:\python\lnuSpider\data\json\同花顺上市公司"+now_time+".json", 'wb')
+        self.fp = open(r"C:\python\lnuSpider\data\json\同花顺上市公司详细情况"+now_time+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         # self.http = urllib3.PoolManager()
 
