@@ -14,7 +14,8 @@ from selenium import webdriver
 class SohucaijingSpiderSpider(scrapy.Spider):
     def __init__(self):
         self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-
+        # 设置timeout 不设置大概会像我一样卡死
+        self.driver.set_page_load_timeout(40)
         # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\
         # phantomjs-2.1.1-windows\bin\phantomjs.exe')
 
@@ -59,8 +60,11 @@ class SohucaijingSpiderSpider(scrapy.Spider):
         # item['images_src'] = ""
         item['images_src'] = [response.xpath("//article[@id='mp-editor']//img/@src").getall()]
 
-        item['title'] = response.xpath("//div[@class='text-title']/h1//text()").get().strip()
-        item['date'] = response.xpath("//span[@id='news-time']//text()").get().strip()
+        title = "" + response.xpath("//div[@class='text-title']/h1//text()").get()
+        item['title'] = title.strip()
+
+        date = "" + response.xpath("//span[@id='news-time']//text()").get()
+        item['date'] = date.strip()
         # 按照要求给strong的标签文字末尾加个句号  以后还会加图片路径
         tag_ps = response.xpath("//article[@id='mp-editor']/p")
         # 先获取所有p标签
@@ -86,7 +90,6 @@ class SohucaijingSpiderSpider(scrapy.Spider):
         if "责任编辑" in contents[len(contents)-1]:
             contents.pop(len(contents)-1)
         item['content'] = "".join(contents).strip()
-
 
         # 评论
         # print("=====准备打印一下评论信息====")
