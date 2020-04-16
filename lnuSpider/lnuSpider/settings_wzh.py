@@ -55,7 +55,7 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    'lnuSpider.middlewares.SeleniumSpiderMiddleware': 543,
-   'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 600,
+   # 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 600,
 }
 DOWNLOAD_TIMEOUT = 200
 
