@@ -13,3 +13,6 @@ class JqkaComExecutiveIntroductionItem(scrapy.Item):
     # name = scrapy.Field()
     company_name = scrapy.Field()
     url = scrapy.Field()
+    company_content2_1 = scrapy.Field()
+    company_content2_2 = scrapy.Field()
+    company_content2_3 = scrapy.Field()
