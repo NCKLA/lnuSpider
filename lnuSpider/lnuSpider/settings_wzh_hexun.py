@@ -42,20 +42,19 @@ DOWNLOAD_DELAY = 3
 DEFAULT_REQUEST_HEADERS = {
   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
   'Accept-Language': 'en',
-  'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'
+  'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0',
 }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'lnuSpider.middlewares.LnuspiderSpiderMiddleware': 543,
-# }
+SPIDER_MIDDLEWARES = {
+   'lnuSpider.middlewares.LnuspiderSpiderMiddleware': 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'lnuSpider.middlewares.SeleniumSpiderMiddleware': 543,
-   # 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 600,
+   'lnuSpider.middlewares.WzhHexunDownLoaderMiddleware': 543,
 }
 DOWNLOAD_TIMEOUT = 200
 
@@ -68,12 +67,9 @@ DOWNLOAD_TIMEOUT = 200
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'lnuSpider.pipelines.SohucaijingPipeline': 300,
-   # 'lnuSpider.pipelines.SohuImagePipeline': 300,
+   'lnuSpider.pipelines.WzhHexunPipeline': 300,
 }
-IMAGES_STORE = 'lnuSpider/data/image'
-IMAGES_URLS_FIELD = 'images_src'
-# MEDIA_ALLOW_REDIRECTS = True
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True
