@@ -119,7 +119,7 @@ class SeleniumSpiderMiddleware(object):
         # self.options.add_argument('-headless')  # 无头参数
         # self.driver = None
 
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\10359\local\bin\phantomjs.exe')
         self.driver.set_page_load_timeout(40)
         # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows
         # \bin\phantomjs.exe')

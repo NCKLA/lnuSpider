@@ -1,7 +1,6 @@
 # -*- coding: utf-8 -*-
 import random
 import time
-
 import scrapy
 from lnuSpider.items import JqkaItem
 from scrapy import Request
@@ -14,10 +13,10 @@ class JqkaSpiderSpider(scrapy.Spider):
     name = 'jqka_spider'
     allowed_domains = ['news.10jqka.com.cn']
     # redis_key = "jqka"
-    start_urls = ['http://news.10jqka.com.cn/today_list/index_3.shtml']
+    start_urls = ['http://news.10jqka.com.cn/today_list/index_1.shtml']
 
     def start_requests(self):
-         yield Request("http://news.10jqka.com.cn/today_list/index_3.shtml", headers={'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"})
+         yield Request("http://news.10jqka.com.cn/today_list/index_1.shtml", headers={'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"})
 
     def parse(self, response):
 
