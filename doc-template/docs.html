@@ -154,7 +154,7 @@
         <li>适用于scrapy shell无法获取，F12也看不到xhr请求，但是查看元素存在的情况</li>
         </ul>
         <p>
-            最简单的办法，直接换上我的中间件dongtaiMiddleware，这个中间件会模拟从长到下6次均匀网页的操作，并且每次滚动都会停一秒。
+            最简单的办法，直接换上我的中间件dongtaiMiddleware，这个中间件会模拟从长到下6次均匀滚动网页的操作，并且每次滚动都会停几秒。
         </p>
         <ul>
         <li>操作过程</li>
@@ -198,6 +198,10 @@
 
     ......
         </pre>
+        <p>
+           修改之后，只要在cmd进到正确的目录，scrapy shell也会根据scrapy.cfg的配置，去使用这这几个中间件，
+            但是注意shell使用的spider是DefaultSpider。之前的带码是从spider调用drivers，现在改成直接从中间件调了，特此记录。
+        </p>
 
 
 
