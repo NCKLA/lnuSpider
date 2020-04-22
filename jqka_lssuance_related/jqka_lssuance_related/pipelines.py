@@ -25,7 +25,7 @@ class JqkaLssuanceRelatedPipeline(object):
     def open_spider(self, spider):
         print("=====爬虫开始力=====")
 
-    def process_item(self, company_detail, spider):
+    def process_item(self, company_lr, spider):
         # dir_path = '%s/%s' % (settings_wzh.IMAGES_STORE, "sohucaijing")
         # # 下载图片
         # for src in item['images_src'][0]:
@@ -34,8 +34,8 @@ class JqkaLssuanceRelatedPipeline(object):
         #     with open(file_path, 'wb') as f:
         #         f.write(r.data)
         #     f.close()
-        self.exporter.export_item(company_detail)
-        return company_detail
+        self.exporter.export_item(company_lr)
+        return company_lr
 
     def close_spider(self, spider):
         self.exporter.finish_exporting()
