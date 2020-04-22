@@ -246,6 +246,12 @@ class WzhHexunDownLoaderMiddleware(object):
 
         print("在中间件请求的连接：" + url)
         time.sleep(5)
+
+        if request.url.startswith("http://"):
+            request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
+        elif request.url.startswith("https://"):
+            request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
+
         # self.driver.get(url)
         # for x in range(1, 12, 2):
         #     i = float(x) / 11
