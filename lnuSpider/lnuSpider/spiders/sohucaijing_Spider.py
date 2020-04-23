@@ -13,6 +13,7 @@ from selenium import webdriver
 
 class SohucaijingSpiderSpider(scrapy.Spider):
     def __init__(self):
+        super().__init__()
         self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
         # 设置timeout 不设置大概会像我一样卡死
         self.driver.set_page_load_timeout(40)
