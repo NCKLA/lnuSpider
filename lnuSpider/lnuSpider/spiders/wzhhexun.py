@@ -23,18 +23,26 @@ import ip_proxy
 '''
 
 
+
 class WzhhexunSpider(scrapy.Spider):
     def __init__(self):
         # self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
         # # 设置timeout 不设置大概会像我一样卡死
         # self.driver.set_page_load_timeout(40)
         super().__init__()
-        self.min_page = 1
-        self.max_page = 100
+        # self.min_page = 1
+        # self.max_page = 100
+        #
+        # self.list_page = range(self.min_page, self.max_page)
 
-        self.list_page = range(self.min_page, self.max_page)
+        self.json_obj = None
+        self.domain = None
+        self.port = None
 
-        print("准备开始try")
+        WzhhexunSpider.new_port(self)
+
+    def new_port(self):
+        print("准备开始获取url的try")
 
         try:
             open_url = ip_proxy.get_open_url()
@@ -45,7 +53,7 @@ class WzhhexunSpider(scrapy.Spider):
 
             if "b\'" in result:
                 result = result[2:-1]
-            print("result"+result)
+            print("result   "+result)
             # logging.info('open_url||' + result)
 
             # json_obj为响应json
@@ -70,17 +78,29 @@ class WzhhexunSpider(scrapy.Spider):
             # 118 ip使用量已用完
 
         except Exception as e:
-            print("try出事儿了")
+            print("申请端口，try出事儿了")
             logging.info('open_url||' + repr(e))
 
         print("try完了")
         print("打印domain和port   " + self.domain + ":" + self.port)
 
+    def close_port(self, port):
+        print("准备开始关闭端口的try")
+        try:
+            print("开始try  准备close")
+            close_url = ip_proxy.get_close_url(port)
+            r = requests.get(close_url, timeout=5)
+            print("close result: " + str(r.content))
+        except Exception as e:
+            print("关闭端口，try出事了: " + repr(e))
+            logging.info('close_url||' + repr(e))
+
     name = 'wzhhexun'
-    # allowed_domains = ['news.hexun.com/original']
-    # start_urls = ['http://news.hexun.com/original/']
-    allowed_domains = ['ip.cn']
-    start_urls = ['https://ip.cn/']
+    allowed_domains = ['open.tool.hexun.com/MongodbNewsService/data/']
+    start_urls = ['http://open.tool.hexun.com/MongodbNewsService/data/'
+                  'getOriginalNewsList.jsp?id=187804274&s=30&cp=6&priority=1&callback=hx_json11587634991522']
+    # allowed_domains = ['ip.cn']
+    # start_urls = ['https://ip.cn/']
 
     # copy来的一段scrapy使用代理
     def start_requests(self):
