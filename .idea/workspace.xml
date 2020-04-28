@@ -1,10 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="4.25 同花顺持股控股公司">
-      <change afterPath="$PROJECT_DIR$/holdings/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pachong.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pachong.iml" afterDir="false" />
+    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/items.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/middlewares.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/pipelines.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/settings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/spiders/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/holdings/holdings/spiders/holding_spider.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -99,8 +103,17 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585302696279</updated>
-      <workItem from="1587737933574" duration="3384000" />
+      <workItem from="1587737933574" duration="4635000" />
+      <workItem from="1588077238087" duration="274000" />
     </task>
+    <task id="LOCAL-00001" summary="4.25 同花顺持股控股公司">
+      <created>1587807065300</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1587807065301</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,10 +134,16 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="4.25 同花顺持股控股公司" />
+    <option name="LAST_COMMIT_MESSAGE" value="4.25 同花顺持股控股公司" />
   </component>
 </project>
