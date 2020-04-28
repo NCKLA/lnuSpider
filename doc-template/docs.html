@@ -35,14 +35,17 @@
 <section>
   <div class="container">
     <ul class="docs-nav" id="menu-left">
-      <li><strong>scrapy爬虫基本操作介绍</strong></li>
+      <li><strong>基本介绍</strong></li>
       <li><a href="#info" class=" ">info</a></li>
       <li class="separator"></li>
       <li><strong>进阶操作</strong></li>
       <li><a href="#fanye" class=" ">爬虫翻页</a></li>
       <li><a href="#in" class=" ">爬取内页</a></li>
       <li><a href="#redis" class=" ">连接redis数据库</a></li>
-      <li><a href="#dongtai" class=" ">动态网页无法获取数据解决办法</a></li>
+      <li><a href="#dongtai" class=" ">动态网页解决办法</a></li>
+      <li><a href="#proxy_file" class=" ">ip代理文件</a></li>
+      <li><a href="#proxy_usage" class=" ">ip代理实际使用</a></li>
+
 
       <li class="separator"></li>
       <li><strong>爬取到的数据信息</strong></li>
@@ -54,100 +57,108 @@
       <li><a href="#write_left_bar" class=" ">侧边栏档编写</a></li>
     </ul>
     <div class="docs-content">
-      <h2> 准备好踩爬虫坑了吗？</h2>
+      <h2> 基本介绍</h2>
       <h3 id="info"> info</h3>
       <p> 还没写，以后再说</p>
-      
-      <p> 咕咕咕</p>
+      <p> 鸽了</p>
+      <hr>
 
-        <hr>
+
       <h2> 进阶操作</h2>
       <h3 id="fanye">爬虫翻页</h3>
       <ul>
         <li>代码实现</li>
       </ul>
       <pre class="prettyprint">
-             print("========准备翻页========")
-             next_url = response.xpath("//span[@class='num-container']/a[last()]/@href").getall()
-             next_url = "".join(next_url)
-             if not next_url:
-                 print("===结束===")
-             return
-                 else:
-             yield scrapy.Request(next_url, callback=self.parse)
-             print("=====翻页成功======")
+ print("========准备翻页========")
+ next_url = response.xpath("//span[@class='num-container']/a[last()]/@href").getall()
+ next_url = "".join(next_url)
+ if not next_url:
+     print("===结束===")
+ return
+     else:
+ yield scrapy.Request(next_url, callback=self.parse)
+ print("=====翻页成功======")
       </pre>
         <ul>
         <li>效果图展示</li>
         </ul>
         <img src="pic/fanye.png" alt="fanye.png">
+        <hr>
+
+
         <h3 id="in">爬取内页</h3>
         <ul>
         <li>代码实现</li>
       </ul>
       <pre class="prettyprint">
-             （1） 获取内页的url以及当前页所得到的数据，并跳转到detail函数
-                 yield scrapy.Request(item['url'], meta={'item': item}, callback=self.detail)
-             （2）  detail函数代码，获取内页中所需数据：
- 	             def detail(self, response):
-      		           # 接收上级已爬取的数据
-      		               print("========已经进入内页=========")
-       		               item = response.meta['item']
-                       # 一级内页数据提取
-                           item['date'] = "".join(item['date']).strip()
-       			           item['cont'] = response.xpath("//div[@class='main-text atc-content']/p/text()").getall()
-      			           item['cont'] = "".join(item['cont']).strip()
-        		           yield item
+（1） 获取内页的url以及当前页所得到的数据，并跳转到detail函数
+ yield scrapy.Request(item['url'], meta={'item': item}, callback=self.detail)
+（2）  detail函数代码，获取内页中所需数据：
+ def detail(self, response):
+       # 接收上级已爬取的数据
+           print("========已经进入内页=========")
+           item = response.meta['item']
+       # 一级内页数据提取
+           item['date'] = "".join(item['date']).strip()
+           item['cont'] = response.xpath("//div[@class='main-text atc-content']/p/text()").getall()
+           item['cont'] = "".join(item['cont']).strip()
+           yield item
       </pre>
         <ul>
         <li>效果图展示</li>
         </ul>
         <img src="pic/in.png" alt="in.png">
+        <hr>
+
+
         <h3 id="redis">连接redis数据库部分操作</h3>
         <ul>
         <li>修改配置文件代码实现</li>
       </ul>
       <pre class="prettyprint">
-             # 1. 增加了一个去重容器类的配置, 作用使用Redis的set集合来存储请求的指纹数据, 从而实现请求去重的持久化
-                    DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
-             # 2. 增加了调度的配置, 作用: 把请求对象存储到Redis数据, 从而实现请求的持久化.
-                    SCHEDULER = "scrapy_redis.scheduler.Scheduler"
-             # 3. 配置调度器是否要持久化, 也就是当爬虫结束了, 要不要清空Redis中请求队列和去重指纹的set
-             # 如果是True, 就表示要持久化存储, 就不清空数据, 否则清空数据
-                    SCHEDULER_PERSIST = True
-             # 4 方式:
-             # REDIS_HOST = '127.0.0.1'
-             # REDIS_PORT = 6379
-             # 5. 如果需要把数据存储到Redis数据库中, 可以配置RedisPipeline
-                    ITEM_PIPELINES = {
-                                          # 把爬虫爬取的数据存储到Redis数据库中
-                                          'scrapy_redis.pipelines.RedisPipeline': 400,
-                                       }
+# 1. 增加了一个去重容器类的配置, 作用使用Redis的set集合来存储请求的指纹数据, 从而实现请求去重的持久化
+    DUPEFILTER_CLASS = "scrapy_redis.dupefilter.RFPDupeFilter"
+# 2. 增加了调度的配置, 作用: 把请求对象存储到Redis数据, 从而实现请求的持久化.
+    SCHEDULER = "scrapy_redis.scheduler.Scheduler"
+# 3. 配置调度器是否要持久化, 也就是当爬虫结束了, 要不要清空Redis中请求队列和去重指纹的set
+# 如果是True, 就表示要持久化存储, 就不清空数据, 否则清空数据
+    SCHEDULER_PERSIST = True
+# 4 方式:
+# REDIS_HOST = '127.0.0.1'
+# REDIS_PORT = 6379
+# 5. 如果需要把数据存储到Redis数据库中, 可以配置RedisPipeline
+    ITEM_PIPELINES = {
+                          # 把爬虫爬取的数据存储到Redis数据库中
+                          'scrapy_redis.pipelines.RedisPipeline': 400,
+                       }
       </pre>
         <ul>
         <li>修改spider.py代码实现</li>
       </ul>
       <pre class="prettyprint">
-             # -*- coding: utf-8 -*-
-                    import random
-                    import time
-                    import scrapy
-                    from jqka.items import JqkaItem
-                    from scrapy import Request
-                    from scrapy.http.response.html import HtmlResponse
-                    from scrapy.selector.unified import SelectorList
-                    from scrapy_redis.spiders import RedisSpider
-                    class JqkaSpiderSpider(RedisSpider):
-                            name = 'jqka_spider'
-                            # allowed_domains = ['news.10jqka.com.cn']
-                            # 分布式需要删掉增加redis_key
-                            # start_urls = ['http://news.10jqka.com.cn/today_list/index_2.shtml']
-                            redis_key = "Jqka"
+# -*- coding: utf-8 -*-
+    import random
+    import time
+    import scrapy
+    from jqka.items import JqkaItem
+    from scrapy import Request
+    from scrapy.http.response.html import HtmlResponse
+    from scrapy.selector.unified import SelectorList
+    from scrapy_redis.spiders import RedisSpider
+    class JqkaSpiderSpider(RedisSpider):
+            name = 'jqka_spider'
+            # allowed_domains = ['news.10jqka.com.cn']
+            # 分布式需要删掉增加redis_key
+            # start_urls = ['http://news.10jqka.com.cn/today_list/index_2.shtml']
+            redis_key = "Jqka"
       </pre>
          <ul>
         <li>效果图展示</li>
         </ul>
         <img src="pic/redis.png" alt="redis.png">
+        <hr>
+
 
         <h3 id="dongtai">动态网页无法获取数据解决办法</h3>
         <ul>
@@ -161,7 +172,7 @@
         </ul>
         <p>
             lnuSpider下有个phantomj.exe,复制并放到相应路径。
-            max linux必须在/usr/local/bin   ，win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去。
+            mac linux必须在/usr/local/bin   ，win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去。
         </p>
         <p>
             python，pip安装selenium，中间件导入from selenium import webdriver。之后直接复制middlewares.py的dongtaiMiddleware，
@@ -172,9 +183,9 @@
         </p>
         <pre class="prettyprint">
 
-            DOWNLOADER_MIDDLEWARES = {
-               'lnuSpider.middlewares.SeleniumSpiderMiddleware': 543,
-            }
+DOWNLOADER_MIDDLEWARES = {
+   'lnuSpider.middlewares.SeleniumSpiderMiddleware': 543,
+}
 
         </pre>
         <p>
@@ -182,30 +193,225 @@
         </p>
         <pre class="prettyprint">
 
-    ......
+......
 
-    class dongtaiMiddleware(object):
-        def __init__(self):
-            # 配置你的路径 max linux必须在/usr/local/bin   win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去
-            self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-            # 设置timeout 不设置大概会像我一样卡死
-            self.driver.set_page_load_timeout(40)
+class dongtaiMiddleware(object):
+    def __init__(self):
+        # 配置你的路径 mac linux必须在/usr/local/bin   win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去
+        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+        # 设置timeout 不设置大概会像我一样卡死
+        self.driver.set_page_load_timeout(40)
 
 
-        def process_request(self, request, spider):
-            # 这里的爬虫名换成你自己的
-            if spider.name == 'sohucaijing_Spider':
+    def process_request(self, request, spider):
+        # 这里的爬虫名换成你自己的
+        if spider.name == 'sohucaijing_Spider':
 
-    ......
+......
         </pre>
         <p>
            修改之后，只要在cmd进到正确的目录，scrapy shell也会根据scrapy.cfg的配置，去使用这这几个中间件，
             但是注意shell使用的spider是DefaultSpider。之前的带码是从spider调用drivers，现在改成直接从中间件调了，特此记录。
         </p>
-
-
-
         <hr>
+
+
+        <h3 id="proxy_file">ip代理文件</h3>
+        <p>
+            代理选择了<a href="http://www.feiyiproxy.com/">飞蚁代理</a>,ip的存活时间可以自选，从3min到30min不等，
+            比较适合爬虫这种单个ip需求时间短，需求量大的任务。
+        </p>
+        <p>
+            代理文件为发群里的ip_proxy.py，由于有个人账号信息，不可外传。
+        </p>
+        <li>文件路径</li>
+        <p>
+            项目根目录，与.gitignore平行即可，引用该文件时语句为“import ip_porxy”
+        </p>
+        <li>文件内需要修改的参数</li>
+        <pre class="prettyprint">
+proxy_username = '代理给的账号'
+proxy_passwd = '代理给的密码'
+proxy_server = '这里填服务器地址'
+# 上面这三个信息都是在代理网站的个人中心可以获取的，也就是由代理服务器生成
+
+
+proxy_port = '88' # 默认是88，不用管
+pattern = 'json'  # API访问返回信息格式：json和text可选
+num = 1   # 获取代理端口数量，目前先定为1，有需求再改。
+        </pre>
+
+        <ul>
+            <h4>ip_proxy的API介绍</h4>
+            <li>get_open_url():</li>
+            <p>向代理服务器申请端口  返回的数据是json格式的 </p>
+            <p>b'{ "code": 100, "left_ip": 193, "left_time": 2509306, "number": 1, "domain": "123.123.213.231",
+                "port": [ 12345 ] }'   </p>
+               <p>其中，code是状态码，种类较多，想详细了解参考代理官网API；
+                left_ip是ip剩余数量；
+                left_time是这个借口剩余存活时间，一般为一个月；
+                number是申请的端口数量；
+                domain是服务器地址，而port是申请的端口，list类型。
+            </p>
+            <h4>需要说明的是，这里的申请端口就是申请ip，因为服务器ip+端口会转变成实际的ip地址，再去访问目标网页。
+                但是出于严谨，最好还是说，获取端口，而不是获取ip。</h4>
+            <p>要删除前面的 b'  和结尾的 ’  才能换成json。   代码：</p>
+            <pre class="prettyprint">
+if "b\'" in result:
+    result = result[2:-1]
+            </pre>
+
+            <li>get_close_url(auth_port):</li>
+            <p>
+                关闭端口。需要输入端口号，然后代理服务器会关了这个端口号，至于会不会停止这个端口的使用计时，暂时不清楚。
+                也会返回状态码，需要判断状态码的话同样需要转成json，也同样需要删除掉开头的b'和结尾的'
+            </p>
+            <li>get_reset_url():</li>
+            <p>
+                重置链接，没搞清楚怎么用  给的代码只在108状态码的时候用  108状态码是服务器在白名单。
+            </p>
+            <li>wolaitest():</li>
+            <p>
+                测试。原本呢是自带一个测试方法的（不是testing()），但是坑太多我就给改了，还加了不少注释。
+                流程是 请求端口 访问测试网站https://ip.cn  然后关闭端口。https://ip.cn 就是个显示你当期ip的网站。
+            </p>
+        </ul>
+        <hr>
+        <h3 id="proxy_usage">IP代理实际使用</h3>
+        <p>
+            首先给大家说一下我的思维过程：因为spider，中间件（一般是下载中间件），pipeline可能都会用到代理。
+            spider是不能调用后二者的，但是后二者可以调用spider（可以看一下你的中间件和pipeline方法是不是有个spider的输入参数）
+            所以我把代理端口的生成语句写在了spider的__init__()，然而这样做也有坏处，那就是如果你想用scrapy shell的话，
+            会因为相关参数为空而报错，因为shell的spider是一个叫default spider的东西，而不是我们已经写好代理生成的spider。
+            如果使用shell和ip代理，则需要在中间件生成。
+        </p>
+        <li>
+            在你的spider的__init__()中加入如下代码：
+        </li>
+        <pre class="prettyprint">
+
+self.json_obj = None
+self.domain = None
+self.port = None
+
+WzhhexunSpider.new_port(self)
+
+        </pre>
+        <p>
+            domian就是服务器地址 port就是当前代理端口  以后可能会变成多端口；
+            json_obj是向代理服务器要端口时返回的数据；
+            new_port方法会更新port；
+            多说一句  因为飞蚁代理给的demo代码坑太多  我写了很多打印语句  自己用的时候看的不舒服就多删点。
+        </p>
+        <li>然后是写在spider里的两个方法 new_port() 和 close_port(port)</li>
+        <p>
+            向代理服务器发起申请，将获得的新端口号赋值给self.port，同时把返回的信息给self.json_obj备用
+        </p>
+        <pre class="prettyprint">
+
+def new_port(self):
+print("准备开始获取url的try")
+
+try:
+    open_url = ip_proxy.get_open_url()
+
+    # 向代理服务器发起请求，去拿端口号（ip地址是固定的好像）
+    r = requests.get(open_url, timeout=5)
+    result = str(r.content)
+
+    if "b\'" in result:
+        result = result[2:-1]
+    print("result   "+result)
+    # logging.info('open_url||' + result)
+
+    # json_obj为响应json
+    self.json_obj = json.loads(result)
+
+    code = self.json_obj['code']
+    self.domain = self.json_obj['domain']
+    # 获得的端口号（如果状态码为100）
+    if code == 100:
+        self.port = str(self.json_obj['port'][0])
+    elif code == 108:
+        reset_url = ip_proxy.get_reset_url()
+        r = requests.get(reset_url, timeout=5)
+    else:
+        print("异常的状态码："+str(code))
+    # 状态码说明
+    # 100 成功
+    # 101 认证不通过
+    # 102 请求格式不正确
+    # 103 IP暂时耗尽
+    # 106 账号使用时间到期
+    # 118 ip使用量已用完
+
+except Exception as e:
+    print("申请端口，try出事儿了")
+
+print("try完了")
+print("打印domain和port   " + self.domain + ":" + self.port)
+
+        </pre>
+        <p>关闭单个端口</p>
+        <pre class="prettyprint">
+
+def close_port(self, port):
+    print("准备开始关闭端口的try")
+    try:
+        print("开始try  准备close")
+        close_url = ip_proxy.get_close_url(port)
+        r = requests.get(close_url, timeout=5)
+        print("close result: " + str(r.content))
+    except Exception as e:
+        print("关闭端口，try出事了: " + repr(e))
+
+        </pre>
+        <p>
+            需要在spider内重写start_request()方法
+        </p>
+        <pre class="prettyprint">
+def start_requests(self):
+    url = WzhhexunSpider.start_urls[0]
+    proxy = self.domain + ":" + str(self.port)
+
+    proxies = ""
+    if url.startswith("http://"):
+        proxies = "http://"+str(proxy)
+    elif url.startswith("https://"):
+        proxies = "https://"+str(proxy)
+    # 注意这里面的meta={'proxy':proxies},一定要是proxy进行携带,其它的不行,后面的proxies一定 要是字符串,其它任何形式都不行
+    yield scrapy.Request(url, callback=self.parse, meta={'proxy': proxies})
+        </pre>
+        <p>
+            中间件的引用，在process_request方法内添加如下代码：
+        </p>
+        <pre class="prettyprint">
+def process_request(self, request, spider):
+    if request.url.startswith("http://"):
+        request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
+    elif request.url.startswith("https://"):
+        request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
+    # 如果不生成response的话，return None也是可以的
+        </pre>
+        <p>
+            最后记得在中间件关闭这个端口
+        </p>
+        <pre class="prettyprint">
+def close_spider(self, spider):
+    spider.close_port(spider.port)
+        </pre>
+        <p>
+            ip_proxy.py这个文件不要上传，所以每个人可以根据自己需要改这个文件，改成啥样都行，
+            只要注意请求的时候别循环请求消耗名额就行了，如果能写一个判断端口失效的方法就更好了。
+        </p>
+        <hr>
+
+
+
+
+
+
+
         <h2> 爬取到的数据格式</h2>
         <h3 id="souhuhao_sohucaijing">搜狐号 搜狐财经</h3>
         <h4>简介：</h4>
@@ -235,16 +441,19 @@
             <li>images_src:  list(string) 图片的原链接，按照爬取的顺序存放，0到多个，一般不超过十个</li>
             <li>comments:  list(object/dict) 评论信息，单个评论信息的数组，数量最小为0最大还不知道有多少</li>
             <ul>
-                <a>单个评论内容</a>
+                <p>单个评论内容</p>
                 <li>username:  string 用户名</li>
                 <li>location:  string 所在地，格式为某省某市，由一对英文括号包住</li>
-                <li>date:  string 评论日期，x月x日 xx:xx，需要注意的是，与当前时间间隔在一小时以内时会变成相对时间，比如：15分钟前【*有可能为空】</li>
-                <li>discuss:  string 评论内容 可能会有emoji之类的特殊字符【*有可能为空】</li>
-                <li>thumb:  int 点赞数【*有可能为空】</li>
+                <li>date:  string 评论日期，x月x日 xx:xx，需要注意的是，与当前时间间隔在一小时以内时会变成相对时间，比如：15分钟前【有可能为空】</li>
+                <li>discuss:  string 评论内容 可能会有emoji之类的特殊字符【有可能为空】</li>
+                <li>thumb:  int 点赞数【有可能为空】</li>
             </ul>
         </ul>
-
         <hr>
+
+
+
+
       <h2> 文档编写部分</h2>
         <h3 id="write_doc">文档编写</h3>
         <p>
@@ -254,23 +463,27 @@
         <li>如果你想要这种前面带个点的标题效果，请使用&lt;ul&gt; &lt;li&gt;标签</li>
       </ul>
         <pre class="prettyprint">
-           如果你需要插入一段代码 则需要使用&lt;pre class="prettyprint"&gt;标签
-           虽然不保证跟ide一样的识别度。但是变色高亮总是让人看的舒服。下面是一段代码示例
+如果你需要插入一段代码 则需要使用&lt;pre class="prettyprint"&gt;标签
+虽然不保证跟ide一样的识别度。但是变色高亮总是让人看的舒服。下面是一段代码示例
 
-            =============================================
-            def __init__(self):
-            ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-            self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
-            self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
-            # self.http = urllib3.PoolManager()
+=============================================
+def __init__(self):
+ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
+# self.http = urllib3.PoolManager()
+
         </pre>
         <p>
             值得注意的事 前面您所看到的标签，虽然有着正确的写法，但是却没有发挥其再html中应有的效果。
             那是因为在源码编写时用了 & it;   和   & gt;  来表示一对尖括号
         </p>
         <p>
-            添加图片的话放到pic文件夹即可
+            添加图片的话放到pic文件夹即可，然后用img标签引用
         </p>
+        <hr>
+
+
         <h3 id="write_left_bar">侧边栏编写</h3>
         <p>
             首先需要写出一个h3的标题标签，比如&lt;h3 id="write_left_bar"&gt;侧边栏编写&lt;/h3&gt;
@@ -280,6 +493,9 @@
         <p>
             有些时候刚打开页面未加载完全时侧边栏不会跟随浏览一起移动，或者代码段没有高亮变色，此时等待网页加载完全即可。
         </p>
+        <hr>
+
+
     </div>
   </div>
 </section>

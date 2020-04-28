@@ -2,7 +2,6 @@
 import scrapy
 import json
 import requests
-import logging
 import ip_proxy
 
 '''
@@ -75,16 +74,14 @@ class WzhhexunSpider(scrapy.Spider):
             # 103 IP暂时耗尽
             # 106 账号使用时间到期
             # 118 ip使用量已用完
-
         except Exception as e:
-            print("申请端口，try出事儿了")
-            logging.info('open_url||' + repr(e))
+            print("申请端口，try出事儿了" + repr(e))
 
         print("try完了")
         print("打印domain和port   " + self.domain + ":" + self.port)
 
     def close_port(self, port):
-        print("准备开始关闭端口的try")
+        print("准备开始关闭端口{}的try".format(port))
         try:
             print("开始try  准备close")
             close_url = ip_proxy.get_close_url(port)
@@ -92,7 +89,6 @@ class WzhhexunSpider(scrapy.Spider):
             print("close result: " + str(r.content))
         except Exception as e:
             print("关闭端口，try出事了: " + repr(e))
-            logging.info('close_url||' + repr(e))
 
     name = 'wzhhexun'
     allowed_domains = ['open.tool.hexun.com/MongodbNewsService/data/']
