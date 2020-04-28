@@ -370,35 +370,41 @@ def close_port(self, port):
             需要在spider内重写start_request()方法
         </p>
         <pre class="prettyprint">
-def start_requests(self):
-    url = WzhhexunSpider.start_urls[0]
-    proxy = self.domain + ":" + str(self.port)
+class WzhhexunSpider(scrapy.Spider):
 
-    proxies = ""
-    if url.startswith("http://"):
-        proxies = "http://"+str(proxy)
-    elif url.startswith("https://"):
-        proxies = "https://"+str(proxy)
-    # 注意这里面的meta={'proxy':proxies},一定要是proxy进行携带,其它的不行,后面的proxies一定 要是字符串,其它任何形式都不行
-    yield scrapy.Request(url, callback=self.parse, meta={'proxy': proxies})
+    def start_requests(self):
+        url = WzhhexunSpider.start_urls[0]
+        proxy = self.domain + ":" + str(self.port)
+
+        proxies = ""
+        if url.startswith("http://"):
+            proxies = "http://"+str(proxy)
+        elif url.startswith("https://"):
+            proxies = "https://"+str(proxy)
+        # 注意这里面的meta={'proxy':proxies},一定要是proxy进行携带,其它的不行,后面的proxies一定 要是字符串,其它任何形式都不行
+        yield scrapy.Request(url, callback=self.parse, meta={'proxy': proxies})
         </pre>
         <p>
             中间件的引用，在process_request方法内添加如下代码：
         </p>
         <pre class="prettyprint">
-def process_request(self, request, spider):
-    if request.url.startswith("http://"):
-        request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
-    elif request.url.startswith("https://"):
-        request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
-    # 如果不生成response的话，return None也是可以的
+class WzhHexunDownLoaderMiddleware(object):
+
+    def process_request(self, request, spider):
+        if request.url.startswith("http://"):
+            request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
+        elif request.url.startswith("https://"):
+            request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
+        # 如果不生成response的话，return None也是可以的
         </pre>
         <p>
-            最后记得在中间件关闭这个端口
+            最后记得在pipeline关闭这个端口
         </p>
         <pre class="prettyprint">
-def close_spider(self, spider):
-    spider.close_port(spider.port)
+class WzhHexunPipeline(object):
+
+    def close_spider(self, spider):
+        spider.close_port(spider.port)
         </pre>
         <p>
             ip_proxy.py这个文件不要上传，所以每个人可以根据自己需要改这个文件，改成啥样都行，
