@@ -23,7 +23,6 @@ import ip_proxy
 '''
 
 
-
 class WzhhexunSpider(scrapy.Spider):
     def __init__(self):
         # self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
