@@ -30,7 +30,7 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         sheet = book.active
         data = []
         row_num = 1
-        while row_num <= 500:
+        while row_num <= 3815:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             row_num = row_num + 1
@@ -48,32 +48,29 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         company_detail = response.meta['company_detail']
         root = response.xpath("//div[@class='content page_event_content']")[0]
         # print(root)
-        company_name = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
+        company_detail['corporationBackground_industryCommerceImformation_name'] = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
                                   "n/text()")[0].extract()
-        company_detail['company_name'] = company_name
 
-        company_location = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[3]//spa"
+        corporationBackground_industryCommerceImformation_registeredAddress = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[3]//spa"
                                       "n/text()")[0].extract()
-        company_detail['company_location'] = company_location
+        company_detail['corporationBackground_industryCommerceImformation_registeredAddress'] = corporationBackground_industryCommerceImformation_registeredAddress
 
-        company_english_name = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[2]""//td[1]//spa"
+        corporationBackground_industryCommerceImformation_englishName = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[2]""//td[1]//spa"
                                           "n/text()")[0].extract()
-        company_detail['company_english_name'] = company_english_name
+        company_detail['corporationBackground_industryCommerceImformation_englishName'] = "".join(corporationBackground_industryCommerceImformation_englishName).strip().replace(' ', '')
 
-        company_industry = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[2]""//td[2]//s"
+
+        corporationBackground_industryCommerceImformation_industry = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[2]""//td[2]//s"
                                       "pan/text()")[0].extract()
-        company_detail['company_industry'] = company_industry
+        company_detail['corporationBackground_industryCommerceImformation_industry'] = corporationBackground_industryCommerceImformation_industry
 
-        company_before_name = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[3]""//td[1]//s"
+        corporationBackground_industryCommerceImformation_nameOnceUsed = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[3]""//td[1]//s"
                                          "pan/text()")[0].extract()
-        company_detail['company_before_name'] = company_before_name
+        company_detail['corporationBackground_industryCommerceImformation_nameOnceUsed'] = corporationBackground_industryCommerceImformation_nameOnceUsed
 
-        company_url = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[3]""//td[2]//s"
+        corporationBackground_industryCommerceImformation_officialWebsite = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[3]""//td[2]//s"
                                  "pan/a/text()")[0].extract()
-        company_detail['company_url'] = company_url
-
-
-
+        company_detail['corporationBackground_industryCommerceImformation_officialWebsite'] = corporationBackground_industryCommerceImformation_officialWebsite
 
 
 
@@ -83,7 +80,7 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         # print(response.text)
         # print(company_comments)
         single = dict()
-        company_main_business = company_comments.xpath("//tr[1]//span/text()")[0].extract()
+        company_main_business = company_comments.xpath("//tr[1]/td[1]//span/text()").get()
         # print(company_main_business)
         single['company_main_business'] = company_main_business.strip()
 
@@ -139,7 +136,7 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         company_detail['company_introduction'] = company_introduction
 
         print("=====详细情况准备完毕，休息一下嘻嘻====")
-        time.sleep(random.randint(2, 5))
+        time.sleep(random.randint(1, 3))
         yield company_detail
 
 
