@@ -10,6 +10,7 @@ import time
 import json
 from lnuSpider import settings_wzh
 import urllib3
+import ip_proxy
 
 
 class LnuspiderPipeline(object):
@@ -58,6 +59,10 @@ class WzhHexunPipeline(object):
     def close_spider(self, spider):
         # self.exporter.finish_exporting()
         # self.fp.close()
+
+        # 记得关闭用的端口
+        spider.close_port(spider.port)
+
         print("=====和讯爬虫结束力=====")
 
 

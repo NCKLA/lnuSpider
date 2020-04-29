@@ -245,12 +245,26 @@ class WzhHexunDownLoaderMiddleware(object):
         # 我自己用的时候出现了访问网页多出‘https:///’的情况，如果存在会把这段剪去
 
         print("在中间件请求的连接：" + url)
-        time.sleep(5)
+        # time.sleep(5)
 
         if request.url.startswith("http://"):
             request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
         elif request.url.startswith("https://"):
             request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
+
+        # js = 'document.body.scrollTop=document.body.scrollHeight * %f' % random.random()
+        #
+        # self.driver.execute_script(js)
+        #
+        # time.sleep(5)
+
+        # response = HtmlResponse(url=url,
+        #                         body=self.driver.page_source,
+        #                         encoding='utf-8',
+        #                         request=request)
+
+        return None
+        # return response
 
         # self.driver.get(url)
         # for x in range(1, 12, 2):
@@ -268,7 +282,7 @@ class WzhHexunDownLoaderMiddleware(object):
         # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过下载中间件，将response的值传递给引擎，引擎又传递给 spider进行解析
         # return response
 
-        return None
+
 
         #
         # # 翻页数量，获取比较麻烦，想了想就手动定吧
