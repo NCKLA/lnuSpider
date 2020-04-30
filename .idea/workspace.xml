@@ -1,11 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="4.25 同花顺持股控股公司">
-      <change afterPath="$PROJECT_DIR$/holdings/__init__.py" afterDir="false" />
+    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="4月3日 jqka添加了连接redis功能并进行了注释">
       <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/pachong.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pachong.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/spiders/jqka_com_detail_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/spiders/jqka_com_detail_spider.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -20,31 +22,24 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>pipe</find>
-    </findStrings>
-  </component>
   <component name="Git.Settings">
-    <option name="ROOT_SYNC" value="DONT_SYNC" />
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="ROOT_SYNC" value="DONT_SYNC" />
   </component>
-  <component name="GithubDefaultAccount">
-    <option name="defaultAccountId" value="875b540a-dde2-4f03-8444-df9f5f57a919" />
-  </component>
-  <component name="ProjectId" id="1azUUSSQmDciZ9Ng6UVV8BTcPfX" />
+  <component name="ProjectId" id="1Zz9hoH2bzmO6B20ZXq6gbL9oZI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../研究生/scrapy/holdings" />
-    <property name="settings.editor.selected.configurable" value="settings.github" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="E:\GithubSpace\pachong\lnuSpider\lnuSpider" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="D:\python\lnuSpider" />
+      <recent name="C:\python\lnuSpider\lnuSpider\lnuSpider\spiders" />
       <recent name="E:\GithubSpace\pachong\lnuSpider" />
     </key>
   </component>
@@ -60,8 +55,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager">
-    <configuration name="start" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.start_rie">
+    <configuration name="jqka_co" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pachong" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -69,12 +64,100 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/lnuSpider" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="E:\GithubSpace\pachong\lnuSpider\start_wzh.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders/jqka_co.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="start (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pachong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_lssuance_related" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_lssuance_related/start.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="start_co" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pachong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/start_co.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="start_jqka_com_detail" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pachong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_com_detail" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_com_detail/start_jqka_com_detail.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="false" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="start_rie" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="pachong" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event/start_rie.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -85,7 +168,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.start" />
+        <item itemvalue="Python.start_rie" />
+        <item itemvalue="Python.jqka_co" />
+        <item itemvalue="Python.start_co" />
+        <item itemvalue="Python.start (1)" />
+        <item itemvalue="Python.start_jqka_com_detail" />
       </list>
     </recent_temporary>
   </component>
@@ -99,8 +186,171 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1585302696279</updated>
-      <workItem from="1587737933574" duration="3384000" />
+      <workItem from="1585831177718" duration="1701000" />
+      <workItem from="1585835311278" duration="1081000" />
+      <workItem from="1585879680155" duration="4002000" />
+      <workItem from="1585900055426" duration="4333000" />
+      <workItem from="1585906066309" duration="6429000" />
+      <workItem from="1585960455838" duration="833000" />
+      <workItem from="1585961755538" duration="34000" />
+      <workItem from="1585961814972" duration="10000" />
+      <workItem from="1585962125033" duration="7000" />
+      <workItem from="1585962132804" duration="97000" />
+      <workItem from="1585963052488" duration="17315000" />
+      <workItem from="1586051881449" duration="13156000" />
+      <workItem from="1586137555591" duration="7803000" />
+      <workItem from="1586249635448" duration="1660000" />
+      <workItem from="1586343434087" duration="7000" />
+      <workItem from="1586343466362" duration="116000" />
+      <workItem from="1586400546401" duration="2852000" />
+      <workItem from="1586441555666" duration="2065000" />
+      <workItem from="1586489126532" duration="4936000" />
+      <workItem from="1586574632031" duration="392000" />
+      <workItem from="1586575309437" duration="123000" />
+      <workItem from="1586833836775" duration="2061000" />
+      <workItem from="1586918881709" duration="1835000" />
+      <workItem from="1586921764913" duration="1772000" />
+      <workItem from="1586931613430" duration="31000" />
+      <workItem from="1587003584931" duration="7087000" />
+      <workItem from="1587038935610" duration="6250000" />
+      <workItem from="1587097613027" duration="2531000" />
+      <workItem from="1587117388714" duration="3959000" />
+      <workItem from="1587182112550" duration="1316000" />
+      <workItem from="1587275218502" duration="7209000" />
+      <workItem from="1587300580700" duration="5827000" />
+      <workItem from="1587347140264" duration="3344000" />
+      <workItem from="1587387158818" duration="2638000" />
+      <workItem from="1587434228747" duration="770000" />
+      <workItem from="1587435037191" duration="4589000" />
+      <workItem from="1587464149823" duration="3770000" />
+      <workItem from="1587607728220" duration="731000" />
+      <workItem from="1587609322948" duration="56000" />
+      <workItem from="1587609803987" duration="873000" />
+      <workItem from="1587694986882" duration="1130000" />
+      <workItem from="1587729354371" duration="2835000" />
+      <workItem from="1588077194674" duration="971000" />
+      <workItem from="1588122302216" duration="1475000" />
     </task>
+    <task id="LOCAL-00001" summary="4月2日 更新帮助文档">
+      <created>1585832813525</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1585832813525</updated>
+    </task>
+    <task id="LOCAL-00002" summary="4月2日 更新帮助文档">
+      <created>1585835343862</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1585835343863</updated>
+    </task>
+    <task id="LOCAL-00003" summary="4月3日 jqka添加了连接redis功能并进行了注释">
+      <created>1585883102482</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1585883102482</updated>
+    </task>
+    <task id="LOCAL-00004" summary="4月3日 添加了同花顺财经类">
+      <created>1585883371646</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1585883371646</updated>
+    </task>
+    <task id="LOCAL-00005" summary="4月3日 同花顺公司详细情况小project">
+      <created>1585921336643</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1585921336643</updated>
+    </task>
+    <task id="LOCAL-00006" summary="4月3日 同花顺公司详细情况小project">
+      <created>1585921427889</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1585921427889</updated>
+    </task>
+    <task id="LOCAL-00007" summary="4月4日 同花顺所有上市公司详细情况代码">
+      <created>1586010381505</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1586010381505</updated>
+    </task>
+    <task id="LOCAL-00008" summary="4，4复制了最新的middle">
+      <created>1586010783437</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1586010783437</updated>
+    </task>
+    <task id="LOCAL-00009" summary="4月6日 同花顺上市公司详细情况完工">
+      <created>1586145291917</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1586145291917</updated>
+    </task>
+    <task id="LOCAL-00010" summary="4月9日 同花顺高管介绍栏---部分代码">
+      <created>1586402649496</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1586402649496</updated>
+    </task>
+    <task id="LOCAL-00011" summary="4月16日 高管">
+      <created>1587006471688</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1587006471688</updated>
+    </task>
+    <task id="LOCAL-00012" summary="4月19日 同花顺发行相关">
+      <created>1587277039979</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1587277039979</updated>
+    </task>
+    <task id="LOCAL-00013" summary="4月21日 同花顺发行相关完工">
+      <created>1587434273491</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1587434273491</updated>
+    </task>
+    <task id="LOCAL-00014" summary="4月21日 发行相关完工">
+      <created>1587436259039</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1587436259039</updated>
+    </task>
+    <task id="LOCAL-00015" summary="4月23日 上市公司最新动态----公司概要">
+      <created>1587607802494</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1587607802494</updated>
+    </task>
+    <task id="LOCAL-00016" summary="4月28日 近期重要事件">
+      <created>1588077913678</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1588077913678</updated>
+    </task>
+    <task id="LOCAL-00017" summary="4月29">
+      <created>1588128117459</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1588128117459</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -121,10 +371,54 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <ignored-roots>
+      <path value="$PROJECT_DIR$/.." />
+    </ignored-roots>
+    <MESSAGE value="4月2日 更新帮助文档" />
+    <MESSAGE value="4月3日 jqka添加了连接redis功能并进行了注释" />
+    <MESSAGE value="4月3日 添加了同花顺财经类" />
+    <MESSAGE value="4月3日 同花顺公司详细情况小project" />
+    <MESSAGE value="4月4日 同花顺所有上市公司详细情况代码" />
+    <MESSAGE value="4，4复制了最新的middle" />
+    <MESSAGE value="4月6日 同花顺上市公司详细情况完工" />
+    <MESSAGE value="4月9日 同花顺高管介绍栏---部分代码" />
+    <MESSAGE value="4月16日 高管" />
+    <MESSAGE value="4月19日 同花顺发行相关" />
+    <MESSAGE value="4月21日 同花顺发行相关完工" />
+    <MESSAGE value="4月21日 发行相关完工" />
+    <MESSAGE value="4月23日 上市公司最新动态----公司概要" />
+    <MESSAGE value="4月28日 近期重要事件" />
+    <MESSAGE value="4月29" />
+    <option name="LAST_COMMIT_MESSAGE" value="4月29" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event/jqka_Ri_event/settings.py</url>
+          <line>41</line>
+          <option name="timeStamp" value="1" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/lnuSpider$start_rie.coverage" NAME="start_rie Coverage Results" MODIFIED="1587610347122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka.coverage" NAME="start_jqka Coverage Results" MODIFIED="1587039595236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_company_detail.coverage" NAME="start_jqka_company_detail Coverage Results" MODIFIED="1585905036328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start__1_.coverage" NAME="start (1) Coverage Results" MODIFIED="1587388905054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_lssuance_related" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_ei.coverage" NAME="start_ei Coverage Results" MODIFIED="1587007414358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_executive_introduction" />
+    <SUITE FILE_PATH="coverage/lnuSpider$jqka_co.coverage" NAME="jqka_co Coverage Results" MODIFIED="1587608291619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_com_detail.coverage" NAME="start_jqka_com_detail Coverage Results" MODIFIED="1587387198875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_detail" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_co.coverage" NAME="start_co Coverage Results" MODIFIED="1587446882966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview" />
   </component>
 </project>

@@ -2,7 +2,6 @@
 # -*- coding: utf-8 -*-
 import random
 import re
-
 from jqka_com_detail.jqka_com_detail.items import JqkaComDetailItem
 from jqka_com_executive_introduction.items import JqkaComExecutiveIntroductionItem
 from scrapy import item
