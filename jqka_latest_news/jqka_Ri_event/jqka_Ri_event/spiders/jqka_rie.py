@@ -46,5 +46,35 @@ class JqkaRieSpider(scrapy.Spider):
         return
 
     def detail_ni(self, response):
+        company_1 = list()
+        single = dict()
         company_co = response.meta['company_co']
+        content1 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                  "[@id='pointnew']//table"
+                                  "[@class='m_table m_table_db'][@id='tableToday']/tbody/tr[1]")
+        content11 = "".join(content1.xpath("./td[2]/span/a/text()").getall()).strip()
+        # print(content11)
+        single['content11'] = content11
+        content2 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                  "[@id='pointnew']//table"
+                                  "[@class='m_table m_table_db'][@id='tableToday']/tbody/tr[2]")
+        content12 = "".join(content2.xpath("./td/span/a/text()").getall()).strip()
+        single['content12'] = content12
+        # print(content12)
+
+        content3 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                  "[@id='pointnew']//table"
+                                  "[@class='m_table m_table_db'][@id='tableToday']/tbody/tr[3]")
+        content13 = "".join(content3.xpath("./td/span/a/text()").getall()).strip()
+        single['content13'] = content13
+        company_1.append(single)
+        # print(content13)
+        company_co['company_1'] = company_1
+        content4 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                  "[@id='pointnew']//table"
+                                  "[@class='m_table m_table_db'][@id='tableList']/tbody/tr")
+        for content_2 in content4:
+            content_22 = content_2.xpath("./td[2]/span/a/text()").getall()
+            content_22 = "".join(content_22).strip().replace(' ', '')
+            print(content_22)
         yield company_co
