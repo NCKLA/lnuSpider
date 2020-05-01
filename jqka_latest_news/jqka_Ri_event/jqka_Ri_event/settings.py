@@ -54,7 +54,9 @@ DEFAULT_REQUEST_HEADERS = {
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
    'jqka_Ri_event.middlewares.JqkaRiEventDownloaderMiddleware': 543,
+   'jqka_Ri_event.middlewares.SeleniumSpiderMiddleware': 543,
 }
+
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html

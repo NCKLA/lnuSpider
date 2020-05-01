@@ -70,11 +70,46 @@ class JqkaRieSpider(scrapy.Spider):
         company_1.append(single)
         # print(content13)
         company_co['company_1'] = company_1
-        content4 = response.xpath("//div[@class='m_box event new_msg z101']"
-                                  "[@id='pointnew']//table"
-                                  "[@class='m_table m_table_db'][@id='tableList']/tbody/tr")
-        for content_2 in content4:
-            content_22 = content_2.xpath("./td[2]/span/a/text()").getall()
-            content_22 = "".join(content_22).strip().replace(' ', '')
-            print(content_22)
+        content41 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                   "[@id='pointnew']//table"
+                                   "[@class='m_table m_table_db'][@id='tableList']/tbody/tr[1]")
+        content_41 = content41.xpath("./td[2]/span/a/strong/text()").getall()
+        content_41 = "".join(content_41).strip()
+        print(content_41)
+
+        content42 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                   "[@id='pointnew']//table"
+                                   "[@class='m_table m_table_db'][@id='tableList']/tbody/tr[2]")
+        content_42 = content42.xpath("./td[2]/span/text()").getall()
+        content_42 = "".join(content_42).strip()
+        print(content_42)
+
+        content43 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                   "[@id='pointnew']//table"
+                                   "[@class='m_table m_table_db'][@id='tableList']/tbody/tr[3]")
+        content_43 = content43.xpath("./td[2]/span/a/text()").getall()
+        content_43 = "".join(content_43).strip()
+        print(content_43)
+
+        content44 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                   "[@id='pointnew']//table"
+                                   "[@class='m_table m_table_db'][@id='tableList']/tbody/tr[4]")
+        content_44 = content44.xpath("./td[2]/span/a/text()").getall()
+        content_44 = "".join(content_44).strip()
+        print(content_44)
+
+        content45 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                   "[@id='pointnew']//table"
+                                   "[@class='m_table m_table_db'][@id='tableList']/tbody/tr[5]")
+        content_45 = content45.xpath("./td[2]/span/a/text()").getall()
+        content_45 = "".join(content_45).strip()
+        print(content_45)
+
+        content46 = response.xpath("//div[@class='m_box event new_msg z101']"
+                                   "[@id='pointnew']//table"
+                                   "[@class='m_table m_table_db'][@id='tableList']/tbody/tr[6]")
+        content_46 = content46.xpath("./td[2]/span/text()").getall()
+        content_46 = "".join(content_46).strip()
+        print(content_46)
+
         yield company_co
