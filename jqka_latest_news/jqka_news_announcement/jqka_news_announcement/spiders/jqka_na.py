@@ -68,6 +68,7 @@ class JqkaNaSpider(scrapy.Spider):
             content_22 = "".join(content_22).strip()
             print(content_21)
             print(content_22)
+            #####
 
         yield company_na
 

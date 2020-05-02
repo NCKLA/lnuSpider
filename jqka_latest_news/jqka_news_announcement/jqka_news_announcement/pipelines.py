@@ -29,6 +29,7 @@ class JqkaNewsAnnouncementPipeline(object):
         #     f.close()
         self.exporter.export_item(company_na)
         return company_na
+        ####
 
     def close_spider(self, spider):
         self.exporter.finish_exporting()
