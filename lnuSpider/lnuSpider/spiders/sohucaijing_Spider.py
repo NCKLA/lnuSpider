@@ -7,7 +7,6 @@ from selenium import webdriver
 
 '''
 主页面有20个新闻，每次页面拉到底会再产生20个新闻，是ajax请求。
-
 '''
 
 
