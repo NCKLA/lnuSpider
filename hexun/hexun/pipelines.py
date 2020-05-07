@@ -68,7 +68,7 @@ class HexunPipeline(object):
     # class SohuImagePipeline(ImagesPipeline):
     #     def open_spider(self, spider):
     #         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-    #         self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+    #         self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
     #         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
     #         print("=====爬虫开始力=====")
     #

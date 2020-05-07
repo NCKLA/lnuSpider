@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for lnuSpider project
+# Scrapy settings for wzhProject project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,17 +9,17 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'lnuSpider'
+BOT_NAME = 'wzhProject'
 
-SPIDER_MODULES = ['lnuSpider.spiders']
-NEWSPIDER_MODULE = 'lnuSpider.spiders'
+SPIDER_MODULES = ['wzhProject.spiders']
+NEWSPIDER_MODULE = 'wzhProject.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'lnuSpider (+http://www.yourdomain.com)'
+#USER_AGENT = 'wzhProject (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
-ROBOTSTXT_OBEY = False
+ROBOTSTXT_OBEY = True
 
 # Configure maximum concurrent requests performed by Scrapy (default: 16)
 #CONCURRENT_REQUESTS = 32
@@ -39,25 +39,22 @@ DOWNLOAD_DELAY = 3
 #TELNETCONSOLE_ENABLED = False
 
 # Override the default request headers:
-DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
-  'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'
-}
+#DEFAULT_REQUEST_HEADERS = {
+#   'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+#   'Accept-Language': 'en',
+#}
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-# SPIDER_MIDDLEWARES = {
-#    'lnuSpider.middlewares.LnuspiderSpiderMiddleware': 543,
-# }
+#SPIDER_MIDDLEWARES = {
+#    'wzhProject.middlewares.LnuspiderSpiderMiddleware': 543,
+#}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-DOWNLOADER_MIDDLEWARES = {
-   'lnuSpider.middlewares.SeleniumSpiderMiddleware': 543,
-   # 'scrapy.downloadermiddlewares.downloadtimeout.DownloadTimeoutMiddleware': 600,
-}
-DOWNLOAD_TIMEOUT = 200
+#DOWNLOADER_MIDDLEWARES = {
+#    'wzhProject.middlewares.LnuspiderDownloaderMiddleware': 543,
+#}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
@@ -68,12 +65,9 @@ DOWNLOAD_TIMEOUT = 200
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'lnuSpider.pipelines.SohucaijingPipeline': 300,
-   # 'lnuSpider.pipelines.SohuImagePipeline': 300,
+   'wzhProject.pipelines.LnuspiderPipeline': 300,
 }
-IMAGES_STORE = 'lnuSpider/data/image'
-IMAGES_URLS_FIELD = 'images_src'
-# MEDIA_ALLOW_REDIRECTS = True
+
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
 #AUTOTHROTTLE_ENABLED = True

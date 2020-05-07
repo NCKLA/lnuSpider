@@ -8,14 +8,14 @@
 from scrapy.exporters import JsonLinesItemExporter
 import time
 import json
-from lnuSpider.lnuSpider import settings_wzh
+import settings_wzh
 import urllib3
 
 
 class LnuspiderPipeline(object):
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+        self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         self.http = urllib3.PoolManager()
 
@@ -44,7 +44,7 @@ class LnuspiderPipeline(object):
 class WzhTongHuaShunPipeline(object):
     # def __init__(self):
     #     ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-    #     self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+    #     self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
     #     self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
     #     self.http = urllib3.PoolManager()
 
@@ -65,7 +65,7 @@ class WzhTongHuaShunPipeline(object):
 class WzhHexunPipeline(object):
     # def __init__(self):
     #     ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-    #     self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+    #     self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
     #     self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
     #     self.http = urllib3.PoolManager()
 
@@ -80,7 +80,7 @@ class WzhHexunPipeline(object):
         # self.fp.close()
 
         # 记得关闭用的端口
-        spider.close_port(spider.port)
+        spider.ip_proxy.spider_api_close_port(spider.ip_proxy.port)
 
         print("=====和讯爬虫结束力=====")
 
@@ -88,7 +88,7 @@ class WzhHexunPipeline(object):
 class SohucaijingPipeline(object):
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+        self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         self.http = urllib3.PoolManager()
 
@@ -157,7 +157,7 @@ class SohucaijingPipeline(object):
 # class SohuImagePipeline(ImagesPipeline):
 #     def open_spider(self, spider):
 #         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-#         self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+#         self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
 #         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
 #         print("=====爬虫开始力=====")
 #

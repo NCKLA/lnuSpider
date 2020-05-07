@@ -27,7 +27,7 @@ import requests
 # sys.path.append(file_path)
 # sys.path.insert(0, os.path.dirname(file_path))  # 0 表示优先级， 数字越大级别越低 修改模块的导入
 
-from lnu_utils import ip_proxy, random_user_agent
+from lnu_utils import random_user_agent
 
 
 class LnuspiderSpiderMiddleware(object):
@@ -209,11 +209,6 @@ class SeleniumSpiderMiddleware(object):
 
 class WzhHexunDownLoaderMiddleware(object):
 
-    def __init__(self):
-
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-        self.driver.set_page_load_timeout(40)
-
     def process_request(self, request, spider):
         request.headers['User-Agent'] = random_user_agent.give_a_head()
 
@@ -224,10 +219,13 @@ class WzhHexunDownLoaderMiddleware(object):
         print("在中间件请求的连接：" + url)
         # time.sleep(5)
 
-        if request.url.startswith("http://"):
-            request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
+        if not spider.ip_proxy.port:
+            spider.ip_proxy.spider_api_new_port()
+
+        if request.url.startswith("http://"):  # http代理
+            request.meta['proxy'] = "http://" + spider.ip_proxy.domain + ":" + spider.ip_proxy.port
         elif request.url.startswith("https://"):
-            request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
+            request.meta['proxy'] = "https://" + spider.ip_proxy.domain + ":" + spider.ip_proxy.port
 
         # js = 'document.body.scrollTop=document.body.scrollHeight * %f' % random.random()
         #
