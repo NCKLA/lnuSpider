@@ -12,8 +12,7 @@ class NfcjSpiderSpider(CrawlSpider):
 
     rules = (
         Rule(LinkExtractor(allow=r'.+list_44_\d\.html'), follow=True),
-        Rule(LinkExtractor(allow=r".+caijingyaowen/.+\.html"),
-             callback="parse_item", follow=True)
+        Rule(LinkExtractor(allow=r".+caijingyaowen/.+\.html"), callback="parse_item", follow=True)
     )
     def parse_item(self, response):
         title = response.xpath("//div/h1[@class='artTitle']/text()").get()
