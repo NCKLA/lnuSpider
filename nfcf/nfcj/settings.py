@@ -14,7 +14,6 @@ BOT_NAME = 'nfcj'
 SPIDER_MODULES = ['nfcj.spiders']
 NEWSPIDER_MODULE = 'nfcj.spiders'
 
-LOG_LEVEL="DEBUG"
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = 'nfcj (+http://www.yourdomain.com)'
 
