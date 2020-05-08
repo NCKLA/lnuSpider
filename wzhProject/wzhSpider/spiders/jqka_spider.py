@@ -2,7 +2,7 @@
 import random
 import time
 import scrapy
-from lnuSpider.items import JqkaItem
+from wzhSpider.items import JqkaItem
 from scrapy import Request
 
 

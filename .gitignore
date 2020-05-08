@@ -137,5 +137,6 @@ image/
 *.xml
 *.iml
 草稿本.py
+草稿本2.py
 *.exe
 ip_proxy.py

@@ -16,7 +16,18 @@ from selenium import webdriver
 from scrapy.http.response.html import HtmlResponse
 # from scrapy.http.response import Response
 import time
-import random
+import json
+import requests
+
+# import os
+# import sys
+# # 获取 路径
+# file_path = os.path.dirname(os.path.abspath(__file__))
+# # 修改运行路径
+# sys.path.append(file_path)
+# sys.path.insert(0, os.path.dirname(file_path))  # 0 表示优先级， 数字越大级别越低 修改模块的导入
+
+from lnu_utils import random_user_agent
 
 
 class LnuspiderSpiderMiddleware(object):
@@ -164,6 +175,19 @@ class SeleniumSpiderMiddleware(object):
                         time.sleep(1)
                         spider.driver.execute_script(js)
                         time.sleep(1)
+
+                    # float_list = []
+                    # for _ in range(0, 3):
+                    #     float_list.append(random.random())
+                    # float_list.sort()
+                    # print("random list:" + str(float_list))
+                    # for i in float_list:
+                    #     js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
+                    #     time.sleep(3)
+                    #     spider.driver.execute_script(js)
+                    #     time.sleep(3)
+
+
             else:
                 for x in range(1, 12, 2):
                     i = float(x) / 11
@@ -184,61 +208,9 @@ class SeleniumSpiderMiddleware(object):
 
 
 class WzhHexunDownLoaderMiddleware(object):
-    USER_AGENTS = ["Mozilla/5.0 (Windows; U; Windows NT 6.1; rv:2.2) Gecko/20110201",
-                   "Mozilla/5.0 (Windows; U; Windows NT 6.1; it; rv:2.0b4) Gecko/20100818",
-                   "Mozilla/5.0 (Windows NT 6.1; WOW64; Trident/7.0; AS; rv:11.0) like Gecko",
-                   "Mozilla/5.0 (compatible, MSIE 11, Windows NT 6.3; Trident/7.0; rv:11.0) like Gecko",
-                   "Mozilla/5.0 (compatible; MSIE 10.6; Windows NT 6.1; Trident/5.0; InfoPath.2; SLCC1;"
-                   " .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729; .NET CLR 2.0.50727) 3gpp-gba UNTRUSTED/1.0",
-                   "Mozilla/5.0 (Windows NT 6.1; WOW64; rv:77.0) Gecko/20190101 Firefox/77.0",
-                   "Mozilla/5.0 (X11; Linux ppc64le; rv:75.0) Gecko/20100101 Firefox/75.0",
-                   "Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.10; rv:75.0) Gecko/20100101 Firefox/75.0",
-                   "Mozilla/5.0 (Windows NT 10.0; WOW64; rv:77.0) Gecko/20100101 Firefox/77.0",
-                   "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; TencentTraveler 4.0; Trident/4.0;"
-                   " SLCC1; Media Center PC 5.0; .NET CLR 2.0.50727; .NET CLR 3.5.30729; .NET CLR 3.0.30618)",
-                   "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 6.0; Trident/4.0; QQDownload 1.7; GTB6.6; TencentTrav"
-                   "eler 4.0; SLCC1; .NET CLR 2.0.50727; InfoPath.2; .NET CLR 3.5.30729; .NET CLR 3.0.30729)",
-                   "Mozilla/4.0 (compatible; MSIE 8.0; Windows NT 5.1; Trident/4.0; iCafeMedia; TencentTraveler 4.0; "
-                   "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1; SV1) ; .NET CLR 1.1.4322; .NET CLR 2.0.50727;"
-                   " .NET CLR 3.0.4506.2152; .NET CLR 3.5.30729)",
-                   "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; TencentTraveler 4.0; QQDownload 667; SLCC1;"
-                   " .NET CLR 2.0.50727; .NET CLR 3.0.04506)",
-                   "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 6.0; QQPinyin 686; QQDownload 661; GTB6.6; "
-                   "TencentTraveler 4.0; SLCC1; .NET CLR 2.0.50727; Media Center PC 5.0; .NET CLR 3.0.04506)",
-                   "Mozilla/4.0 (compatible; MSIE 7.0; Windows NT 5.1; Trident/4.0; QQDownload 1.7; GTB6.6; "
-                   "TencentTraveler 4.0)",
-                   "Mozilla/5.0 (X11; U; Linux i686; en-US; rv:1.3a) Gecko/20021207 Phoenix/0.5",
-                   "Mozilla/5.0 (Windows; U; WinNT4.0; en-US; rv:1.3a) Gecko/20021207 Phoenix/0.5",
-                   "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.4a) Gecko/20030411 Phoenix/0.5",
-                   "Mozilla/5.0 (Windows; U; Windows NT 5.1; en-US; rv:1.3a) Gecko/20021207 Phoenix/0.5",
-                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) "
-                   "Chrome/70.0.3538.102 Safari/537.36 Edge/18.19582",
-                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko)"
-                   " Chrome/70.0.3538.102 Safari/537.36 Edge/18.19577",
-                   "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 "
-                   "(KHTML, like Gecko) Chrome/70.0.3538.77 Safari/537.36",
-                   "Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 "
-                   "(KHTML, like Gecko) Chrome/55.0.2919.83 Safari/537.36",
-                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_8_3) AppleWebKit/537.36 (KHTML, like Gecko)"
-                   " Chrome/54.0.2866.71 Safari/537.36",
-                   "Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/2.12.388 Version/12.16.2",
-                   "Opera/9.80 (X11; Linux i686; Ubuntu/14.10) Presto/2.12.388 Version/12.16",
-                   "Opera/9.80 (Macintosh; Intel Mac OS X 10.14.1) Presto/2.12.388 Version/12.16",
-                   "Mozilla/5.0 (Windows NT 6.0; rv:2.0) Gecko/20100101 Firefox/4.0 Opera 12.14",
-                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_9_3) AppleWebKit/537.75.14 (KHTML, like Gecko)"
-                   " Version/7.0.3 Safari/7046A194A",
-                   "Mozilla/5.0 (iPad; CPU OS 6_0 like Mac OS X) AppleWebKit/536.26 (KHTML, like Gecko)"
-                   " Version/6.0 Mobile/10A5355d Safari/8536.25",
-                   "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_6_8) AppleWebKit/537.13+ (KHTML, like Gecko)"
-                   " Version/5.1.7 Safari/534.57.2"]
-
-    def __init__(self):
-
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-        self.driver.set_page_load_timeout(40)
 
     def process_request(self, request, spider):
-        request.headers['User-Agent'] = random.choice(self.USER_AGENTS)
+        request.headers['User-Agent'] = random_user_agent.give_a_head()
 
         time.sleep(5)
         url = request.url
@@ -247,10 +219,13 @@ class WzhHexunDownLoaderMiddleware(object):
         print("在中间件请求的连接：" + url)
         # time.sleep(5)
 
-        if request.url.startswith("http://"):
-            request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
+        if not spider.ip_proxy.port:
+            spider.ip_proxy.spider_api_new_port()
+
+        if request.url.startswith("http://"):  # http代理
+            request.meta['proxy'] = "http://" + spider.ip_proxy.domain + ":" + spider.ip_proxy.port
         elif request.url.startswith("https://"):
-            request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
+            request.meta['proxy'] = "https://" + spider.ip_proxy.domain + ":" + spider.ip_proxy.port
 
         # js = 'document.body.scrollTop=document.body.scrollHeight * %f' % random.random()
         #
@@ -282,8 +257,6 @@ class WzhHexunDownLoaderMiddleware(object):
         # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过下载中间件，将response的值传递给引擎，引擎又传递给 spider进行解析
         # return response
 
-
-
         #
         # # 翻页数量，获取比较麻烦，想了想就手动定吧
         # amount = 10
@@ -306,12 +279,96 @@ class WzhHexunDownLoaderMiddleware(object):
         #     return response
 
 
-class IpProxyDownloaderMiddleware(object):
+class TongHuaShunDownloaderMiddleware(object):
     def __init__(self):
-        pass
+        self.json_obj = None
+        self.domain = None
+        self.port = None
 
-    def process_request(self):
-        pass
+        TongHuaShunDownloaderMiddleware.new_port(self)
+
+        from selenium import webdriver
+        options = webdriver.FirefoxOptions()
+
+        # options.set_headless(True)
+        options.add_argument("--headless")  # 设置火狐为headless无界面模式
+        options.add_argument("--disable-gpu")
+        driver = webdriver.Firefox(firefox_options=options)
+        driver.get('http://basic.10jqka.com.cn/603221/news.html')
+        print(driver.page_source)
+        driver.close()
+
+
+
+    def __del__(self):
+        TongHuaShunDownloaderMiddleware.close_port(self.port)
+
+    def new_port(self):
+        print("准备开始获取url的try")
+
+        try:
+            open_url = ip_proxy.get_open_url()
+
+            # 向代理服务器发起请求，去拿端口号（ip地址是固定的好像）
+            r = requests.get(open_url, timeout=5)
+            result = str(r.content)
+
+            if "b\'" in result:
+                result = result[2:-1]
+            print("result   "+result)
+            # logging.info('open_url||' + result)
+
+            # json_obj为响应json
+            self.json_obj = json.loads(result)
+
+            code = self.json_obj['code']
+            self.domain = self.json_obj['domain']
+            # 获得的端口号（如果状态码为100）
+            if code == 100:
+                self.port = str(self.json_obj['port'][0])
+            elif code == 108:
+                reset_url = ip_proxy.get_reset_url()
+                r = requests.get(reset_url, timeout=5)
+            else:
+                print("异常的状态码："+str(code))
+            # 状态码说明
+            # 100 成功
+            # 101 认证不通过
+            # 102 请求格式不正确
+            # 103 IP暂时耗尽
+            # 106 账号使用时间到期
+            # 118 ip使用量已用完
+        except Exception as e:
+            print("申请端口，try出事儿了" + repr(e))
+
+        print("try完了")
+        print("打印domain和port   " + self.domain + ":" + self.port)
+
+    def close_port(self, port):
+        print("准备开始关闭端口{}的try".format(port))
+        try:
+            print("开始try  准备close")
+            close_url = ip_proxy.get_close_url(port)
+            r = requests.get(close_url, timeout=5)
+            print("close result: " + str(r.content))
+        except Exception as e:
+            print("关闭端口，try出事了: " + repr(e))
+
+    def process_request(self, spider, request):
+        request.headers['User-Agent'] = random_user_agent.give_a_head()
+
+        time.sleep(5)
+        url = request.url
+        # 我自己用的时候出现了访问网页多出‘https:///’的情况，如果存在会把这段剪去
+
+        print("在中间件请求的连接：" + url)
+        # time.sleep(5)
+
+        if request.url.startswith("http://"):
+            request.meta['proxy'] = "http://" + self.domain + ":" + self.port  # http代理
+        elif request.url.startswith("https://"):
+            request.meta['proxy'] = "https://" + self.domain + ":" + self.port
+        return None
 
 
 class JqkaSpiderMiddleware(object):

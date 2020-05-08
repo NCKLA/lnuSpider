@@ -8,15 +8,14 @@
 from scrapy.exporters import JsonLinesItemExporter
 import time
 import json
-from lnuSpider import settings_wzh
+import settings_wzh
 import urllib3
-import ip_proxy
 
 
 class LnuspiderPipeline(object):
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+        self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         self.http = urllib3.PoolManager()
 
@@ -42,15 +41,15 @@ class LnuspiderPipeline(object):
         print("=====爬虫结束力=====")
 
 
-class WzhHexunPipeline(object):
+class WzhTongHuaShunPipeline(object):
     # def __init__(self):
     #     ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-    #     self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+    #     self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
     #     self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
     #     self.http = urllib3.PoolManager()
 
     def open_spider(self, spider):
-        print("=====和讯爬虫开始力=====")
+        print("=====同花顺爬虫开始力=====")
 
     def process_item(self, item, spider):
 
@@ -60,8 +59,28 @@ class WzhHexunPipeline(object):
         # self.exporter.finish_exporting()
         # self.fp.close()
 
+        print("=====同花顺爬虫结束力=====")
+
+
+class WzhHexunPipeline(object):
+    # def __init__(self):
+    #     ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
+    #     self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+    #     self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
+    #     self.http = urllib3.PoolManager()
+
+    def open_spider(self, spider):
+        print("=====和讯爬虫开始力=====")
+
+    def process_item(self, item, spider):
+        return item
+
+    def close_spider(self, spider):
+        # self.exporter.finish_exporting()
+        # self.fp.close()
+
         # 记得关闭用的端口
-        spider.close_port(spider.port)
+        spider.ip_proxy.spider_api_close_port(spider.ip_proxy.port)
 
         print("=====和讯爬虫结束力=====")
 
@@ -69,7 +88,7 @@ class WzhHexunPipeline(object):
 class SohucaijingPipeline(object):
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+        self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         self.http = urllib3.PoolManager()
 
@@ -138,7 +157,7 @@ class SohucaijingPipeline(object):
 # class SohuImagePipeline(ImagesPipeline):
 #     def open_spider(self, spider):
 #         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-#         self.fp = open("lnuSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+#         self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
 #         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
 #         print("=====爬虫开始力=====")
 #
@@ -178,7 +197,7 @@ class JqkaPipeline(object):
         print('爬虫开始了')
 
     def process_item(self, item, spider):
-        #item变成字典类型dict()
+        # item变成字典类型dict()
         item_json = json.dumps(dict(item), ensure_ascii=False)
         self.fp.write(item_json+'\n')
         return item
