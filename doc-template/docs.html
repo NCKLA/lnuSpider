@@ -19,13 +19,13 @@
 <body>
 <nav>
   <div class="container">
-    <h1>空的，还没写 甚至可能删除</h1>
+    <h1>施工中</h1>
     <div id="menu">
       <ul class="toplinks">
-        <li><a href="#">别点 点了也没用</a></li>
+        <li><a href="#">施工中</a></li>
       </ul>
     </div>
-    <a id="menu-toggle" href="#" class=" ">&#9776;</a> </div>
+    <a id="menu-toggle" href="#" class=" ">施工中</a> </div>
 </nav>
 <header>
   <div class="container">
@@ -42,7 +42,8 @@
       <li><a href="#fanye" class=" ">爬虫翻页</a></li>
       <li><a href="#in" class=" ">爬取内页</a></li>
       <li><a href="#redis" class=" ">连接redis数据库</a></li>
-      <li><a href="#dongtai" class=" ">动态网页解决办法</a></li>
+      <li><a href="#dongtai" class=" ">phantomJS解决动态网页（已过时）</a></li>
+      <li><a href="#headless" class=" ">selenium headless模式解决动态加载</a></li>
       <li><a href="#proxy_file" class=" ">ip代理文件</a></li>
       <li><a href="#proxy_usage" class=" ">ip代理实际使用</a></li>
 
@@ -160,7 +161,9 @@
         <hr>
 
 
-        <h3 id="dongtai">动态网页无法获取数据解决办法</h3>
+        <h3 id="dongtai">phantomJS解决动态网页（已过时）</h3>
+        <p style="color:red">
+        <strong>通过PhantomJS的方法已经过时，极容易被网站ban掉，如有需要请浏览selenium-headless模式</strong></p>
         <ul>
         <li>适用于scrapy shell无法获取，F12也看不到xhr请求，但是查看元素存在的情况</li>
         </ul>
@@ -171,7 +174,7 @@
         <li>操作过程</li>
         </ul>
         <p>
-            lnuSpider下有个phantomj.exe,复制并放到相应路径。
+            lnuSpider下有个phantomjs.exe,复制并放到相应路径。
             mac linux必须在/usr/local/bin   ，win必须在c盘，建议在c盘的用户文件目录下建一个/local/bin再把东西放进去。
         </p>
         <p>
@@ -216,17 +219,120 @@ class dongtaiMiddleware(object):
         <hr>
 
 
+
+        <h3 id="headless">selenium headless模式解决动态加载</h3>
+        <p>
+            这里只做一点简短的介绍，介绍一下怎么引入这个动态组件，因为引入完成之后，代码还是要看自己需求去写，没有通用的代码。
+            通俗点说就是得自己看selenium的API去写代码，后面会给出同花顺财经的一个代码例子
+        </p>
+        <li>
+            简单介绍一下selenium 和headless
+        </li>
+        <p>
+            selenium是一个用来进行浏览器模拟操作（点击，滚动）的包，而且还可以跟scrapy一样获取元素，总之是用来处理动态加载的利器。
+            之前用过selenium+PhantomJS的方法，但是selenium已经不支持PhantomJS，所以经常加上之前的废弃掉的中间件就会立马被网站识破。
+            而现在使用selenium的话需要下载我们所用浏览器的驱动(driver)，使用驱动会有一些配置(option)，headless就是其中的一项配置，
+            添加headless之后，程序运行的时候就不会弹出你的浏览器界面，即无界面模式-headless
+            （不加的话每次运行会弹出你的网页，浏览器还会告诉你是机器在控制）
+        </p>
+        <li>
+            简单介绍一下引入，这里举火狐为例
+        </li>
+        <p>
+            火狐的话需要下的驱动叫<a href="https://github.com/mozilla/geckodriver/releases">geckoderiver</a>,
+            注意对应自己的火狐版本，下载之后要么直接放在你的火狐根目录，要么像代码一样自己写个路径。
+        </p>
+        <pre class="prettyprint">
+
+    from selenium import webdriver
+
+    options = webdriver.FirefoxOptions() # 获取驱动配置信息
+
+    # 修改/添加驱动信息
+    options.add_argument("--headless")  # 设置火狐为headless无界面模式
+    options.add_argument("--disable-gpu") # 不使用gpu，我猜的，建议照抄这句
+
+    # 如果驱动是放在根目录则不需要driver_path，同理下面的executable_path=driver_path也可以不加
+    driver_path = r"D:\project\geckodriver.exe"
+    driver = webdriver.Firefox(executable_path=driver_path, firefox_options=options)
+
+    # 到这里，driver就是你的webdriver对象
+    driver.get('你的目标网页')
+        </pre>
+        <p>
+            那么到了这一步就已经可以开始访问你目标网页的元素了，这里注意一件事，driver是WebDriver对象，
+            通过find_element啥啥啥得到的对象叫WebElement对象，通过find_element<strong style="color:red">s</strong>
+            得到的是WebElement的列表/数组。这里给出一个列出二者部分api的
+            <a href="https://www.cnblogs.com/feng0815/p/8334144.html">网站</a>
+            。买一送一，送一个<a href="https://www.jianshu.com/p/7e7aa3ee783d">如何定位元素的网站</a>，
+            主要解决class属性带空格的情况。
+        </p>
+        <li>
+            然后这里是一部分代码展示，可以用来启发思维
+        </li>
+        <pre class="prettyprint">
+from selenium import webdriver
+import time
+
+options = webdriver.FirefoxOptions()
+
+# options.set_headless(True)
+options.add_argument("--headless")  # 设置火狐为headless无界面模式
+options.add_argument("--disable-gpu")
+driver = webdriver.Firefox(firefox_options=options)
+driver.get('http://basic.10jqka.com.cn/随便写个数字，建议六位/news.html')
+
+count = 0
+while True:
+
+    list1 = driver.find_element_by_id("pull_all").find_elements_by_class_name("client")
+    count += 1
+    print("========第{}页公告：========".format(count))
+    # for one_news in list1:
+    #     ss = one_news.get_attribute("href")
+    #     print(ss)
+    print("打印第一条："+list1[0].get_attribute("href"))
+
+    ul = driver.find_element_by_css_selector("[class='splpager clearfix light-theme simple-pagination']")
+
+    li_label_s = ul.find_elements_by_xpath('./ul/li')
+
+    xia_yi_ye = li_label_s[-1].get_attribute('innerHTML')
+
+    # 注意，还有不翻页的情况，如果有全部中间件处理的情况记得加
+    if "下一页&lt;/a&gt;" in xia_yi_ye:
+        print("是a!")
+        # 这句其实写的有点问题，因为页面里有很多翻页，都叫class='page-link next'，只不过这里需要的正好是第一个
+        element = driver.find_element_by_css_selector("[class='page-link next']")
+        element.click()
+        time.sleep(5)
+    elif "下一页&lt;/span&gt;" in xia_yi_ye:
+        print("是span!")
+        break
+
+driver.close()
+        </pre>
+        <hr>
+
+
+
         <h3 id="proxy_file">ip代理文件</h3>
         <p>
             代理选择了<a href="http://www.feiyiproxy.com/">飞蚁代理</a>,ip的存活时间可以自选，从3min到30min不等，
             比较适合爬虫这种单个ip需求时间短，需求量大的任务。
         </p>
         <p>
-            代理文件为发群里的ip_proxy.py，由于有个人账号信息，不可外传。
+            代理文件为发群里的<strong>ip_proxy.py</strong>，由于有个人账号信息，不可外传。
         </p>
         <li>文件路径</li>
         <p>
-            项目根目录，与.gitignore平行即可，引用该文件时语句为“import ip_porxy”
+            代理文件需要手动放置于lnu_utils文件夹，与random_user_agent平行
+        </p>
+        <li>文件引用</li>
+        <p>
+            在选定lnuSpider文件夹为Source Root的情况下，引用该文件使用语句为<strong>
+            from lnu_utils.ip_proxy import LnuIPProxy</strong>
+            （在pycharm中选定source root，右键文件夹 → Mark Directory as → Sources Root）
         </p>
         <li>文件内需要修改的参数</li>
         <pre class="prettyprint">
@@ -241,8 +347,13 @@ pattern = 'json'  # API访问返回信息格式：json和text可选
 num = 1   # 获取代理端口数量，目前先定为1，有需求再改。
         </pre>
 
+
+        <h4>ip_proxy的API介绍</h4>
+        <p style="color:red">
+        <strong>
+        这部分介绍是代理自带的API，不是给用户调用的"spider_api_"，主要是便于加强理解，以及看懂我注释都打印的什么东西
+        </strong></p>
         <ul>
-            <h4>ip_proxy的API介绍</h4>
             <li>get_open_url():</li>
             <p>向代理服务器申请端口  返回的数据是json格式的 </p>
             <p>b'{ "code": 100, "left_ip": 193, "left_time": 2509306, "number": 1, "domain": "123.123.213.231",
@@ -272,30 +383,37 @@ if "b\'" in result:
             </p>
             <li>wolaitest():</li>
             <p>
-                测试。原本呢是自带一个测试方法的（不是testing()），但是坑太多我就给改了，还加了不少注释。
-                流程是 请求端口 访问测试网站https://ip.cn  然后关闭端口。https://ip.cn 就是个显示你当期ip的网站。
+                测试。原本呢代理文件是自带一个测试方法的（不是testing()），但是坑太多我就给改了，还加了不少注释。
+                流程是： 请求端口 访问测试网站https://ip.cn  然后关闭端口。https://ip.cn 就是个显示你当期ip的网站。
+                代码就不贴了，代理文件里都有。<strong>建议想使用代理的先随便选择一个空白文件，运行一下这个测试，
+                如果常用vpn的话可能还要改网络设置。</strong>
             </p>
         </ul>
         <hr>
+
+
+
         <h3 id="proxy_usage">IP代理实际使用</h3>
         <p>
             首先给大家说一下我的思维过程：因为spider，中间件（一般是下载中间件），pipeline可能都会用到代理。
-            spider是不能调用后二者的，但是后二者可以调用spider（可以看一下你的中间件和pipeline方法是不是有个spider的输入参数）
+            spider是不能调用后二者的，但是后二者可以调用spider（可以看一下你的中间件和pipeline方法是不是有个spider的传入参数）
             所以我把代理端口的生成语句写在了spider的__init__()，然而这样做也有坏处，那就是如果你想用scrapy shell的话，
             会因为相关参数为空而报错，因为shell的spider是一个叫default spider的东西，而不是我们已经写好代理生成的spider。
             如果使用shell和ip代理，则需要在中间件生成。
         </p>
+        <strong style="color:red">
+            那么首先我会介绍一下我自创的代理对象，有哪些属性和那些方法，其中带有“spider_api_”的就是可以给爬虫调用的
+        </strong>
         <li>
-            在你的spider的__init__()中加入如下代码：
+            LnuIPProxy的属性/参数
         </li>
         <pre class="prettyprint">
+class LnuIPProxy(object):
 
-self.json_obj = None
-self.domain = None
-self.port = None
-
-WzhhexunSpider.new_port(self)
-
+    def __init__(self):
+        self.json_obj = None
+        self.domain = None
+        self.port = None
         </pre>
         <p>
             domian就是服务器地址 port就是当前代理端口  以后可能会变成多端口；
@@ -303,85 +421,115 @@ WzhhexunSpider.new_port(self)
             new_port方法会更新port；
             多说一句  因为飞蚁代理给的demo代码坑太多  我写了很多打印语句  自己用的时候看的不舒服就多删点。
         </p>
-        <li>然后是写在spider里的两个方法 new_port() 和 close_port(port)</li>
+        <li>下面是给爬虫调用的API</li>
         <p>
-            向代理服务器发起申请，将获得的新端口号赋值给self.port，同时把返回的信息给self.json_obj备用
+            spider_api_new_port()向代理服务器发起申请，将获得的新端口号赋值给self.port，同时把返回的信息给self.json_obj备用。
+
         </p>
         <pre class="prettyprint">
 
-def new_port(self):
-print("准备开始获取url的try")
+    # 给爬虫用的api，生成一个代理端口，注意是一个
+    def spider_api_new_port(self):
+        print("开始获取url的try-catch")
+        try:
+            open_url = get_open_url()
 
-try:
-    open_url = ip_proxy.get_open_url()
+            # 向代理服务器发起请求，去拿端口号（ip地址是固定的好像）
+            r = requests.get(open_url, timeout=5)
+            result = str(r.content)
 
-    # 向代理服务器发起请求，去拿端口号（ip地址是固定的好像）
-    r = requests.get(open_url, timeout=5)
-    result = str(r.content)
+            if "b\'" in result:
+                result = result[2:-1]
+            print("向代理服务器获取的结果 result：   "+result)
+            # logging.info('open_url||' + result)
 
-    if "b\'" in result:
-        result = result[2:-1]
-    print("result   "+result)
-    # logging.info('open_url||' + result)
+            # json_obj为响应json
+            self.json_obj = json.loads(result)
 
-    # json_obj为响应json
-    self.json_obj = json.loads(result)
+            code = self.json_obj['code']
+            self.domain = self.json_obj['domain']
+            self.port = "看到这行字说明你获取端口失败了"
+            # 获得的端口号（如果状态码为100）
+            if code == 100:
+                self.port = str(self.json_obj['port'][0])
+            elif code == 108:
+                reset_url = get_reset_url()
+                r = requests.get(reset_url, timeout=5)
+            else:
+                print("异常的状态码："+str(code))
+            # 状态码说明
+            # 100 成功
+            # 101 认证不通过
+            # 102 请求格式不正确
+            # 103 IP暂时耗尽
+            # 106 账号使用时间到期
+            # 118 ip使用量已用完
 
-    code = self.json_obj['code']
-    self.domain = self.json_obj['domain']
-    # 获得的端口号（如果状态码为100）
-    if code == 100:
-        self.port = str(self.json_obj['port'][0])
-    elif code == 108:
-        reset_url = ip_proxy.get_reset_url()
-        r = requests.get(reset_url, timeout=5)
-    else:
-        print("异常的状态码："+str(code))
-    # 状态码说明
-    # 100 成功
-    # 101 认证不通过
-    # 102 请求格式不正确
-    # 103 IP暂时耗尽
-    # 106 账号使用时间到期
-    # 118 ip使用量已用完
-
-except Exception as e:
-    print("申请端口，try出事儿了")
-
-print("try完了")
-print("打印domain和port   " + self.domain + ":" + self.port)
+            print("打印domain和port   " + self.domain + ":" + self.port)
+            print("获取url的try-catch结束，没有异常")
+        except Exception as e:
+            print("获取url的try-catch出现异常：" + repr(e))
 
         </pre>
-        <p>关闭单个端口</p>
+        <p>关闭单个端口，需要传入端口号，为了以后代理池着想没有写成直接调用self.port，还是需要手动传入端口号</p>
         <pre class="prettyprint">
 
-def close_port(self, port):
-    print("准备开始关闭端口的try")
-    try:
-        print("开始try  准备close")
-        close_url = ip_proxy.get_close_url(port)
-        r = requests.get(close_url, timeout=5)
-        print("close result: " + str(r.content))
-    except Exception as e:
-        print("关闭端口，try出事了: " + repr(e))
+    # 给爬虫用的api，关闭传入的端口，可用于爬虫结束和ip被ban时候的手动关闭
+    def spider_api_close_port(self, port):
+        print("准备开始关闭端口{}的try-catch".format(port))
+        try:
+            close_url = get_close_url(port)
+            r = requests.get(close_url, timeout=5)
+
+            print("打印返回的result: " + str(r.content))
+            print("关闭端口的try-catch结束，没有异常")
+        except Exception as e:
+            print("关闭端口的try-catch出现异常：" + repr(e))
 
         </pre>
+
+        <h4 style="color:red">接下来是需要在你的爬虫中添加的代码</h4>
+        <li>
+            在你的spider的__init__()中加入如下代码：
+        </li>
+        <pre class="prettyprint">
+# 手动创建__init__()方法 ，在其中添加如下代码
+def __init__(self):
+    super().__init__()
+    # 创建一个代理的对象，有点像java的new
+    self.ip_proxy = LnuIPProxy()
+
+
+        </pre>
+
         <p>
             需要在spider内重写start_request()方法
         </p>
         <pre class="prettyprint">
 class WzhhexunSpider(scrapy.Spider):
+    # 一般来说爬虫会最先执行start_requests方法，去从你的start_urls里找链接去访问，
+    # 那既然是访问链接了，就得加上代理，所以代理从最初的访问开始就要加上
+    def start_requests(self)
 
-    def start_requests(self):
+        # 获取start_urls里第一个链接，spider换成自己的class
         url = WzhhexunSpider.start_urls[0]
-        proxy = self.domain + ":" + str(self.port)
 
+        # 之前说过刚创建的LnuIPProxy对象时没有端口的，写个if之后去获取一下
+        if not self.ip_proxy.port:
+            self.ip_proxy.spider_api_new_port()
+
+        # 代理ip的拼接，代理服务器+代理端口=一个实际的ip
+        proxy = self.ip_proxy.domain + ":" + str(self.ip_proxy.port)
+
+        # 下面这四行照抄就行，总的来说就是需要在request对象的，meta属性这个字典里的，[‘proxy’]这项，加上代理
         proxies = ""
         if url.startswith("http://"):
             proxies = "http://"+str(proxy)
         elif url.startswith("https://"):
             proxies = "https://"+str(proxy)
         # 注意这里面的meta={'proxy':proxies},一定要是proxy进行携带,其它的不行,后面的proxies一定 要是字符串,其它任何形式都不行
+
+        # 我也没懂为什么要yield，照着写吧
         yield scrapy.Request(url, callback=self.parse, meta={'proxy': proxies})
         </pre>
         <p>
@@ -389,26 +537,37 @@ class WzhhexunSpider(scrapy.Spider):
         </p>
         <pre class="prettyprint">
 class WzhHexunDownLoaderMiddleware(object):
-
+    # 这里有一个传参叫spider，其实就是你的爬虫，由于我们在爬虫生成的代理对象，这里直接用spider点儿ip_proxy就行
     def process_request(self, request, spider):
-        if request.url.startswith("http://"):
-            request.meta['proxy'] = "http://" + spider.domain + ":" + spider.port  # http代理
+
+        # 还是判断一下端口为不为空
+        if not spider.ip_proxy.port:
+            spider.ip_proxy.spider_api_new_port()
+
+        # 这段照抄不误
+        if request.url.startswith("http://"):  # http代理
+            request.meta['proxy'] = "http://" + spider.ip_proxy.domain + ":" + spider.ip_proxy.port
         elif request.url.startswith("https://"):
-            request.meta['proxy'] = "https://" + spider.domain + ":" + spider.port
-        # 如果不生成response的话，return None也是可以的
+            request.meta['proxy'] = "https://" + spider.ip_proxy.domain + ":" + spider.ip_proxy.port
+
+        # 如果不生成response的话，就得写return None
+        return None
         </pre>
         <p>
             最后记得在pipeline关闭这个端口
         </p>
         <pre class="prettyprint">
 class WzhHexunPipeline(object):
+    # 这里有一个传参叫spider，其实就是你的爬虫，由于我们在爬虫生成的代理对象，这里直接用spider点儿ip_proxy就行
+     def close_spider(self, spider):
 
-    def close_spider(self, spider):
-        spider.close_port(spider.port)
+        spider.ip_proxy.spider_api_close_port(spider.ip_proxy.port)
+
         </pre>
         <p>
             ip_proxy.py这个文件不要上传，所以每个人可以根据自己需要改这个文件，改成啥样都行，
-            只要注意请求的时候别循环请求消耗名额就行了，如果能写一个判断端口失效的方法就更好了。
+            只要注意请求的时候别循环请求消耗名额就行了。如果能写一个判断端口失效的方法就更好了，判断ip失效之后，
+            手动关闭一下这个端口并获取新端口，可以降低代理服务器压力。
         </p>
         <hr>
 
@@ -482,7 +641,7 @@ self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         </pre>
         <p>
             值得注意的事 前面您所看到的标签，虽然有着正确的写法，但是却没有发挥其再html中应有的效果。
-            那是因为在源码编写时用了 & it;   和   & gt;  来表示一对尖括号
+            那是因为在源码编写时用了 & lt;   和   & gt;  来表示一对尖括号
         </p>
         <p>
             添加图片的话放到pic文件夹即可，然后用img标签引用
@@ -493,7 +652,7 @@ self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         <h3 id="write_left_bar">侧边栏编写</h3>
         <p>
             首先需要写出一个h3的标题标签，比如&lt;h3 id="write_left_bar"&gt;侧边栏编写&lt;/h3&gt;
-            , id如果需要的话记得加下划线。其次需要在&ltul class="docs-nav" id="menu-left"&gt;中加入一条li标签，
+            , id如果需要的话记得加下划线。其次需要在&lt;ul class="docs-nav" id="menu-left"&gt;中加入一条li标签，
             id格式需要对应，记得加#号。
         </p>
         <p>

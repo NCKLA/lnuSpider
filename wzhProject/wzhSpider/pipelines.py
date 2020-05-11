@@ -13,10 +13,12 @@ import urllib3
 
 
 class LnuspiderPipeline(object):
+
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
         self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
+
         self.http = urllib3.PoolManager()
 
     def open_spider(self, spider):
@@ -25,6 +27,7 @@ class LnuspiderPipeline(object):
     def process_item(self, item, spider):
         # dir_path = '%s/%s' % (settings_wzh.IMAGES_STORE, "sohucaijing")
         # # 下载图片
+        #
         # for src in item['images_src'][0]:
         #     file_path = '%s/%s' % (dir_path, src.split('/')[-1])
         #     r = self.http.request('GET', src)
