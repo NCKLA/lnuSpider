@@ -44,7 +44,7 @@ class SohucaijingSpiderSpider(scrapy.Spider):
 
             tags = info.xpath(".//article/div/div/span/a//text()").getall()
 
-            item['url'] = "https:"+url
+            item['url'] = url
             # item['url'] = url
 
             item['tags'] = tags

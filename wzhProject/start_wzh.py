@@ -1,7 +1,7 @@
 from scrapy import cmdline
-# cmdline.execute("scrapy crawl sohucaijing_Spider".split())
+cmdline.execute("scrapy crawl sohucaijing_Spider".split())
 
-cmdline.execute("scrapy crawl wzhhexun".split())
+# cmdline.execute("scrapy crawl wzhhexun".split())
 
 
 # cmdline.execute("scrapy crawl wzhtonghuashun".split())

@@ -91,7 +91,7 @@ class WzhHexunPipeline(object):
 class SohucaijingPipeline(object):
     def __init__(self):
         ssstime = time.strftime("%Y-%m-%d %H-%M-%S", time.localtime())
-        self.fp = open("wzhProject/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
+        self.fp = open("wzhSpider/data/json/搜狐号_搜狐财经_"+ssstime+".json", 'wb')
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         self.http = urllib3.PoolManager()
 

@@ -131,13 +131,14 @@ class SeleniumSpiderMiddleware(object):
         # self.options.add_argument('-headless')  # 无头参数
         # self.driver = None
 
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\10359\local\bin\phantomjs.exe')
+        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
         self.driver.set_page_load_timeout(40)
         # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows
         # \bin\phantomjs.exe')
 
     def process_request(self, request, spider):
         if spider.name == 'sohucaijing_Spider':
+            request.headers['User-Agent'] = random_user_agent.give_a_head()
 
             # self.driver = Firefox(executable_path='geckodriver', firefox_options=self.options)
             # 配了环境变量第一个参数就可以省了，不然传绝对路径
@@ -155,14 +156,17 @@ class SeleniumSpiderMiddleware(object):
             # wait.until(expected.visibility_of_element_located((By.CSS_SELECTOR, '#ires a'))).click()
             # print(self.driver.page_source)
 
+            # 整数，需要爬取的新闻数量，最好定义成整20
+            news_amount = 1000
+
             # 整数 额外获取的数据包数量，一包20条新闻，只要初始的20条就改成0  不保证因为网卡产生的数据损失
-            ex_packages_amount = 4
+            ex_packages_amount = int(news_amount/20) - 1
 
             url = request.url
             if 'https://' in request.url:
                 url = request.url[9:]
 
-            # print("在中间件请求的连接：" + url)
+            print("在中间件请求的连接：" + url)
             spider.driver.get(url)
 
             if 'mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t' in url:
@@ -172,9 +176,8 @@ class SeleniumSpiderMiddleware(object):
                         # scrollTop 从上往下的滑动距离
                         # print("中间件：准备执行这个滚动js")
                         js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
-                        time.sleep(1)
+                        time.sleep(3)
                         spider.driver.execute_script(js)
-                        time.sleep(1)
 
                     # float_list = []
                     # for _ in range(0, 3):
@@ -187,16 +190,14 @@ class SeleniumSpiderMiddleware(object):
                     #     spider.driver.execute_script(js)
                     #     time.sleep(3)
 
-
             else:
-                for x in range(1, 12, 2):
-                    i = float(x) / 11
+                for x in range(1, 6, 2):
+                    i = float(x) / 5
                     # scrollTop 从上往下的滑动距离
                     # print("中间件：准备执行这个滚动js")
                     js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
-                    time.sleep(1)
+                    time.sleep(3)
                     spider.driver.execute_script(js)
-                    time.sleep(1)
 
             response = HtmlResponse(url=url,
                                     body=spider.driver.page_source,
@@ -297,62 +298,6 @@ class TongHuaShunDownloaderMiddleware(object):
         driver.get('http://basic.10jqka.com.cn/603221/news.html')
         print(driver.page_source)
         driver.close()
-
-
-
-    def __del__(self):
-        TongHuaShunDownloaderMiddleware.close_port(self.port)
-
-    def new_port(self):
-        print("准备开始获取url的try")
-
-        try:
-            open_url = ip_proxy.get_open_url()
-
-            # 向代理服务器发起请求，去拿端口号（ip地址是固定的好像）
-            r = requests.get(open_url, timeout=5)
-            result = str(r.content)
-
-            if "b\'" in result:
-                result = result[2:-1]
-            print("result   "+result)
-            # logging.info('open_url||' + result)
-
-            # json_obj为响应json
-            self.json_obj = json.loads(result)
-
-            code = self.json_obj['code']
-            self.domain = self.json_obj['domain']
-            # 获得的端口号（如果状态码为100）
-            if code == 100:
-                self.port = str(self.json_obj['port'][0])
-            elif code == 108:
-                reset_url = ip_proxy.get_reset_url()
-                r = requests.get(reset_url, timeout=5)
-            else:
-                print("异常的状态码："+str(code))
-            # 状态码说明
-            # 100 成功
-            # 101 认证不通过
-            # 102 请求格式不正确
-            # 103 IP暂时耗尽
-            # 106 账号使用时间到期
-            # 118 ip使用量已用完
-        except Exception as e:
-            print("申请端口，try出事儿了" + repr(e))
-
-        print("try完了")
-        print("打印domain和port   " + self.domain + ":" + self.port)
-
-    def close_port(self, port):
-        print("准备开始关闭端口{}的try".format(port))
-        try:
-            print("开始try  准备close")
-            close_url = ip_proxy.get_close_url(port)
-            r = requests.get(close_url, timeout=5)
-            print("close result: " + str(r.content))
-        except Exception as e:
-            print("关闭端口，try出事了: " + repr(e))
 
     def process_request(self, spider, request):
         request.headers['User-Agent'] = random_user_agent.give_a_head()
