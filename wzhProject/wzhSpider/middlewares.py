@@ -131,8 +131,18 @@ class SeleniumSpiderMiddleware(object):
         # self.options.add_argument('-headless')  # 无头参数
         # self.driver = None
 
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-        self.driver.set_page_load_timeout(40)
+        # 火狐创建
+        options = webdriver.FirefoxOptions()
+        options.add_argument("--headless")  # 设置火狐为headless无界面模式
+        options.add_argument("--disable-gpu")
+        options.add_argument("service_args = ['–ignore - ssl - errors = true', '–ssl - protocol = TLSv1']")
+        self.driver = webdriver.Firefox(firefox_options=options)
+
+        # PhantomJS创建
+        # self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe',
+        #                                   service_args=['--ignore-ssl-errors=true', '--ssl-protocol=TLSv1'])
+
+        self.driver.set_page_load_timeout(20)
         # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\phantomjs-2.1.1-windows
         # \bin\phantomjs.exe')
 
@@ -157,7 +167,7 @@ class SeleniumSpiderMiddleware(object):
             # print(self.driver.page_source)
 
             # 整数，需要爬取的新闻数量，最好定义成整20
-            news_amount = 1000
+            news_amount = 100
 
             # 整数 额外获取的数据包数量，一包20条新闻，只要初始的20条就改成0  不保证因为网卡产生的数据损失
             ex_packages_amount = int(news_amount/20) - 1
@@ -176,7 +186,7 @@ class SeleniumSpiderMiddleware(object):
                         # scrollTop 从上往下的滑动距离
                         # print("中间件：准备执行这个滚动js")
                         js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
-                        time.sleep(3)
+                        time.sleep(1)
                         spider.driver.execute_script(js)
 
                     # float_list = []
@@ -196,7 +206,7 @@ class SeleniumSpiderMiddleware(object):
                     # scrollTop 从上往下的滑动距离
                     # print("中间件：准备执行这个滚动js")
                     js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
-                    time.sleep(3)
+                    time.sleep(1)
                     spider.driver.execute_script(js)
 
             response = HtmlResponse(url=url,
@@ -204,7 +214,7 @@ class SeleniumSpiderMiddleware(object):
                                     encoding='utf-8',
                                     request=request)
             # print("中间件：准备return这个response")
-            # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过下载中间件，将response的值传递给引擎，引擎又传递给 spider进行解析
+            # 这个地方只能返回response对象，当返回了response对象，那么可以直接跳过Internet，将response的值传递给引擎，引擎又传递给 spider进行解析
             return response
 
 
