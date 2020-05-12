@@ -11,6 +11,7 @@ import scrapy
 class JqkaLssuanceRelatedItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
+    #
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
     listedCompany_name = scrapy.Field()

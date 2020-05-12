@@ -56,6 +56,7 @@ class JqkaLrSpider(scrapy.Spider):
             listedCompany_name = data3[i - 1]
             company_lr['listedCompany_name'] = listedCompany_name
             # print(response.text)
+            #
             yield scrapy.Request(company_lr['listedCompany_url'],
                                  meta={'company_lr': company_lr}, callback=self.detail_ni, dont_filter=True)
         return
