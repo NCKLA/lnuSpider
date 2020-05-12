@@ -11,6 +11,19 @@ import scrapy
 class JqkaLssuanceRelatedItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
-    url = scrapy.Field()
-    name = scrapy.Field()
+    listedCompany_url = scrapy.Field()
+    listedCompany_id = scrapy.Field()
+    listedCompany_name = scrapy.Field()
+    listedCompany_issueRelated_establishmentDate = scrapy.Field()
+    listedCompany_issueRelated_issueNumber = scrapy.Field()
+    listedCompany_issueRelated_issuePrice = scrapy.Field()
+    listedCompany_issueRelated_listingDate = scrapy.Field()
+    listedCompany_issueRelated_issuePriceEarningsRatio = scrapy.Field()
+    listedCompany_issueRelated_expectedFundraising = scrapy.Field()
+    listedCompany_issueRelated_firstDayOpeningPrice = scrapy.Field()
+    listedCompany_issueRelated_IssuanceRate = scrapy.Field()
+    listedCompany_issueRelated_actualFundraising = scrapy.Field()
+    listedCompany_issueRelated_leadUnderwriter = scrapy.Field()
+    listedCompany_issueRelated_listingSponsor = scrapy.Field()
+    listedCompany_issueRelated_history = scrapy.Field()
 

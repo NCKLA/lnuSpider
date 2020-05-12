@@ -32,17 +32,31 @@ class JqkaLrSpider(scrapy.Spider):
         book = load_workbook(filename=r"C:\python\lnuSpider\data\exel\com_list.xlsx")
         sheet = book.active
         data = []
+        data1 = []
+        data2 = []
+        data3 = []
         row_num = 1
-        while row_num <= 10:
+        while row_num <= 3:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
+            data1.append(sheet.cell(row=row_num, column=1).value)
+            data3.append(sheet.cell(row=row_num, column=2).value)
+            data2.append(row_num)
             row_num = row_num + 1
-        for i in data:
-            company_lr = JqkaLssuanceRelatedItem()
-            url = 'http://basic.10jqka.com.cn/%s' % i + '/company.html'
-            company_lr['url'] = url
+
             # print(response.text)
-            yield scrapy.Request(company_lr['url'],
+        for i in data2:
+            # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
+            # print(data[i-1])
+            listedCompany_url = 'http://basic.10jqka.com.cn/' + data[i - 1] + '/company.html'
+            company_lr = JqkaLssuanceRelatedItem()
+            company_lr['listedCompany_url'] = listedCompany_url
+            listedCompany_id = data1[i - 1]
+            company_lr['listedCompany_id'] = listedCompany_id
+            listedCompany_name = data3[i - 1]
+            company_lr['listedCompany_name'] = listedCompany_name
+            # print(response.text)
+            yield scrapy.Request(company_lr['listedCompany_url'],
                                  meta={'company_lr': company_lr}, callback=self.detail_ni, dont_filter=True)
         return
 
@@ -51,46 +65,55 @@ class JqkaLrSpider(scrapy.Spider):
         company_lr = response.meta['company_lr']
         root = response.xpath("//div[@class='content page_event_content']")[0]
         # print(root)
-        company_lr['name'] = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
-                                            "n/text()")[0].extract()
+        # company_lr['name'] = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
+        #                                     "n/text()")[0].extract()
         content1 = response.xpath("//div[@id='publish'][@stat='company_publish']/div[@class='bd pr']/"
                                   "table[@class='m_table']//tr[1]")
 
-        content11 = content1.xpath("./td[1]/span/text()").getall()
-        print(content11)
-        content12 = content1.xpath("./td[2]/span/text()").getall()
-        print(content12)
-        content13 = content1.xpath("./td[3]/span/text()").getall()
-        print(content13)
+        listedCompany_issueRelated_establishmentDate = content1.xpath("./td[1]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_establishmentDate'] = listedCompany_issueRelated_establishmentDate
+
+        listedCompany_issueRelated_issueNumber = content1.xpath("./td[2]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_issueNumber'] = listedCompany_issueRelated_issueNumber
+
+        listedCompany_issueRelated_issuePrice = content1.xpath("./td[3]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_issuePrice'] = listedCompany_issueRelated_issuePrice
 
         content2 = response.xpath("//div[@id='publish'][@stat='company_publish']/div[@class='bd pr']/"
                                   "table[@class='m_table']//tr[2]")
-        content21 = content2.xpath("./td[1]/span/text()").getall()
-        print(content21)
-        content22 = content2.xpath("./td[2]/span/text()").getall()
-        print(content22)
-        content23 = content2.xpath("./td[3]/span/text()").getall()
-        print(content23)
+        listedCompany_issueRelated_listingDate = content2.xpath("./td[1]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_listingDate'] = listedCompany_issueRelated_listingDate
+
+        listedCompany_issueRelated_issuePriceEarningsRatio = content2.xpath("./td[2]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_issuePriceEarningsRatio'] = listedCompany_issueRelated_issuePriceEarningsRatio
+
+        listedCompany_issueRelated_expectedFundraising = content2.xpath("./td[3]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_expectedFundraising'] = listedCompany_issueRelated_expectedFundraising
 
         content3 = response.xpath("//div[@id='publish'][@stat='company_publish']/div[@class='bd pr']/"
                                   "table[@class='m_table']//tr[3]")
-        content31 = content3.xpath("./td[1]/span/text()").getall()
-        print(content31)
-        content32 = content3.xpath("./td[2]/span/text()").getall()
-        print(content32)
-        content33 = content3.xpath("./td[3]/span/text()").getall()
-        print(content33)
+
+        listedCompany_issueRelated_firstDayOpeningPrice = content3.xpath("./td[1]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_firstDayOpeningPrice'] = listedCompany_issueRelated_firstDayOpeningPrice
+
+        listedCompany_issueRelated_IssuanceRate = content3.xpath("./td[2]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_IssuanceRate'] = listedCompany_issueRelated_IssuanceRate
+
+        listedCompany_issueRelated_actualFundraising = content3.xpath("./td[3]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_actualFundraising'] = listedCompany_issueRelated_actualFundraising
 
         content4 = response.xpath("//div[@id='publish'][@stat='company_publish']/div[@class='bd pr']/"
                                   "table[@class='m_table']//tr[4]")
-        content41 = content4.xpath("//div[@class='main_sell'][1]/span/text()").getall()
-        print(content41)
-        content42 = content4.xpath("//div[@class='main_sell'][2]/span/text()").getall()
-        print(content42)
 
-        content5 = response.xpath("//div[@id='publish'][@stat='company_publish']//p[@class='tip lh24']/text()").getall()
-        content5 = "".join(content5).strip()
-        print(content5)
+        listedCompany_issueRelated_leadUnderwriter = content4.xpath("//div[@class='main_sell'][1]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_leadUnderwriter'] = listedCompany_issueRelated_leadUnderwriter
+
+        listedCompany_issueRelated_listingSponsor = content4.xpath("//div[@class='main_sell'][2]/span/text()").getall()
+        company_lr['listedCompany_issueRelated_listingSponsor'] = listedCompany_issueRelated_listingSponsor
+
+        listedCompany_issueRelated_history = response.xpath("//div[@id='publish'][@stat='company_publish']//p[@class='tip lh24']/text()").getall()
+        listedCompany_issueRelated_history = "".join(listedCompany_issueRelated_history).strip().replace(' ', '')
+        company_lr['listedCompany_issueRelated_history'] = listedCompany_issueRelated_history
 
         time.sleep(random.randint(2, 5))
         yield company_lr
