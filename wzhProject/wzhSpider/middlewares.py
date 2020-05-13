@@ -167,7 +167,7 @@ class SeleniumSpiderMiddleware(object):
             # print(self.driver.page_source)
 
             # 整数，需要爬取的新闻数量，最好定义成整20
-            news_amount = 100
+            news_amount = 1000
 
             # 整数 额外获取的数据包数量，一包20条新闻，只要初始的20条就改成0  不保证因为网卡产生的数据损失
             ex_packages_amount = int(news_amount/20) - 1
