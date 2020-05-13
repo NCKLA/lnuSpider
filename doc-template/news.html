@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head>
+<script type="text/javascript">
+     SyntaxHighlighter.all();
+</script>
+<meta charset="utf-8">
+<meta name="description" content="">
+<meta name="HandheldFriendly" content="True">
+<meta name="MobileOptimized" content="320">
+<meta name="viewport" content="initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>News Description</title>
+<link rel="stylesheet" href="css/style.css">
+<link rel="stylesheet" href="css/prettify.css">
+</head>
+<body>
+
+<header>
+  <div class="container">
+    <h2 class="docs-header">相关新闻数据描述文档</h2>
+  </div>
+</header>
+<section>
+  <div class="container">
+    <ul class="docs-nav" id="menu-left">
+      <li><strong>新闻基本介绍</strong></li>
+      <li><a href="#info" class=" ">基本介绍</a></li>
+      <li class="separator"></li>
+
+      <li class="separator"></li>
+      <li><strong>爬取到的数据信息</strong></li>
+      <li><a href="#souhuhao_sohucaijing" class=" ">和讯网</a></li>
+      <li><a href="#" class=" "></a></li>
+      <li class="separator"></li>
+
+    </ul>
+    <div class="docs-content">
+      <h2> 基本介绍</h2>
+      <p>
+          此文档主要是关于所有新闻数据的描述，包括数据的来源网址，数据的格式，数据的大小等等信息
+      </p>
+
+        <h2> 爬取到的数据格式</h2>
+        <h3 id="souhuhao_sohucaijing">和讯网 和讯独家</h3>
+        <h4>简介：</h4>
+        <p>
+            爬取自搜狐的搜狐号（类似微信公众号）中名为“搜狐财经”的官方账号。特点是初始页面通过滚动到页面底部会产生ajax请求。
+            而内页的评论部分初次访问爬取不到信息，需要进行多次访问或者是模拟滚动操作。
+        </p>
+        <h4>基本信息：</h4>
+        <ul>
+            <li>起始链接：<a href="http://news.hexun.com/original/">搜狐号_搜狐财经</a></li>
+            <li>爬虫文件:  hexunspider.py以及hexun_hyz.py</li>
+            <li>hexunspider.py这个文件主要是用于文章网址的提取</li>
+            <li>hexun_hyz.py这个文件主要是爬取获取下来的文章的网址</li>
+            <li>pipelines用到的class：HexunPipeline以及HexunPipeline2</li>
+            <li>因为有两个爬虫文件，所以要给他们指定不同的pipeline</li>
+            <li>middlewaress所用class:  HexunSpiderMiddleware</li>
+            <li>items所用class:  HexunItem以及Hexun2Item</li>
+            <li>HexunItem用于生成文章网址，Hexun2Item用于生成文章详情</li>
+            <li>图片文件夹:  D:\PythonProject\hexun\hexun\data\image\hexun2</li>
+            <li>json文件前缀:  文章详情</li>
+        </ul>
+        <h4>数据格式及内容：</h4>
+        <ul>
+            <li>每条数据包括六个部分：文章链接url、文章标题title、文章发布时间time、文章内容content、图片列表image_src、下载下来的图片</li>
+            <li>url：这个是通过meta直接从文章网址里面获取过来</li>
+            <li>title：string类型的文章标题</li>
+            <li>time：string类型的数据，文章的发表时间，格式为：xxxx-xx-xx xx:xx:xx</li>
+            <li>content：string类型的新闻内容，在文章盒子的p标签下</li>
+            <li>image_src：list类型的数据，将一篇文章里面所有的图片链接保存到列表里面</li>
+            <li>下载下来的图片统一放到一个本地的文件夹中</li>
+
+            </ul>
+        </ul>
+        <h4>获取下来的数据大小的统计记录</h4>
+        <ul>
+            <li>统计时间：2020年5月12号</li>
+            <li>计划统计范围：爬取到的所有的数据大小</li>
+            <li>实际统计数量：2203条数据</li>
+            <li>数据丢失：获取下来的文章url大概是2218，但是最终获取到的数据只有2203条，有十几篇文章出现了数据丢失的情况</li>
+            <li>数据总大小：380MB图片数据+6.64MB文本数据</li>
+            <li>数据平均大小：图片17.1MB/100条数据，文字0.3MB/100条数据</li>
+            <li>时间最近数据：2020.05.03</li>
+            <li>时间最远数据：2020.01.07</li>
+            <li>和讯网的数据大概四个月更新完100页，所以可以大概三个半月再爬一遍</li>
+            <li>预计下次启动时间：2020.8.15左右li>
+        </ul>
+        <hr>
+    </div>
+  </div>
+</body>
+</html>
