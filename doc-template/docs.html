@@ -51,7 +51,6 @@
       <li class="separator"></li>
       <li><strong>爬取到的数据信息</strong></li>
       <li><a href="#souhuhao_sohucaijing" class=" ">搜狐号 搜狐财经</a></li>
-      <li><a href="#nfcf_caijingyaowen" class=" ">南方财富网 财经要闻</a></li>
       <li><a href="#" class=" "></a></li>
       <li class="separator"></li>
       <li><strong>文档编写部分</strong></li>
@@ -637,44 +636,6 @@ class WzhHexunPipeline(object):
         <hr>
 
 
-        <h2> 爬取到的数据格式</h2>
-        <h3 id="nfcf_caijingyaowen">南方财富网 财经要闻</h3>
-        <h4>简介：</h4>
-        <p>
-            爬取南方财富网财经要闻模块，采用crawlspider类，可以定义爬取的url的规则，以后scrapy碰到满足条件的url都进行爬取，
-            不用手动yield request。其中包含LinkExtractors连接提取器、Rule规则类。新闻列表需要翻页，列表中每条新闻的内容需要翻页，
-            所以需要两层跟进。
-        </p>
-        <h4>基本信息：</h4>
-        <ul>
-            <li>起始链接：<a href="http://www.southmoney.com/caijing/caijingyaowen/">南方财富网_财经要闻</a></li>
-            <li>爬虫文件:  nfcf_spider.py</li>
-            <li>pipeline所用class:  NfcjPipeline</li>
-            <li>middlewaress所用class:  NfcjSpiderMiddleware</li>
-            <li>items所用class:  NfcjItem</li>
-            <li>json文件前缀:  nfcf</li>
-        </ul>
-        <h4>数据格式及内容：</h4>
-        <ul>
-            <li>每条数据包括三个部分：文章标题title、文章发布时间及来源date_source、文章内容article</li>
-            <li>title：string类型 文章标题</li>
-            <li>date_source：string类型 文章的发表时间及来源，格式为：xxxx-xx-xx xx:xx xx 例：2020-04-22 14:02\n互联网\n</li>
-            <li>content：string类型 新闻内容</li>
-        </ul>
-        <h4>数据大小统计记录（可以写多个）</h4>
-        <ul>
-            <li>统计时间：2020年5月13号</li>
-            <li>计划统计范围：爬取到的所有的数据大小</li>
-            <li>实际统计数量：2511条数据</li>
-            <li>数据丢失：获取下来的文章是2511，但是最终获取到的数据大概2300条</li>
-            <li>数据总大小：5.12MB文本数据</li>
-            <li>数据平均大小：文字0.21MB/100条数据</li>
-            <li>时间最近数据：2020.04.30</li>
-            <li>时间最远数据：2013.06.08</li>
-            <li>南方财富网的数据大概每天更新70条，统计周期三个月</li>
-            <li>预计下次启动时间：2020.8.13</li>
-        </ul>
-        <hr>
 
       <h2> 文档编写部分</h2>
         <h3 id="write_doc">文档编写</h3>
