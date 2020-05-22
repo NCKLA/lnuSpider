@@ -31,6 +31,7 @@
       <li><strong>爬取到的数据信息</strong></li>
       <li><a href="#souhuhao_sohucaijing" class=" ">和讯网</a></li>
       <li><a href="#nfcf_caijingyaowen" class=" ">南方财富网 财经要闻</a></li>
+      <li><a href="#souhuhao_sohucaijing" class=" ">搜狐号 搜狐财经</a></li>
       <li><a href="#" class=" "></a></li>
       <li class="separator"></li>
 
@@ -41,7 +42,7 @@
           此文档主要是关于所有新闻数据的描述，包括数据的来源网址，数据的格式，数据的大小等等信息
       </p>
 
-        <h2> 爬取到的数据格式</h2>
+        <h2> 爬取到的数据信息</h2>
         <h3 id="hexundujia">和讯网 和讯独家</h3>
         <h4>简介：</h4>
         <p>
@@ -90,7 +91,7 @@
 
 
 
-        <h2> 爬取到的数据格式</h2>
+
         <h3 id="nfcf_caijingyaowen">南方财富网 财经要闻</h3>
         <h4>简介：</h4>
         <p>
@@ -129,6 +130,62 @@
         </ul>
         <hr>
 
+        <h3 id="souhuhao_sohucaijing">搜狐号 搜狐财经</h3>
+        <h4>简介：</h4>
+        <p>
+            爬取自搜狐的搜狐号（类似微信公众号）中名为“搜狐财经”的官方账号。特点是初始页面通过滚动到页面底部会产生ajax请求。
+            而内页的评论部分初次访问爬取不到信息，需要进行多次访问或者是模拟滚动操作。
+        </p>
+        <h4>基本信息：</h4>
+        <ul>
+            <li>起始链接：<a href="http://mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t&_'
+                  'f=index_pagemp_1&spm=smpc.ch15.top-subnav.8.1585379351817DgmoPb1/">搜狐号_搜狐财经</a></li>
+            <li>爬虫文件:  sohucaijing_Spider.py</li>
+            <li>pipeline所用class:  LnuspiderPipeline</li>
+            <li>middlewaress所用class:  SeleniumSpiderMiddleware</li>
+            <li>items所用class:  LnuspiderItem</li>
+            <li>图片文件夹:  sohucaijing</li>
+            <li>json文件前缀:  搜狐号_搜狐财经</li>
+        </ul>
+        <h4>数据格式及内容：</h4>
+        <ul>
+            <li>title:  string 新闻的标题</li>
+            <li>content:  string 新闻的正文内容。其中，图片部分的格式为  (图片:xxxxxxxx.jpeg)
+            括号和冒号均为英文符号。正文中黑体字标题部分获取了其文字并在尾部添加了一个句号</li>
+            <li>tags:  list(string) 新闻的标题，数量0-3不等，大多为3个</li>
+            <li>date:  string 日期 ，格式为 年-月-日 时:分</li>
+            <li>url:  string 子页面链接，也就是单个新闻的链接</li>
+            <li>images_src:  list(string) 图片的原链接，按照爬取的顺序存放，0到多个，一般不超过十个</li>
+            <li>comments:  list(object/dict) 评论信息，单个评论信息的数组，数量最小为0最大还不知道有多少</li>
+            <ul>
+                <p>单个评论内容</p>
+                <li>username:  string 用户名</li>
+                <li>location:  string 所在地，格式为某省某市，由一对英文括号包住</li>
+                <li>date:  string 评论日期，x月x日 xx:xx，需要注意的是，与当前时间间隔在一小时以内时会变成相对时间，比如：15分钟前【有可能为空】</li>
+                <li>discuss:  string 评论内容 可能会有emoji之类的特殊字符【有可能为空】</li>
+                <li>thumb:  int 点赞数【有可能为空】</li>
+            </ul>
+        </ul>
+        <h4>数据大小统计记录（可以写多个）</h4>
+        <ul>
+            <li>统计时间：2020.5.11</li>
+            <li>计划统计范围：统计时间下前1000条新闻</li>
+            <li>实际统计数量：468条（爬虫在第721条新闻处结束爬取）</li>
+            <li>数据总大小：213MB(图片)+2.36MB(文字，评论爬取不完全)</li>
+            <li>数据平均大小：文字0.5MB/100条，图片45.51MB/100条</li>
+            <li>时间最远数据：2020.2.18</li>
+            <li>预计下次统计时间：2020.7.1</li>
+        </ul>
+        <ul>
+            <li>统计时间：2020.5.12</li>
+            <li>计划统计范围：统计时间下前1000条新闻</li>
+            <li>实际统计数量：536条（爬虫在第981条新闻处结束爬取）</li>
+            <li>数据总大小：247MB(图片)+2.85MB(文字，评论爬取不完全)</li>
+            <li>数据平均大小：文字0.53MB/100条，图片46.09MB/100条</li>
+            <li>时间最远数据：2019.12.30</li>
+            <li>预计下次统计时间：2020.7.1</li>
+        </ul>
+        <hr>
 
     </div>
   </div>
