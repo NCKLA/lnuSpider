@@ -1,13 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="4月3日 jqka添加了连接redis功能并进行了注释">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pachong.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pachong.iml" afterDir="false" />
+    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="和讯新闻文档的">
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/items.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/spiders/jqka_com_detail_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/spiders/jqka_com_detail_spider.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -19,6 +15,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Python Script" />
+        <option value="HTML File" />
       </list>
     </option>
   </component>
@@ -30,17 +27,19 @@
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="DefaultHtmlFileTemplate" value="HTML File" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hexun" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GithubSpace\pachong\lnuSpider\lnuSpider" />
-    </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="D:\PythonProject\lnuSpider\doc-template\documentNews" />
       <recent name="C:\python\lnuSpider\lnuSpider\lnuSpider\spiders" />
       <recent name="E:\GithubSpace\pachong\lnuSpider" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="E:\GithubSpace\pachong\lnuSpider\lnuSpider" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -350,7 +349,21 @@
       <option name="project" value="LOCAL" />
       <updated>1588128117459</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="4月3日 jqka添加了连接redis功能并进行了注释">
+      <created>1589422717414</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1589422717414</updated>
+    </task>
+    <task id="LOCAL-00019" summary="和讯独家相关数据说明">
+      <created>1589433959002</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1589433959002</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,7 +397,6 @@
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
     <MESSAGE value="4月2日 更新帮助文档" />
-    <MESSAGE value="4月3日 jqka添加了连接redis功能并进行了注释" />
     <MESSAGE value="4月3日 添加了同花顺财经类" />
     <MESSAGE value="4月3日 同花顺公司详细情况小project" />
     <MESSAGE value="4月4日 同花顺所有上市公司详细情况代码" />
@@ -398,7 +410,9 @@
     <MESSAGE value="4月23日 上市公司最新动态----公司概要" />
     <MESSAGE value="4月28日 近期重要事件" />
     <MESSAGE value="4月29" />
-    <option name="LAST_COMMIT_MESSAGE" value="4月29" />
+    <MESSAGE value="4月3日 jqka添加了连接redis功能并进行了注释" />
+    <MESSAGE value="和讯独家相关数据说明" />
+    <option name="LAST_COMMIT_MESSAGE" value="和讯独家相关数据说明" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
