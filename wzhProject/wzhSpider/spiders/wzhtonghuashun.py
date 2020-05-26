@@ -9,3 +9,6 @@ class WzhtonghuashunSpider(scrapy.Spider):
 
     def parse(self, response):
         print(response.text)
+        # infos = response.xpath("//div[@id='liftban']//table[@class='m_table m_hl ']").getall()
+        infos = response.xpath("//div[@id='liftban']").get()
+        print(infos)

@@ -18,6 +18,7 @@ from scrapy.http.response.html import HtmlResponse
 import time
 import json
 import requests
+from lnu_utils.ip_proxy import LnuIPProxy
 
 # import os
 # import sys
@@ -291,38 +292,24 @@ class WzhHexunDownLoaderMiddleware(object):
 
 
 class TongHuaShunDownloaderMiddleware(object):
-    def __init__(self):
-        self.json_obj = None
-        self.domain = None
-        self.port = None
-
-        TongHuaShunDownloaderMiddleware.new_port(self)
-
-        from selenium import webdriver
-        options = webdriver.FirefoxOptions()
-
-        # options.set_headless(True)
-        options.add_argument("--headless")  # 设置火狐为headless无界面模式
-        options.add_argument("--disable-gpu")
-        driver = webdriver.Firefox(firefox_options=options)
-        driver.get('http://basic.10jqka.com.cn/603221/news.html')
-        print(driver.page_source)
-        driver.close()
+    # def __init__(self):
+    #     self.ip_proxy = LnuIPProxy()
+    #     self.ip_proxy.spider_api_new_port()
 
     def process_request(self, spider, request):
         request.headers['User-Agent'] = random_user_agent.give_a_head()
 
-        time.sleep(5)
-        url = request.url
+        # time.sleep(5)
+        # url = request.url
         # 我自己用的时候出现了访问网页多出‘https:///’的情况，如果存在会把这段剪去
 
-        print("在中间件请求的连接：" + url)
-        # time.sleep(5)
-
-        if request.url.startswith("http://"):
-            request.meta['proxy'] = "http://" + self.domain + ":" + self.port  # http代理
-        elif request.url.startswith("https://"):
-            request.meta['proxy'] = "https://" + self.domain + ":" + self.port
+        # print("在中间件请求的连接：" + url)
+        # # time.sleep(5)
+        #
+        # if request.url.startswith("http://"):
+        #     request.meta['proxy'] = "http://" + self.ip_proxy.domain + ":" + self.ip_proxy.port  # http代理
+        # elif request.url.startswith("https://"):
+        #     request.meta['proxy'] = "https://" + self.ip_proxy.domain + ":" + self.ip_proxy.port
         return None
 
 
