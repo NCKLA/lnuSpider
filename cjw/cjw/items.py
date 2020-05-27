@@ -13,4 +13,3 @@ class CjwItem(scrapy.Item):
     source = scrapy.Field()
     date = scrapy.Field()
     article = scrapy.Field()
-    url = scrapy.Field()
