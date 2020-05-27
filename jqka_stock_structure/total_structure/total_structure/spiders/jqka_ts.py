@@ -48,7 +48,7 @@ class JqkaTsSpider(scrapy.Spider):
         content1 = contents.xpath("./div[@class='bd pt5']//table[@class='mt15 m_table m_hl']/tbody/tr")
         #contents = response.xpath("//div[@class='content page_event_content']/div[@class='m_box gqtz']")
         #content1 = contents.xpath("./div[@class='bd pt5']//table/tbody/tr")
-        print(content1)
+
         #print(content1)
         total_structure1_1 = list()
         for content in content1:

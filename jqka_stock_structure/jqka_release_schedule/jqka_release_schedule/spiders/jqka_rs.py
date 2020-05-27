@@ -58,7 +58,7 @@ class JqkaRsSpider(scrapy.Spider):
 
         contents = response.xpath("//div[@class='content page_event_content']/div[@class='m_box main_intro']")
         content1 = contents.xpath("./div[@class='bd pt5']//table/tbody/tr")
-        print(content1)
+
 
         # print(response.text)
         release_schedule1_1 = list()
