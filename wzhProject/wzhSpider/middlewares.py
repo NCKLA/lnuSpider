@@ -178,17 +178,20 @@ class SeleniumSpiderMiddleware(object):
                 url = request.url[9:]
 
             print("在中间件请求的连接：" + url)
-            spider.driver.get(url)
+            self.driver.get(url)
 
             if 'mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t' in url:
                 for temp in range(0, ex_packages_amount):
-                    for x in range(1, 12, 2):
-                        i = (float(x) / 11)/(temp+1) + temp/(temp+1)
-                        # scrollTop 从上往下的滑动距离
-                        # print("中间件：准备执行这个滚动js")
-                        js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
-                        time.sleep(1)
-                        spider.driver.execute_script(js)
+                    # for x in range(1, 12, 2):
+                    #     i = (float(x) / 11)/(temp+1) + temp/(temp+1)
+                    #     # scrollTop 从上往下的滑动距离
+                    #     # print("中间件：准备执行这个滚动js")
+                    #     js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
+                    #     time.sleep(1)
+                    #     self.driver.execute_script(js)
+                    self.driver.execute_script("document.documentElement.scrollTop=document.body.scrollHeight")
+                    time.sleep(1)
+                    print("现在的feed item数量："+str(len(self.driver.find_elements_by_class_name("feed-item"))))
 
                     # float_list = []
                     # for _ in range(0, 3):
@@ -208,10 +211,10 @@ class SeleniumSpiderMiddleware(object):
                     # print("中间件：准备执行这个滚动js")
                     js = 'document.body.scrollTop=document.body.scrollHeight * %f' % i
                     time.sleep(1)
-                    spider.driver.execute_script(js)
+                    self.driver.execute_script(js)
 
             response = HtmlResponse(url=url,
-                                    body=spider.driver.page_source,
+                                    body=self.driver.page_source,
                                     encoding='utf-8',
                                     request=request)
             # print("中间件：准备return这个response")

@@ -13,11 +13,12 @@ from selenium import webdriver
 class SohucaijingSpiderSpider(scrapy.Spider):
     def __init__(self):
         super().__init__()
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
-        # 设置timeout 不设置大概会像我一样卡死
-        self.driver.set_page_load_timeout(40)
-        # self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\
-        # phantomjs-2.1.1-windows\bin\phantomjs.exe')
+        self.all_news_list = []
+    #     self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\G50\local\bin\phantomjs.exe')
+    #     设置timeout 不设置大概会像我一样卡死
+    #     self.driver.set_page_load_timeout(40)
+    #     self.driver = webdriver.PhantomJS(executable_path=r'e:\phantomjs-2.1.1-windows\
+    #     phantomjs-2.1.1-windows\bin\phantomjs.exe')
 
     name = 'sohucaijing_Spider'
     allowed_domains = ['mp.sohu.com/profile?xpt=c29odWNqeWMyMDE3QHNvaHUuY29t&_'
@@ -32,6 +33,8 @@ class SohucaijingSpiderSpider(scrapy.Spider):
 
         # infos = response.xpath("//ul[@class='feed-list-area feed-normal-list-area']/li")
         infos = response.xpath("//li[@class='feed-item']")
+
+        print("parse里的infos长度为："+str(len(infos)))
 
         for info in infos:
             item = LnuspiderItem()
@@ -98,12 +101,18 @@ class SohucaijingSpiderSpider(scrapy.Spider):
         for raw_comment in raw_comments:
             single = dict()
             # /html/body/div[2]/div[2]/div[2]/div[5]/div/div/div/div[4]/div/div[2]/div[1]/div[2]/div[2]/div[2]/a[3]/i
-            username = "" + "".join(raw_comment.xpath("./div[2]/div[1]/div[@class='c-username left']/text()").get())
+            username = "" + "".join(raw_comment.xpath("./div[2]/div[1]"
+                                                      "/div[@class='c-username left']/text()").get())
             single['username'] = username.strip()
-            single['location'] = raw_comment.xpath("./div[2]/div[1]/div[@class='c-username left']/span/text()").get()
-            single['date'] = raw_comment.xpath("./div[2]/div[2]/div[2]/div[@class='c-date left']/text()").get()
-            single['discuss'] = raw_comment.xpath("./div[2]/div[2]/div[@class='c-discuss']/text()").get()
-            single['thumb'] = raw_comment.xpath("./div[2]/div[2]/div[2]/a[3]/text()").get()
+            single['location'] = raw_comment.xpath("./div[2]/div[1]"
+                                                   "/div[@class='c-username left']/span/text()").get()
+            # 5.27才发现有跟评论的话日期回复和点赞都在第三个div，可见偷懒要不得
+            single['date'] = raw_comment.xpath("./div[2]/div[@class='c-user-content']"
+                                               "/div[2]/div[@class='c-date left']/text()").get()
+            single['discuss'] = raw_comment.xpath("./div[2]/div[@class='c-user-content']"
+                                                  "/div[@class='c-discuss']/text()").get()
+            single['thumb'] = raw_comment.xpath("./div[2]/div[@class='c-user-content']"
+                                                "/div[2]/a[3]/text()").get()
             comments.append(single)
             # print("子页面，打印这个字典=="+str(single))
         item['comments'] = comments
