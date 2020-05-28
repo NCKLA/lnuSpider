@@ -30,19 +30,25 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         book = load_workbook(filename=r"C:\python\lnuSpider\data\exel\com_list.xlsx")
         sheet = book.active
         data = []
+        data1 = []
+        data2 = []
         row_num = 1
-        while row_num <= 10:
+        while row_num <= 3:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
+            data1.append(sheet.cell(row=row_num, column=1).value)
+            data2.append(row_num)
             row_num = row_num + 1
-        for i in data:
-            #需要改
+        for i in data2:
+            # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
+            # print(data[i-1])
+            listedCompany_url = 'http://basic.10jqka.com.cn/' + data[i - 1] + '/company.html'
             company_detail = JqkaComExecutiveIntroductionItem()
-            #需要改
-            url = 'http://basic.10jqka.com.cn/%s' % i + '/company.html'
-            company_detail['url'] = url
+            company_detail['listedCompany_url'] = listedCompany_url
+            listedCompany_id = data1[i - 1]
+            company_detail['listedCompany_id'] = listedCompany_id
             # print(response.text)
-            yield scrapy.Request(company_detail['url'],
+            yield scrapy.Request(company_detail['listedCompany_url'],
                                  meta={'company_detail': company_detail}, callback=self.detail_ni, dont_filter=True)
         return
 
@@ -52,9 +58,9 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         company_detail = response.meta['company_detail']
         root = response.xpath("//div[@class='content page_event_content']")[0]
 
-        company_name = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
+        listedCompany_name = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
                                   "n/text()")[0].extract()
-        company_detail['company_name'] = company_name
+        company_detail['listedCompany_name'] = listedCompany_name
 
         print("=====高管信息准备完毕，休息一下嘻嘻====")
         root1 = response.xpath("//div[@id='manager'][@stat='company_manag"
@@ -66,77 +72,96 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
                                   "er']//div[@id='ml_001'][@class='m_tab_content']/"
                                   "table[@class='m_table managelist m_hl']/tbody/tr")
         # print(type(contents))
-        company_content2_1 = list()
+        company_content1 = list()
         for content in contents:
             single = dict()
             content_1 = content.xpath("./td[1]/a/text()").getall()
-            single['content_1'] = "".join(content_1).strip()
+            single['listedCompany_executiveInfor_name'] = "".join(content_1).strip()
             content_2 = content.xpath("./td[2]/text()").getall()
-            single['content_2'] = "".join(content_2).strip()
+            single['listedCompany_executiveInfor_position'] = "".join(content_2).strip()
             content_3 = content.xpath("./td[3]//span/text()").getall()
-            single['content_3'] = "".join(content_3).strip()
+            single['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
             content_4 = content.xpath("./td[4]//span/text()").getall()
-            single['content_4'] = "".join(content_4).strip()
+            single['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
+            company_content1.append(single)
+        company_detail['company_content1'] = company_content1
+
+        company_content2 = list()
+        for content in contents:
+            single1 = dict()
             content_5 = content.xpath("./td[5]/a/text()").getall()
-            single['content_5'] = "".join(content_5).strip()
+            single1['listedCompany_executiveInfor_name'] = "".join(content_5).strip()
             content_6 = content.xpath("./td[6]/text()").getall()
-            single['content_6'] = "".join(content_6).strip()
+            single1['listedCompany_executiveInfor_position'] = "".join(content_6).strip()
             content_7 = content.xpath("./td[7]//span/text()").getall()
-            single['content_7'] = "".join(content_7).strip()
+            single1['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
             content_8 = content.xpath("./td[8]//span/text()").getall()
-            single['content_8'] = "".join(content_8).strip()
-            company_content2_1.append(single)
-            company_detail['company_content2_1'] = company_content2_1
+            single1['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
+            company_content2.append(single1)
+        company_detail['company_content2'] = company_content2
 
         contents1 = response.xpath("//div[@id='manager'][@stat='company_manag"
                                    "er']//div[@id='ml_002'][@class='m_tab_content']/"
                                    "table[@class='m_table managelist m_hl']/tbody/tr")
-        company_content2_2 = list()
+        company_content3 = list()
         for content in contents1:
-            single1 = dict()
+            single2 = dict()
             content_1 = content.xpath("./td[1]/a/text()").getall()
-            single1['content_1'] = "".join(content_1).strip()
+            single2['listedCompany_executiveInfor_name'] = "".join(content_1).strip()
             content_2 = content.xpath("./td[2]/text()").getall()
-            single1['content_2'] = "".join(content_2).strip()
+            single2['listedCompany_executiveInfor_position'] = "".join(content_2).strip()
             content_3 = content.xpath("./td[3]//span/text()").getall()
-            single1['content_3'] = "".join(content_3).strip()
+            single2['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
             content_4 = content.xpath("./td[4]//span/text()").getall()
-            single1['content_4'] = "".join(content_4).strip()
+            single2['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
+            company_content3.append(single2)
+        company_detail['company_content3'] = company_content3
+
+        company_content4 = list()
+        for content in contents1:
+            single3 = dict()
             content_5 = content.xpath("./td[5]/a/text()").getall()
-            single1['content_5'] = "".join(content_5).strip()
+            single3['listedCompany_executiveInfor_name'] = "".join(content_5).strip()
             content_6 = content.xpath("./td[6]/text()").getall()
-            single1['content_6'] = "".join(content_6).strip()
+            single3['listedCompany_executiveInfor_position'] = "".join(content_6).strip()
             content_7 = content.xpath("./td[7]//span/text()").getall()
-            single1['content_7'] = "".join(content_7).strip()
+            single3['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
             content_8 = content.xpath("./td[8]//span/text()").getall()
-            single1['content_8'] = "".join(content_8).strip()
-            company_content2_2.append(single1)
-            company_detail['company_content2_2'] = company_content2_2
+            single3['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
+            company_content4.append(single3)
+        company_detail['company_content4'] = company_content4
 
         contents3 = response.xpath("//div[@id='manager'][@stat='company_manag"
                                    "er']//div[@id='ml_003'][@class='m_tab_content']/"
                                    "table[@class='m_table managelist m_hl']/tbody/tr")
-        company_content2_3 = list()
+        company_content5 = list()
         for content in contents3:
-            single2 = dict()
+            single4 = dict()
             content_1 = content.xpath("./td[1]/a/text()").getall()
-            single2['content_1'] = "".join(content_1).strip()
+            single4['listedCompany_executiveInfor_name'] = "".join(content_1).strip()
             content_2 = content.xpath("./td[2]/text()").getall()
-            single2['content_2'] = "".join(content_2).strip()
+            single4['listedCompany_executiveInfor_position'] = "".join(content_2).strip()
             content_3 = content.xpath("./td[3]//span/text()").getall()
-            single2['content_3'] = "".join(content_3).strip()
+            single4['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
             content_4 = content.xpath("./td[4]//span/text()").getall()
-            single2['content_4'] = "".join(content_4).strip()
+            single4['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
+            company_content5.append(single4)
+        company_detail['company_content5'] = company_content5
+
+        company_content6 = list()
+        for content in contents3:
+            single5 = dict()
             content_5 = content.xpath("./td[5]/a/text()").getall()
-            single2['content_5'] = "".join(content_5).strip()
+            single5['listedCompany_executiveInfor_name'] = "".join(content_5).strip()
             content_6 = content.xpath("./td[6]/text()").getall()
-            single2['content_6'] = "".join(content_6).strip()
+            single5['listedCompany_executiveInfor_position'] = "".join(content_6).strip()
             content_7 = content.xpath("./td[7]//span/text()").getall()
-            single2['content_7'] = "".join(content_7).strip()
+            single5['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
             content_8 = content.xpath("./td[8]//span/text()").getall()
-            single2['content_8'] = "".join(content_8).strip()
-            company_content2_3.append(single2)
-            company_detail['company_content2_3'] = company_content2_3
+            single5['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
+            company_content6.append(single5)
+        company_detail['company_content6'] = company_content6
+
         time.sleep(random.randint(2, 5))
         yield company_detail
 

@@ -17,12 +17,13 @@ class JqkaComDetailItem(scrapy.Item):
     listedCompany_enterpriseIntro_industry = scrapy.Field()
     listedCompany_enterpriseIntro_formerlyUsedName = scrapy.Field()
     listedCompany_enterpriseIntro_websiteAddress = scrapy.Field()
-
+    listedCompany_name = scrapy.Field()
+    listedCompany_url = scrapy.Field()
+    listedCompany_id = scrapy.Field()
     company_content2_1 = scrapy.Field()
     company_content2_2 = scrapy.Field()
     listedCompany_enterpriseIntro_companyProfile = scrapy.Field()
-    listedCompany_url = scrapy.Field()
-    listedCompany_id = scrapy.Field()
+
     # url = scrapy.Field()
     # title = scrapy.Field()
     # date = scrapy.Field()

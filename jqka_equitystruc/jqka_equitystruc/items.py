@@ -8,16 +8,10 @@
 import scrapy
 
 
-class JqkaComExecutiveIntroductionItem(scrapy.Item):
+class JqkaEquitystrucItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
-
-    company_content1 = scrapy.Field()
-    company_content2 = scrapy.Field()
-    company_content3 = scrapy.Field()
-    company_content4 = scrapy.Field()
-    company_content5 = scrapy.Field()
-    company_content6 = scrapy.Field()
+    pass

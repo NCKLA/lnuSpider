@@ -147,24 +147,23 @@ class JqkaNewsSpiderSpider(scrapy.Spider):
             # print(root1)
             for root2 in root1:
                 news_date = root2.find_element_by_xpath("./dt/span[@class='date']")
-                print(news_date.text)
+                # print(news_date.text)
+                news_date = news_date.text
                 news_tag = root2.find_element_by_xpath("./dt/span[@class='title']/a/strong")
-                print(news_tag.text)
+                # print(news_tag.text)
+                news_tag = news_tag.text
                 news_url = root2.find_element_by_xpath("./dt/span[@class='title']/a")
-                print(news_url.get_attribute("href"))
+                # print(news_url.get_attribute("href"))
                 # print(news_tag)
                 # print(news_url)
                 # company_news['news_url'] = news_url.get_attribute("href")
                 yield scrapy.Request(news_url.get_attribute("href"),
-                                     meta={"news_url": news_url.get_attribute("href"), "url": company_news['url']},
+                                     meta={"news_url": news_url.get_attribute("href"), "url": company_news['url']
+                                           , "news_date": news_date, "news_tag": news_tag},
                                      callback=self.detail_ni1,
                                      dont_filter=True)
 
             ul = driver.find_element_by_css_selector("[class='splpager clearfix light-theme simple-pagination']")
-            # print(str(ul.tag_name))
-            # div
-            # print(ul.text)
-
             li_label_s = ul.find_elements_by_xpath('./ul/li')
             # print("测试 'innerHTML ："+li_label_s[-1].get_attribute('innerHTML'))
             xia_yi_ye = li_label_s[-1].get_attribute('innerHTML')
@@ -176,52 +175,13 @@ class JqkaNewsSpiderSpider(scrapy.Spider):
             elif "下一页</span>" in xia_yi_ye:
                 print("是span!")
                 break
-            # try:
-            #     c = driver.find_element_by_xpath("//div[@class='m_dlbox'][@id='pull_all']//a[@class='page-link next']")
-            #     # print(c.get_attribute('innerHTML'))
-            #     c.click()
-            #     print("进入下一页")
-            # except Exception as e:
-            #     print("结束")
-            #     break
-
-            # if not c:
-            #     print("===结束===")
-            #     break
-            # else:
-            #     c.click()
-            #     print("=====翻页成功======")
-
-        # options = webdriver.FirefoxOptions()
-        # options.set_headless(True)
-        # options.add_argument("--headless")  # 设置火狐为headless无界面模式
-        # options.add_argument("--disable-gpu")
-        # driver = webdriver.Firefox(firefox_options=options)
-        # driver.get('http://basic.10jqka.com.cn/603221/news.html')
-        # < a href=" " class="page-link next">下一页</ a>
-        # element = driver.find_element_by_css_selector("[class='page-link next']")
-        # print(element.text)
-        # element.click()
-        # list1 = driver.find_element_by_id("pull_all").find_elements_by_class_name("client")
-        # print(type(list1))
-        # for one_news in list1:
-        #     ss = one_news.get_attribute("href")
-        #     print(ss)
-        # print(news)
-        # driver.close()
-        # print(root3)
-
-        # yield company_news
-
-    # driver_path = r"C:\python\lnuSpider\msedgedriver.exe"
-    # driver = webdriver.Ie(executable_path=driver_path)
-    # driver.get('https://www.baidu.com/')
-    # print(driver.page_source)
 
     def detail_ni1(self, response):
         print("======进入内页======")
         company_news = JqkaNewsItem()
         company_news['news_url'] = response.meta['news_url']
         company_news['url'] = response.meta['url']
+        company_news['news_tag'] = response.meta['news_tag']
+        company_news['news_date'] = response.meta['news_date']
         time.sleep(random.randint(1, 3))
         yield company_news

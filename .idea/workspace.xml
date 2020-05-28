@@ -2,12 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="4月3日 jqka添加了连接redis功能并进行了注释">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/pachong.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/pachong.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/items.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/spiders/jqka_com_detail_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/spiders/jqka_com_detail_spider.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jqka_com_executive_introduction/jqka_com_executive_introduction/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_executive_introduction/jqka_com_executive_introduction/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jqka_com_executive_introduction/jqka_com_executive_introduction/spiders/jqka_com_executive_introduct.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_com_executive_introduction/jqka_com_executive_introduction/spiders/jqka_com_executive_introduct.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jqka_news/jqka_news/items.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_news/jqka_news/items.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/jqka_news/jqka_news/spiders/jqka_news_spider.py" beforeDir="false" afterPath="$PROJECT_DIR$/jqka_news/jqka_news/spiders/jqka_news_spider.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,22 +25,39 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="master" />
+      </map>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="ROOT_SYNC" value="DONT_SYNC" />
+  </component>
+  <component name="GithubDefaultAccount">
+    <option name="defaultAccountId" value="5690cc4e-d33e-4d64-b28b-2fd0b905e808" />
   </component>
   <component name="ProjectId" id="1Zz9hoH2bzmO6B20ZXq6gbL9oZI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
-    <property name="settings.editor.selected.configurable" value="vcs.Git" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../echars" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\python\lnuSpider" />
+      <recent name="C:\python\lnuSpider\jqka_news" />
       <recent name="E:\GithubSpace\pachong\lnuSpider\lnuSpider" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\python\lnuSpider\jqka_Business_analysis" />
       <recent name="C:\python\lnuSpider\lnuSpider\lnuSpider\spiders" />
       <recent name="E:\GithubSpace\pachong\lnuSpider" />
     </key>
@@ -55,8 +74,8 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.start_rie">
-    <configuration name="jqka_co" type="PythonConfigurationType" factoryName="Python" temporary="true">
+  <component name="RunManager" selected="Python.start_es">
+    <configuration name="start_ba" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pachong" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -64,12 +83,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_Business_analysis/jqka_Business_analysis" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders/jqka_co.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_Business_analysis/jqka_Business_analysis/start_ba.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -78,7 +97,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="start (1)" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="start_ei" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pachong" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -86,12 +105,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_lssuance_related" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_com_executive_introduction" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_lssuance_related/start.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_com_executive_introduction/start_ei.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -100,7 +119,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="start_co" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="start_es" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pachong" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -108,12 +127,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_equitystruc" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/start_co.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_equitystruc/start_es.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -144,7 +163,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="start_rie" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="start_news" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="pachong" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -152,12 +171,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/jqka_news" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event/start_rie.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/jqka_news/start_news" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="false" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -168,10 +187,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.start_rie" />
-        <item itemvalue="Python.jqka_co" />
-        <item itemvalue="Python.start_co" />
-        <item itemvalue="Python.start (1)" />
+        <item itemvalue="Python.start_es" />
+        <item itemvalue="Python.start_ba" />
+        <item itemvalue="Python.start_news" />
+        <item itemvalue="Python.start_ei" />
         <item itemvalue="Python.start_jqka_com_detail" />
       </list>
     </recent_temporary>
@@ -230,6 +249,44 @@
       <workItem from="1587729354371" duration="2835000" />
       <workItem from="1588077194674" duration="971000" />
       <workItem from="1588122302216" duration="1475000" />
+      <workItem from="1588172511715" duration="811000" />
+      <workItem from="1588214045108" duration="8661000" />
+      <workItem from="1588294104873" duration="6448000" />
+      <workItem from="1588414420905" duration="1080000" />
+      <workItem from="1588483532229" duration="4854000" />
+      <workItem from="1588557343529" duration="8349000" />
+      <workItem from="1588586666786" duration="2380000" />
+      <workItem from="1588648650244" duration="5110000" />
+      <workItem from="1588682486857" duration="54000" />
+      <workItem from="1588682554995" duration="158000" />
+      <workItem from="1588726371723" duration="12516000" />
+      <workItem from="1588762188127" duration="2048000" />
+      <workItem from="1588769638747" duration="7513000" />
+      <workItem from="1588812868092" duration="2844000" />
+      <workItem from="1588821655702" duration="1877000" />
+      <workItem from="1588903073064" duration="4385000" />
+      <workItem from="1588986208988" duration="3271000" />
+      <workItem from="1589074814571" duration="7345000" />
+      <workItem from="1589106743696" duration="2928000" />
+      <workItem from="1589167238435" duration="2884000" />
+      <workItem from="1589264520987" duration="3245000" />
+      <workItem from="1589525658934" duration="3233000" />
+      <workItem from="1589604964241" duration="1020000" />
+      <workItem from="1589764996890" duration="7273000" />
+      <workItem from="1589855831192" duration="4389000" />
+      <workItem from="1589864669676" duration="2192000" />
+      <workItem from="1589940191857" duration="5972000" />
+      <workItem from="1589946226815" duration="5366000" />
+      <workItem from="1590039539988" duration="1821000" />
+      <workItem from="1590044339454" duration="1279000" />
+      <workItem from="1590063591462" duration="3699000" />
+      <workItem from="1590107187297" duration="8301000" />
+      <workItem from="1590226658791" duration="5104000" />
+      <workItem from="1590304363705" duration="3676000" />
+      <workItem from="1590386497916" duration="1205000" />
+      <workItem from="1590453600329" duration="5975000" />
+      <workItem from="1590543307247" duration="1210000" />
+      <workItem from="1590665660593" duration="1264000" />
     </task>
     <task id="LOCAL-00001" summary="4月2日 更新帮助文档">
       <created>1585832813525</created>
@@ -350,7 +407,98 @@
       <option name="project" value="LOCAL" />
       <updated>1588128117459</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="4.30">
+      <created>1588229815844</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1588229815844</updated>
+    </task>
+    <task id="LOCAL-00019" summary="5.1">
+      <created>1588294159898</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1588294159898</updated>
+    </task>
+    <task id="LOCAL-00020" summary="5.1 新闻公告">
+      <created>1588296148220</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1588296148220</updated>
+    </task>
+    <task id="LOCAL-00021" summary="start 51">
+      <created>1588296269920</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1588296269920</updated>
+    </task>
+    <task id="LOCAL-00022" summary="4月3日 jqka添加了连接redis功能并进行了注释">
+      <created>1588429509477</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1588429509477</updated>
+    </task>
+    <task id="LOCAL-00023" summary="5.2 新闻公告">
+      <created>1588429674620</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1588429674620</updated>
+    </task>
+    <task id="LOCAL-00024" summary="5.6 新闻公告">
+      <created>1588726450074</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1588726450074</updated>
+    </task>
+    <task id="LOCAL-00025" summary="5.8 新闻公告">
+      <created>1588905359813</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1588905359813</updated>
+    </task>
+    <task id="LOCAL-00026" summary="5 10 详细情况">
+      <created>1589084167233</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1589084167233</updated>
+    </task>
+    <task id="LOCAL-00027" summary="4月3日 jqka添加了连接redis功能并进行了注释">
+      <created>1589269709677</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1589269709677</updated>
+    </task>
+    <task id="LOCAL-00028" summary="5.12 公司资料 发行相关">
+      <created>1589269772727</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1589269772727</updated>
+    </task>
+    <task id="LOCAL-00029" summary="5.18 同花顺 经营分析">
+      <created>1589767431569</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1589767431569</updated>
+    </task>
+    <task id="LOCAL-00030" summary="5 23 经营分析">
+      <created>1590232157516</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1590232157516</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -383,8 +531,6 @@
     <ignored-roots>
       <path value="$PROJECT_DIR$/.." />
     </ignored-roots>
-    <MESSAGE value="4月2日 更新帮助文档" />
-    <MESSAGE value="4月3日 jqka添加了连接redis功能并进行了注释" />
     <MESSAGE value="4月3日 添加了同花顺财经类" />
     <MESSAGE value="4月3日 同花顺公司详细情况小project" />
     <MESSAGE value="4月4日 同花顺所有上市公司详细情况代码" />
@@ -398,7 +544,19 @@
     <MESSAGE value="4月23日 上市公司最新动态----公司概要" />
     <MESSAGE value="4月28日 近期重要事件" />
     <MESSAGE value="4月29" />
-    <option name="LAST_COMMIT_MESSAGE" value="4月29" />
+    <MESSAGE value="4.30" />
+    <MESSAGE value="5.1" />
+    <MESSAGE value="5.1 新闻公告" />
+    <MESSAGE value="start 51" />
+    <MESSAGE value="5.2 新闻公告" />
+    <MESSAGE value="5.6 新闻公告" />
+    <MESSAGE value="5.8 新闻公告" />
+    <MESSAGE value="5 10 详细情况" />
+    <MESSAGE value="4月3日 jqka添加了连接redis功能并进行了注释" />
+    <MESSAGE value="5.12 公司资料 发行相关" />
+    <MESSAGE value="5.18 同花顺 经营分析" />
+    <MESSAGE value="5 23 经营分析" />
+    <option name="LAST_COMMIT_MESSAGE" value="5 23 经营分析" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -408,17 +566,31 @@
           <line>41</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/jqka_com_detail/jqka_com_detail/pipelines.py</url>
+          <line>5</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lnuSpider$start_rie.coverage" NAME="start_rie Coverage Results" MODIFIED="1587610347122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka.coverage" NAME="start_jqka Coverage Results" MODIFIED="1587039595236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
     <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_company_detail.coverage" NAME="start_jqka_company_detail Coverage Results" MODIFIED="1585905036328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
     <SUITE FILE_PATH="coverage/lnuSpider$start__1_.coverage" NAME="start (1) Coverage Results" MODIFIED="1587388905054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_lssuance_related" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_ei.coverage" NAME="start_ei Coverage Results" MODIFIED="1587007414358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_executive_introduction" />
     <SUITE FILE_PATH="coverage/lnuSpider$jqka_co.coverage" NAME="jqka_co Coverage Results" MODIFIED="1587608291619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_com_detail.coverage" NAME="start_jqka_com_detail Coverage Results" MODIFIED="1587387198875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_detail" />
+    <SUITE FILE_PATH="coverage/lnuSpider$jqka_Ba.coverage" NAME="jqka_Ba Coverage Results" MODIFIED="1589945472083" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_Business_analysis/jqka_Business_analysis/jqka_Business_analysis/spiders" />
     <SUITE FILE_PATH="coverage/lnuSpider$start_co.coverage" NAME="start_co Coverage Results" MODIFIED="1587446882966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_ba.coverage" NAME="start_ba Coverage Results" MODIFIED="1590231832343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_Business_analysis/jqka_Business_analysis" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start.coverage" NAME="start Coverage Results" MODIFIED="1589269349467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_lssuance_related" />
+    <SUITE FILE_PATH="coverage/lnuSpider$1.coverage" NAME="1 Coverage Results" MODIFIED="1589944092805" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_rie.coverage" NAME="start_rie Coverage Results" MODIFIED="1588230764883" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka.coverage" NAME="start_jqka Coverage Results" MODIFIED="1587039595236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
+    <SUITE FILE_PATH="coverage/lnuSpider$pytest_in_lnuSpider.coverage" NAME="pytest in lnuSpider Coverage Results" MODIFIED="1588727091842" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_es.coverage" NAME="start_es Coverage Results" MODIFIED="1590665675457" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_equitystruc" />
+    <SUITE FILE_PATH="coverage/lnuSpider$.coverage" NAME="草稿本 Coverage Results" MODIFIED="1588774313362" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$USER_HOME$/Desktop" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_ei.coverage" NAME="start_ei Coverage Results" MODIFIED="1590117241113" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_executive_introduction" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_com_detail.coverage" NAME="start_jqka_com_detail Coverage Results" MODIFIED="1590109682854" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_detail" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_jna.coverage" NAME="start_jna Coverage Results" MODIFIED="1588303847969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_news_announcement" />
+    <SUITE FILE_PATH="coverage/lnuSpider$start_news.coverage" NAME="start_news Coverage Results" MODIFIED="1590229221654" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_news" />
   </component>
 </project>

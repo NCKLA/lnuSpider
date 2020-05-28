@@ -32,11 +32,13 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         data = []
         data1 = []
         data2 = []
+        data3 = []
         row_num = 1
         while row_num <= 3:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
+            data3.append(sheet.cell(row=row_num, column=2).value)
             data2.append(row_num)
             row_num = row_num + 1
         for i in data2:
@@ -47,6 +49,8 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
             company_detail['listedCompany_url'] = listedCompany_url
             listedCompany_id = data1[i - 1]
             company_detail['listedCompany_id'] = listedCompany_id
+            listedCompany_name = data3[i - 1]
+            company_detail['listedCompany_name'] = listedCompany_name
             # print(listedCompany_id)
             yield scrapy.Request(company_detail['listedCompany_url'],
                                  meta={'company_detail': company_detail}, callback=self.detail_ni, dont_filter=True)

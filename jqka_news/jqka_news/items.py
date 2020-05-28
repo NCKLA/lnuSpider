@@ -13,4 +13,6 @@ class JqkaNewsItem(scrapy.Item):
     # name = scrapy.Field()
     url = scrapy.Field()
     news_url = scrapy.Field()
+    news_tag = scrapy.Field()
+    news_date = scrapy.Field()
 
