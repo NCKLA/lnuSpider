@@ -14,4 +14,15 @@ class JqkaEquitystrucItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
+
+    listedCompany_shareholderNum_time = scrapy.Field()
+    listedCompany_shareholderNum_totalShareholdersNumber = scrapy.Field()
+    listedCompany_shareholderNum_comparedPreviousPeriodChange = scrapy.Field()
+    listedCompany_shareholderNum_perCapitaCirculatingShares = scrapy.Field()
+    listedCompany_shareholderNum_perCapitaCirculationChanges = scrapy.Field()
+    listedCompany_shareholderNum_industryAverage = scrapy.Field()
+    listedCompany_topTenCurrentShareholders_time = scrapy.Field()
+    listedCompany_topTenCurrentShareholders = scrapy.Field()
+    listedCompany_topTenCurrentShareholders_increaseOrDecrease = scrapy.Field()
+
     pass
