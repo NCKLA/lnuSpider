@@ -1,11 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="和讯新闻文档的">
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+    <list default="true" id="00dccaea-62eb-454a-ba2c-9da4bd58474b" name="Default Changelist" comment="南方财富爬虫帮组文档">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/doc-template/news.html" beforeDir="false" afterPath="$PROJECT_DIR$/doc-template/news.html" afterDir="false" />
     </list>
-    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -25,34 +42,29 @@
   </component>
   <component name="ProjectId" id="1Zz9hoH2bzmO6B20ZXq6gbL9oZI" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
     <property name="DefaultHtmlFileTemplate" value="HTML File" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../hexun" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../scrapy_demo/caijingwangyc" />
     <property name="settings.editor.selected.configurable" value="vcs.Git" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="D:\python_project\lnuSpider" />
+      <recent name="E:\GithubSpace\pachong\lnuSpider\lnuSpider" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="D:\PythonProject\lnuSpider\doc-template\documentNews" />
       <recent name="C:\python\lnuSpider\lnuSpider\lnuSpider\spiders" />
       <recent name="E:\GithubSpace\pachong\lnuSpider" />
     </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="E:\GithubSpace\pachong\lnuSpider\lnuSpider" />
-    </key>
-  </component>
-  <component name="RunDashboard">
-    <option name="ruleStates">
-      <list>
-        <RuleState>
-          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
-        </RuleState>
-        <RuleState>
-          <option name="name" value="StatusDashboardGroupingRule" />
-        </RuleState>
-      </list>
-    </option>
   </component>
   <component name="RunManager" selected="Python.start_rie">
     <configuration name="jqka_co" type="PythonConfigurationType" factoryName="Python" temporary="true">
@@ -363,7 +375,42 @@
       <option name="project" value="LOCAL" />
       <updated>1589433959002</updated>
     </task>
-    <option name="localTasksCounter" value="20" />
+    <task id="LOCAL-00020" summary="南方财富网帮助文档">
+      <created>1590071640000</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1590071640000</updated>
+    </task>
+    <task id="LOCAL-00021" summary="财经网爬虫">
+      <created>1590071883657</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1590071883657</updated>
+    </task>
+    <task id="LOCAL-00022" summary="南方财富爬虫帮组文档">
+      <created>1590115343180</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1590115343180</updated>
+    </task>
+    <task id="LOCAL-00023" summary="南方财富爬虫帮组文档">
+      <created>1590115695114</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1590115695114</updated>
+    </task>
+    <task id="LOCAL-00024" summary="南方财富爬虫帮组文档">
+      <created>1590673415991</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1590673415991</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -384,13 +431,12 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="COLUMN_ORDER" />
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
+    <option name="oldMeFiltersMigrated" value="true" />
   </component>
   <component name="VcsManagerConfiguration">
     <ignored-roots>
@@ -412,7 +458,24 @@
     <MESSAGE value="4月29" />
     <MESSAGE value="4月3日 jqka添加了连接redis功能并进行了注释" />
     <MESSAGE value="和讯独家相关数据说明" />
-    <option name="LAST_COMMIT_MESSAGE" value="和讯独家相关数据说明" />
+    <MESSAGE value="南方财富网帮助文档" />
+    <MESSAGE value="财经网爬虫" />
+    <MESSAGE value="南方财富爬虫帮组文档" />
+    <option name="LAST_COMMIT_MESSAGE" value="南方财富爬虫帮组文档" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="549" y="167" key="FileChooserDialogImpl" timestamp="1591251949828">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="549" y="167" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1591251949828" />
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2" timestamp="1590673475561">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="361" y="145" key="Vcs.Push.Dialog.v2/0.0.1536.824@0.0.1536.824" timestamp="1590673475561" />
+    <state x="480" y="199" key="git4idea.merge.GitPullDialog" timestamp="1591183664823">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="480" y="199" key="git4idea.merge.GitPullDialog/0.0.1536.824@0.0.1536.824" timestamp="1591183664823" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -422,17 +485,12 @@
           <line>41</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/hexun/hexun/spiders/hexunspider.py</url>
+          <line>1</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
-  </component>
-  <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/lnuSpider$start_rie.coverage" NAME="start_rie Coverage Results" MODIFIED="1587610347122" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_Ri_event" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka.coverage" NAME="start_jqka Coverage Results" MODIFIED="1587039595236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_company_detail.coverage" NAME="start_jqka_company_detail Coverage Results" MODIFIED="1585905036328" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/lnuSpider" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start__1_.coverage" NAME="start (1) Coverage Results" MODIFIED="1587388905054" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_lssuance_related" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_ei.coverage" NAME="start_ei Coverage Results" MODIFIED="1587007414358" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_executive_introduction" />
-    <SUITE FILE_PATH="coverage/lnuSpider$jqka_co.coverage" NAME="jqka_co Coverage Results" MODIFIED="1587608291619" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview/jqka_com_overview/spiders" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_jqka_com_detail.coverage" NAME="start_jqka_com_detail Coverage Results" MODIFIED="1587387198875" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_com_detail" />
-    <SUITE FILE_PATH="coverage/lnuSpider$start_co.coverage" NAME="start_co Coverage Results" MODIFIED="1587446882966" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/jqka_latest_news/jqka_com_overview" />
   </component>
 </project>
