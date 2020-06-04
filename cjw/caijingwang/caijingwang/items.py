@@ -8,8 +8,10 @@
 import scrapy
 
 
-class CjwItem(scrapy.Item):
+class CaijingwangItem(scrapy.Item):
+    url = scrapy.Field()
     title = scrapy.Field()
     source = scrapy.Field()
     date = scrapy.Field()
     article = scrapy.Field()
+    editor = scrapy.Field()
