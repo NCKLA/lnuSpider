@@ -147,6 +147,7 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         print("=====准备打印详细情况中的第二部分信息中的第二部分====")
         company_content2_2 = list()
         single1 = dict()
+        
         if company_comments.xpath("//tr[5]//td[1]/span/a"):
             single1['listedCompany_enterpriseInfor_detailInfor_chairman'] = company_comments.xpath(
                 "//tr[5]//td[1]/span/a/text()").get()
