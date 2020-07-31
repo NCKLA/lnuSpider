@@ -141,7 +141,6 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
             single['listedCompany_enterpriseInfor_detailInfor_ultimateController']='-'
 
         company_content2_1.append(single)
-
         # print("子页面，打印这个字典=="+str(single))
         company_detail['company_content2_1'] = company_content2_1
 
