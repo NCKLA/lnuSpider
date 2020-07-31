@@ -4,6 +4,8 @@
 #
 # See documentation in:
 # https://docs.scrapy.org/en/latest/topics/spider-middleware.html
+import random
+
 from scrapy import signals
 from selenium.webdriver import Firefox
 from selenium.webdriver.common.by import By
@@ -15,6 +17,14 @@ from selenium import webdriver
 from scrapy.http.response.html import HtmlResponse
 from scrapy.http.response import Response
 import time
+from jqka_com_detail.settings import USER_AGENT_LIST
+
+
+class RandomUserAgentMiddleware(object):
+    def process_request(self, request, spider):
+        rand_use = random.choice(USER_AGENT_LIST)
+        if rand_use:
+            request.headers.setdefault('User-Agent', rand_use)
 
 
 class JqkaComDetailSpiderMiddleware(object):
