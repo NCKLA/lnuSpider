@@ -132,7 +132,7 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         else:
             single['listedCompany_enterpriseInfor_detailInfor_actualController']='-'
 
-            # 最终控制人
+        # 最终控制人
         if company_comments.xpath("//tr[4]//span/text()"):
             listedCompany_enterpriseInfor_detailInfor_ultimateController = company_comments.xpath("//tr[4]//span/text()")[0].extract()
             single['listedCompany_enterpriseInfor_detailInfor_ultimateController'] = \
