@@ -132,7 +132,7 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
         else:
             single['listedCompany_enterpriseInfor_detailInfor_actualController']='-'
 
-            # 最终控制人
+        # 最终控制人
         if company_comments.xpath("//tr[4]//span/text()"):
             listedCompany_enterpriseInfor_detailInfor_ultimateController = company_comments.xpath("//tr[4]//span/text()")[0].extract()
             single['listedCompany_enterpriseInfor_detailInfor_ultimateController'] = \
@@ -141,30 +141,28 @@ class JqkaComDetailSpiderSpider(scrapy.Spider):
             single['listedCompany_enterpriseInfor_detailInfor_ultimateController']='-'
 
         company_content2_1.append(single)
-
         # print("子页面，打印这个字典=="+str(single))
         company_detail['company_content2_1'] = company_content2_1
 
         print("=====准备打印详细情况中的第二部分信息中的第二部分====")
         company_content2_2 = list()
         single1 = dict()
-        if company_comments.xpath("//tr[5]//td[1]//span/a"):
-            listedCompany_enterpriseInfor_detailInfor_chairman = company_comments.xpath("//tr[5]//table[@class='m_table ggintro']//h3/text()")[0].extract()
-
-            single1['listedCompany_enterpriseInfor_detailInfor_chairman'] = "".join(listedCompany_enterpriseInfor_detailInfor_chairman).strip()
+        
+        if company_comments.xpath("//tr[5]//td[1]/span/a"):
+            single1['listedCompany_enterpriseInfor_detailInfor_chairman'] = company_comments.xpath(
+                "//tr[5]//td[1]/span/a/text()").get()
         else:
-            single1['listedCompany_enterpriseInfor_detailInfor_chairman']='-'
+            single1['listedCompany_enterpriseInfor_detailInfor_chairman'] = '-'
 
-        if company_comments.xpath("//tr[5]//td[2]//span/a"):
-            listedCompany_enterpriseInfor_detailInfor_chairmanSecretary = company_comments.xpath("//tr[5]//table[@class='m_table ggintro']//h3/text()")[1].extract()
-            single1['listedCompany_enterpriseInfor_detailInfor_chairmanSecretary'] = "".join(listedCompany_enterpriseInfor_detailInfor_chairmanSecretary).strip()
+        if company_comments.xpath("//tr[5]//td[2]/span/a"):
+            single1['listedCompany_enterpriseInfor_detailInfor_chairmanSecretary'] = company_comments.xpath(
+                "//tr[5]//td[2]/span/a/text()").get()
         else:
             single1['listedCompany_enterpriseInfor_detailInfor_chairmanSecretary'] = '-'
 
-        if company_comments.xpath("//tr[5]//td[3]//span/a"):
-            listedCompany_enterpriseInfor_detailInfor_legalRepresentative = company_comments.xpath("//tr[5]//table[@class='m_table ggintro']//h3/text()")[
-                2].extract()
-            single1['listedCompany_enterpriseInfor_detailInfor_legalRepresentative'] = "".join(listedCompany_enterpriseInfor_detailInfor_legalRepresentative).strip()
+        if company_comments.xpath("//tr[5]//td[3]/span/a"):
+            single1['listedCompany_enterpriseInfor_detailInfor_legalRepresentative'] = company_comments.xpath(
+                "//tr[5]//td[3]/span/a/text()").get()
         else:
             single1['listedCompany_enterpriseInfor_detailInfor_legalRepresentative'] = '-'
 
