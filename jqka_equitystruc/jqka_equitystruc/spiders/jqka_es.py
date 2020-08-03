@@ -34,7 +34,7 @@ class JqkaEsSpider(scrapy.Spider):
         data2 = []
         data3 = []
         row_num = 1
-        while row_num <= 5:
+        while row_num <= 1:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
@@ -45,7 +45,7 @@ class JqkaEsSpider(scrapy.Spider):
             # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
             # print(data[i-1])
             listedCompany_url = 'http://basic.10jqka.com.cn/' + data[i - 1] + '/holder.html'
-            company_es= JqkaEquitystrucItem()
+            company_es = JqkaEquitystrucItem()
             company_es['listedCompany_url'] = listedCompany_url
             listedCompany_id = data1[i - 1]
             company_es['listedCompany_id'] = listedCompany_id
@@ -66,31 +66,76 @@ class JqkaEsSpider(scrapy.Spider):
     def detail_ni(self, response):
         company_es = response.meta['company_es']
         # root = response.xpath(".//div[@id='gdrsTable'][@class='holernumcomp gdrs_table']//div[@class='table_data']")
+        item = response.xpath("//div[@id='bd_0']/div[1]/ul/li")
+        # print(item)
+        listedCompany_shareholderResearch_topTenShareholders = list()
+        list1 = list()
+        # print(len(itm))
+        for x in range(len(item)):
+            list0 = list()
+            x = x + 1
+            print(x)
+            root2 = response.xpath("//div[@id='bd_0']/div[{}]/table".format(x+1))
+            root3 = root2.xpath("./tbody/tr")
+            for rot3 in root3:
+                single=dict()
+
+                listedCompany_shareholderResearch_topTenShareholders_shareholderName = rot3.xpath("./th/a/text()").getall()
+                listedCompany_shareholderResearch_topTenShareholders_shareholderName = ''.join(listedCompany_shareholderResearch_topTenShareholders_shareholderName).strip()
+                single['listedCompany_shareholderResearch_topTenShareholders_shareholderName'] = listedCompany_shareholderResearch_topTenShareholders_shareholderName
+
+                listedCompany_shareholderResearch_topTenShareholders_shareType = rot3.xpath("./td[5]/text()").getall()
+                listedCompany_shareholderResearch_topTenShareholders_shareType = ''.join(
+                    listedCompany_shareholderResearch_topTenShareholders_shareType).strip()
+                single['listedCompany_shareholderResearch_topTenShareholders_shareType'] = listedCompany_shareholderResearch_topTenShareholders_shareType
+
+                listedCompany_shareholderResearch_topTenShareholders_sharesHoldNumber = rot3.xpath("./td[1]/text()").getall()
+                listedCompany_shareholderResearch_topTenShareholders_sharesHoldNumber = ''.join(
+                    listedCompany_shareholderResearch_topTenShareholders_sharesHoldNumber).strip()
+                single['listedCompany_shareholderResearch_topTenShareholders_sharesHoldNumber'] = listedCompany_shareholderResearch_topTenShareholders_sharesHoldNumber
+
+                listedCompany_shareholderResearch_topTenShareholders_shareHoldingChange = rot3.xpath("./td[2]/text()").getall()
+                listedCompany_shareholderResearch_topTenShareholders_shareHoldingChange = ''.join(
+                    listedCompany_shareholderResearch_topTenShareholders_shareHoldingChange).strip()
+                single['listedCompany_shareholderResearch_topTenShareholders_shareHoldingChange'] = listedCompany_shareholderResearch_topTenShareholders_shareHoldingChange
+
+                listedCompany_shareholderResearch_topTenShareholders_totalEquityProportion = rot3.xpath("./td[3]/text()").getall()
+                listedCompany_shareholderResearch_topTenShareholders_totalEquityProportion = ''.join(
+                    listedCompany_shareholderResearch_topTenShareholders_totalEquityProportion).strip()
+                single['listedCompany_shareholderResearch_topTenShareholders_totalEquityProportion'] = listedCompany_shareholderResearch_topTenShareholders_totalEquityProportion
+
+                listedCompany_shareholderResearch_topTenShareholders_increaseOrDecrease = rot3.xpath("./td[4]/text()").getall()
+                listedCompany_shareholderResearch_topTenShareholders_increaseOrDecrease = ''.join(
+                    listedCompany_shareholderResearch_topTenShareholders_increaseOrDecrease).strip()
+                single['listedCompany_shareholderResearch_topTenShareholders_increaseOrDecrease'] = listedCompany_shareholderResearch_topTenShareholders_increaseOrDecrease
+                list0.append(single)
+            list1.append(list0)
+        listedCompany_shareholderResearch_topTenShareholders.append(list1)
+        company_es[
+            'listedCompany_shareholderResearch_topTenShareholders'] = listedCompany_shareholderResearch_topTenShareholders
+        # print(list2)
+
         root = response.xpath("//div[@class='content page_event_content']//div[@id='gdrsTable'][@class='holernumcomp gdrs_table']")
         # print(root)
         root1 = root.xpath("./div[@class='scroll_container']/div[@class='table_data']/div[@class='data_tbody']")
         itm = root1.xpath("./table[@class='top_thead']/tr/th")
-        # print(len(itm))
-        #         # for x in range(len(itm)):
-        #         #     x = x+1
-        #         #     print(x)
-        #         #     listedCompany_shareholderNum_time = root1.xpath("./table[@class='top_thead']/tr[1]/th[x]/div/text()").getall()
-        #         #     listedCompany_shareholderNum_time = ''.join(listedCompany_shareholderNum_time).strip()
-        #         #     print(listedCompany_shareholderNum_time)
-        listedCompany_shareholderNum_time = list()
+        listedCompany_shareholderResearch_shareholderNum_time = list()
         for itm1 in itm:
-            listedCompany_shareholderNum_tim = itm1.xpath("./div/text()").getall()
-            listedCompany_shareholderNum_tim = ''.join(listedCompany_shareholderNum_tim).strip()
-            listedCompany_shareholderNum_time.append(listedCompany_shareholderNum_tim)
-        company_es['listedCompany_shareholderNum_time'] = listedCompany_shareholderNum_time
+            listedCompany_shareholderResearch_shareholderNum_tim = itm1.xpath("./div/text()").getall()
+            listedCompany_shareholderResearch_shareholderNum_tim = ''.join(listedCompany_shareholderResearch_shareholderNum_tim).strip()
+            listedCompany_shareholderResearch_shareholderNum_time.append(listedCompany_shareholderResearch_shareholderNum_tim)
+        company_es['listedCompany_shareholderResearch_shareholderNum_time'] = listedCompany_shareholderResearch_shareholderNum_time
 
         listedCompany_shareholderNum_totalShareholdersNumber = list()
         root2 = root1.xpath("./table[@class='tbody']/tr[1]/td")
         for root3 in root2:
             listedCompany_shareholderNum_totalShareholdersNumbe = root3.xpath("./div/text()").getall()
-            listedCompany_shareholderNum_totalShareholdersNumbe = ''.join(listedCompany_shareholderNum_totalShareholdersNumbe).strip()
-            listedCompany_shareholderNum_totalShareholdersNumber.append(listedCompany_shareholderNum_totalShareholdersNumbe)
-        company_es['listedCompany_shareholderNum_totalShareholdersNumber'] = listedCompany_shareholderNum_totalShareholdersNumber
+            listedCompany_shareholderNum_totalShareholdersNumbe = ''.join(
+                listedCompany_shareholderNum_totalShareholdersNumbe).strip()
+            listedCompany_shareholderNum_totalShareholdersNumber.append(
+                listedCompany_shareholderNum_totalShareholdersNumbe)
+        company_es[
+            'listedCompany_shareholderNum_totalShareholdersNumber'] = listedCompany_shareholderNum_totalShareholdersNumber
 
         listedCompany_shareholderNum_comparedPreviousPeriodChange = list()
         root2 = root1.xpath("./table[@class='tbody']/tr[2]/td")
@@ -98,24 +143,32 @@ class JqkaEsSpider(scrapy.Spider):
             listedCompany_shareholderNum_comparedPreviousPeriodChang = root3.xpath("./span/text()").getall()
             listedCompany_shareholderNum_comparedPreviousPeriodChang = ''.join(
                 listedCompany_shareholderNum_comparedPreviousPeriodChang).strip()
-            listedCompany_shareholderNum_comparedPreviousPeriodChange.append(listedCompany_shareholderNum_comparedPreviousPeriodChang)
-        company_es['listedCompany_shareholderNum_comparedPreviousPeriodChange'] = listedCompany_shareholderNum_comparedPreviousPeriodChange
+            listedCompany_shareholderNum_comparedPreviousPeriodChange.append(
+                listedCompany_shareholderNum_comparedPreviousPeriodChang)
+        company_es[
+            'listedCompany_shareholderNum_comparedPreviousPeriodChange'] = listedCompany_shareholderNum_comparedPreviousPeriodChange
 
         listedCompany_shareholderNum_perCapitaCirculatingShares = list()
         root2 = root1.xpath("./table[@class='tbody']/tr[3]/td")
         for root3 in root2:
             listedCompany_shareholderNum_perCapitaCirculatingShare = root3.xpath("./text()").getall()
-            listedCompany_shareholderNum_perCapitaCirculatingShare = ''.join(listedCompany_shareholderNum_perCapitaCirculatingShare).strip()
-            listedCompany_shareholderNum_perCapitaCirculatingShares.append(listedCompany_shareholderNum_perCapitaCirculatingShare)
-        company_es['listedCompany_shareholderNum_perCapitaCirculatingShares'] = listedCompany_shareholderNum_perCapitaCirculatingShares
+            listedCompany_shareholderNum_perCapitaCirculatingShare = ''.join(
+                listedCompany_shareholderNum_perCapitaCirculatingShare).strip()
+            listedCompany_shareholderNum_perCapitaCirculatingShares.append(
+                listedCompany_shareholderNum_perCapitaCirculatingShare)
+        company_es[
+            'listedCompany_shareholderNum_perCapitaCirculatingShares'] = listedCompany_shareholderNum_perCapitaCirculatingShares
 
         listedCompany_shareholderNum_perCapitaCirculationChanges = list()
         root2 = root1.xpath("./table[@class='tbody']/tr[4]/td")
         for root3 in root2:
             listedCompany_shareholderNum_perCapitaCirculationChange = root3.xpath("./span/text()").getall()
-            listedCompany_shareholderNum_perCapitaCirculationChange = ''.join(listedCompany_shareholderNum_perCapitaCirculationChange).strip()
-            listedCompany_shareholderNum_perCapitaCirculationChanges.append(listedCompany_shareholderNum_perCapitaCirculationChange)
-        company_es['listedCompany_shareholderNum_perCapitaCirculationChanges'] = listedCompany_shareholderNum_perCapitaCirculationChanges
+            listedCompany_shareholderNum_perCapitaCirculationChange = ''.join(
+                listedCompany_shareholderNum_perCapitaCirculationChange).strip()
+            listedCompany_shareholderNum_perCapitaCirculationChanges.append(
+                listedCompany_shareholderNum_perCapitaCirculationChange)
+        company_es[
+            'listedCompany_shareholderNum_perCapitaCirculationChanges'] = listedCompany_shareholderNum_perCapitaCirculationChanges
 
         listedCompany_shareholderNum_industryAverage = list()
         root2 = root1.xpath("./table[@class='tbody']/tr[5]/td")
@@ -125,7 +178,10 @@ class JqkaEsSpider(scrapy.Spider):
             listedCompany_shareholderNum_industryAverage.append(listedCompany_shareholderNum_industryAverag)
         company_es['listedCompany_shareholderNum_industryAverage'] = listedCompany_shareholderNum_industryAverage
 
-        root_1 = response.xpath("//div[@class='content page_event_content']//div[@id='flowholder'][@class='m_box hold_detail z100 gssj_scroll gssj_scroll1']")
+
+
+        root_1 = response.xpath(
+            "//div[@class='content page_event_content']//div[@id='flowholder'][@class='m_box hold_detail z100 gssj_scroll gssj_scroll1']")
         root_11 = root_1.xpath("//div[@id='bd_1']/div[@class='m_tab mt15']/ul/li")
         listedCompany_topTenCurrentShareholders_time = list()
         for root_111 in root_11:
@@ -151,12 +207,12 @@ class JqkaEsSpider(scrapy.Spider):
             listedCompany_topTenCurrentShareholders.append(single5)
         company_es['listedCompany_topTenCurrentShareholders'] = listedCompany_topTenCurrentShareholders
 
-        listedCompany_topTenCurrentShareholders_increaseOrDecrease = root_1.xpath("//div[@id='bd_1']/div[@class='m_tab_content2 clearfix']/table/caption//text()").getall()
-        listedCompany_topTenCurrentShareholders_increaseOrDecrease = "".join(listedCompany_topTenCurrentShareholders_increaseOrDecrease).strip().replace('\t', '')
-        company_es['listedCompany_topTenCurrentShareholders_increaseOrDecrease'] = listedCompany_topTenCurrentShareholders_increaseOrDecrease
-
-
-
+        listedCompany_topTenCurrentShareholders_increaseOrDecrease = root_1.xpath(
+            "//div[@id='bd_1']/div[@class='m_tab_content2 clearfix']/table/caption//text()").getall()
+        listedCompany_topTenCurrentShareholders_increaseOrDecrease = "".join(
+            listedCompany_topTenCurrentShareholders_increaseOrDecrease).strip().replace('\t', '')
+        company_es[
+            'listedCompany_topTenCurrentShareholders_increaseOrDecrease'] = listedCompany_topTenCurrentShareholders_increaseOrDecrease
 
         # # pandas读取表格
         # res_elements = etree.HTML(response.text)

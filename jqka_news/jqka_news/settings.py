@@ -68,6 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
    'jqka_news.pipelines.JqkaNewsPipeline': 300,
 }
+FILES_STORE = './/PDF文件//'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

@@ -179,9 +179,19 @@ class JqkaNewsSpiderSpider(scrapy.Spider):
     def detail_ni1(self, response):
         print("======进入内页======")
         company_news = JqkaNewsItem()
-        company_news['news_url'] = response.meta['news_url']
+        company_news['news_url0'] = response.meta['news_url']
+        print(company_news['news_url0'])
         company_news['url'] = response.meta['url']
         company_news['news_tag'] = response.meta['news_tag']
         company_news['news_date'] = response.meta['news_date']
         time.sleep(random.randint(1, 3))
+        yield scrapy.Request(company_news['news_url0'],
+                             meta={'company_news': company_news}, callback=self.detail_ni2, dont_filter=True)
+
+    def detail_ni2(self, response):
+        company_news = response.meta['company_news']
+        print("======进入下载页======")
+        news_url = response.xpath("//div[@id='defaultView']/div[2]/a/@href").getall()
+        news_url = ''.join(news_url).strip()
+        company_news['news_url'] = news_url
         yield company_news

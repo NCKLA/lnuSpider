@@ -4,6 +4,7 @@ import random
 import re
 
 from jqka_com_overview.items import JqkaComOverviewItem
+from pandas._libs import json
 from scrapy import item
 from scrapy.http import Request
 # 获取excel需要引入的包
@@ -14,9 +15,6 @@ import scrapy
 
 
 class JqkaCoSpider(scrapy.Spider):
-    def __init__(self):
-        self.driver = webdriver.PhantomJS(executable_path=r'C:\Users\10359\local\bin\phantomjs.exe')
-        self.driver.set_page_load_timeout(40)
 
     name = 'jqka_co'
     allowed_domains = ["basic.10.jqka.com"]
@@ -30,67 +28,106 @@ class JqkaCoSpider(scrapy.Spider):
         book = load_workbook(filename=r"C:\python\lnuSpider\data\exel\com_list.xlsx")
         sheet = book.active
         data = []
+        data1 = []
+        data2 = []
+        data3 = []
         row_num = 1
-        while row_num <= 1:
+        while row_num <= 3:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
+            data1.append(sheet.cell(row=row_num, column=1).value)
+            data3.append(sheet.cell(row=row_num, column=2).value)
+            data2.append(row_num)
             row_num = row_num + 1
-        for i in data:
+        for i in data2:
+            # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
+            # print(data[i-1])
+            listedCompany_url = 'http://basic.10jqka.com.cn/' + data[i - 1] + '/index.html'
+            url = 'http://basic.10jqka.com.cn/mapp/' + data[i - 1] + '/a_stock_foucs.json'
             company_co = JqkaComOverviewItem()
-            url = 'http://basic.10jqka.com.cn/%s' % i + '/index.html'
-            company_co['url'] = url
-            # print(response.text)
-            yield scrapy.Request(company_co['url'],
-                                 meta={'company_co': company_co}, callback=self.detail_ni, dont_filter=True)
+            company_co['listedCompany_url'] = listedCompany_url
+            listedCompany_id = data1[i - 1]
+            company_co['listedCompany_id'] = listedCompany_id
+            listedCompany_name = data3[i - 1]
+            company_co['listedCompany_name'] = listedCompany_name
+            # print(listedCompany_id)
+            yield scrapy.Request(company_co['listedCompany_url'],
+                                 meta={'company_co': company_co, "url": url}, callback=self.detail_ni, dont_filter=True)
         return
 
     def detail_ni(self, response):
         company_co = response.meta['company_co']
+        url = response.meta['url']
+        # #============公司概要==============
+        root = response.xpath("//div[@class='content page_event_content']/div[@id='profile']/div[@class='bd']/table[1]")
+        root1 = root.xpath("./tbody/tr[1]/td[1]/span[2]/text()").getall()
+        listedCompany_latestNews_comBrief_comHighlights = ''.join(root1).strip()
+        company_co['listedCompany_latestNews_comBrief_comHighlights'] = listedCompany_latestNews_comBrief_comHighlights
+        #
+        # root2 = root.xpath("./tbody/tr[1]/td[2]/span[2]/text()").getall()
+        # listedCompany_latestNews_comBrief_comPopularityRanking = ''.join(root2).strip()
+        # company_co['listedCompany_latestNews_comBrief_comPopularityRanking'] = listedCompany_latestNews_comBrief_comPopularityRanking
+        #
+        # root3 = root.xpath("./tbody/tr[1]/td[2]/span[4]/text()").getall()
+        # listedCompany_latestNews_comBrief_industryPopularityRanking = ''.join(root3).strip()
+        # company_co['listedCompany_latestNews_comBrief_industryPopularityRanking'] = listedCompany_latestNews_comBrief_industryPopularityRanking
+        #
+        root4 = root.xpath("./tbody/tr[2]/td[1]/span[2]/a/text()").getall()
+        listedCompany_latestNews_comBrief_mainBusiness = ''.join(root4).strip()
+        company_co['listedCompany_latestNews_comBrief_mainBusiness'] = listedCompany_latestNews_comBrief_mainBusiness
+        #
+        root5 = root.xpath("./tbody/tr[2]/td[2]/span[2]/text()").getall()
+        listedCompany_latestNews_comBrief_shenwanIndustry = ''.join(root5).strip()
+        company_co['listedCompany_latestNews_comBrief_shenwanIndustry'] = listedCompany_latestNews_comBrief_shenwanIndustry
+        #
+        # root2 = root.xpath("./tbody/tr[2]/td[1]/span[2]/a/text()").getall()
+        # print(root2)
+        # root3 = root.xpath("./tbody/tr[2]/td[2]/span[2]/text()").getall()
+        # print(root3)
+        #
+        # root3 = root.xpath("./tbody/tr[3]/td/div[2]/a")
+        # list1 = list()
+        # for rot in root3:
+        #     cont = rot.xpath("./text()").getall()
+        #     # print(cont)
+        #     list1.append(cont)
+        # print(list1)
+        #
+        # root = response.xpath("//div[@class='content page_event_content']/div[@id='profile']/div[@class='bd']/table[2]")
+        # root1 = root.xpath("./tbody/tr[1]/td[1]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[1]/td[2]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[1]/td[3]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[1]/td[4]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[2]/td[1]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[2]/td[2]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[2]/td[3]/span[2]/text()").getall()
+        # print(root1)
+        # root1 = root.xpath("./tbody/tr[2]/td[4]/span[2]/text()").getall()
+        # print(root1)
+        yield scrapy.Request(url=url, meta={'company_co': company_co}, callback=self.detail_parse, dont_filter=True)
 
-        content1 = response.xpath("//div[@class='m_box event new_msg z102']"
-                                  "[@id='profile']//table"
-                                  "[@class='m_table m_table_db']/tbody/tr[1]")
+    def detail_parse(self, response):
+        company_co = response.meta['company_co']
+        art1 = response.text
+        art = json.loads(art1)
+        # 转换成字典形式
+        company_co['listedCompany_latestNews_comBrief_comPopularityRanking'] = art['data']['all_rank']
+        # print(art)
+        # print(type(art))
+        # print(art['data']['all_rank'])
+        company_co['listedCompany_latestNews_comBrief_industryPopularityRanking'] = art['data']['industry_rank']
+        # 获取其中的标签
+        # print(art['data']['industry_rank'])
+        # all_rank=art['data'][0]['all_rank']
+        # print(all_rank)
 
-        content11 = content1.xpath("./td[1]/span/a/text()").getall()
-        print(content11)
-        content12 = content1.xpath("./td[2]/span[2]/text()").getall()
-        print(content12)
+        # 截取之后的
 
-        content2 = response.xpath("//div[@class='m_box event new_msg z102']"
-                                  "[@id='profile']//table"
-                                  "[@class='m_table m_table_db mt10']/tbody/tr[1]")
-        content21 = content2.xpath("./td[1]/span/text()").getall()
-        content21 = "".join(content21).strip()
-        print(content21)
-        content22 = content2.xpath("./td[2]/span/text()").getall()
-        content22 = "".join(content22).strip()
-        print(content22)
-        content23 = content2.xpath("./td[3]/span/text()").getall()
-        content23 = "".join(content23).strip()
-        print(content23)
-        content24 = content2.xpath("./td[4]/span[2]/text()").getall()
-        content24 = "".join(content24).strip().replace(' ', '')
-        print(content24)
-
-        content2 = response.xpath("//div[@class='m_box event new_msg z102']"
-                                  "[@id='profile']//table"
-                                  "[@class='m_table m_table_db mt10']/tbody/tr[2]/td")
-        for content_2 in content2:
-            content_22 = content_2.xpath("./span/text()").getall()
-            content_22 = "".join(content_22).strip().replace(' ', '')
-            print(content_22)
-
-        content3 = response.xpath("//div[@class='m_box event new_msg z102']"
-                                  "[@id='profile']//table"
-                                  "[@class='m_table m_table_db mt10']/tbody/tr[3]/td")
-        for content_3 in content3:
-            content_33 = content_3.xpath("./span/text()").getall()
-            content_33 = "".join(content_33).strip().replace(' ', '')
-            print(content_33)
-
-
-
-
-
-        time.sleep(random.randint(1, 4))
         yield company_co
+

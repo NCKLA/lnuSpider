@@ -12,3 +12,11 @@ class JqkaComOverviewItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     url = scrapy.Field()
+    listedCompany_url = scrapy.Field()
+    listedCompany_id = scrapy.Field()
+    listedCompany_name = scrapy.Field()
+    listedCompany_latestNews_comBrief_comHighlights = scrapy.Field()
+    listedCompany_latestNews_comBrief_comPopularityRanking = scrapy.Field()
+    listedCompany_latestNews_comBrief_industryPopularityRanking = scrapy.Field()
+    listedCompany_latestNews_comBrief_mainBusiness = scrapy.Field()
+    listedCompany_latestNews_comBrief_shenwanIndustry = scrapy.Field()
