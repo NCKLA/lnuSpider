@@ -5,7 +5,6 @@ from scrapy.http import Request
 from openpyxl import load_workbook
 import time
 import random
-from selenium import webdriver
 
 
 class JqkaSvzlSpiderSpider(scrapy.Spider):
@@ -13,7 +12,7 @@ class JqkaSvzlSpiderSpider(scrapy.Spider):
     allowed_domains = ['http://basic.10jqka.com.cn/603290/position.html']
 
     def start_requests(self):
-        yield Request("http://basic.10jqka.com.cn/603221/holder.html", headers={
+        yield Request("http://basic.10jqka.com.cn/603290/position.html", headers={
             'User-Agent': "Mozilla/5.0 (Windows NT 6.1; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/55.0.2883.87 Safari/537.36"})
 
     def parse(self, response):
@@ -24,7 +23,7 @@ class JqkaSvzlSpiderSpider(scrapy.Spider):
         data2 = []
         data3 = []
         row_num = 1
-        while row_num <= 1:
+        while row_num <= 3815:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
@@ -32,51 +31,98 @@ class JqkaSvzlSpiderSpider(scrapy.Spider):
             data2.append(row_num)
             row_num = row_num + 1
         for i in data2:
-            # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
-            # print(data[i-1])
-            listedCompany_url = 'http://basic.10jqka.com.cn/' + data[i - 1] + '/position.html'
+            a = str(data[i - 1])
+            listedCompany_url = 'http://basic.10jqka.com.cn/' + a + '/position.html'
             company_svzl= JqkaSvzlItem()
             company_svzl['listedCompany_url'] = listedCompany_url
             listedCompany_id = data1[i - 1]
             company_svzl['listedCompany_id'] = listedCompany_id
             listedCompany_name = data3[i - 1]
             company_svzl['listedCompany_name'] = listedCompany_name
-            yield scrapy.Request(company_svzl['listedCompany_url'],
-                                 meta={'company_svzl': company_svzl}, callback=self.detail_ni, dont_filter=True)
-        return
+            yield scrapy.Request(company_svzl['listedCompany_url'],meta={'company_svzl': company_svzl}, callback=self.detail_ni, dont_filter=True)
+
 
     def detail_ni(self, response):
-
+        # 获得相应公司对应的公司信息
         company_svzl = response.meta['company_svzl']
+        item = JqkaSvzlItem()
 
-        options = webdriver.FirefoxOptions()
-        options.add_argument("--headless")  # 设置火狐为headless无界面模式
-        options.add_argument("--disable-gpu")
-
-        driver_path = r"D:\project\geckodriver.exe"
-        driver = webdriver.Firefox(executable_path=driver_path, firefox_options=options)
-        driver.get(company_svzl['listedCompany_url'])
+        # 公司信息
+        item['listedCompany_id'] = company_svzl['listedCompany_id']
+        item['listedCompany_name'] = company_svzl['listedCompany_name']
+        item['listedCompany_url'] = company_svzl['listedCompany_url']
 
 
-        # c = driver.find_element_by_xpath("//div[@class='m_dlbox'][@id='pull_all']")
-        # print(c.get_attribute('innerHTML'))
-        # root1 = driver.find_elements_by_xpath("//div[@id='ipoallot']//table/tbody/tr")
-        # table = driver.find_elements_by_css_selector("[class='m_table m_hl']")[1]
-        root1 = driver.find_element_by_xpath("//div[@id='ipoallot']//table[@class='m_table m_hl']/tbody")
-        rows = root1.find_elements_by_tag_name("tr")
-        # tr_label_s = root1.find_element_by_xpath("./tbody/tr")
-        # print(tr_label_s.text)
-        # print(root1.text)
-        rowname = []
-        i = 1
-        while i<10:
-            # news_date = root2.find_element_by_xpath("./th")
-            # print(news_date.text)
-            col = rows[i].text
-            rowname.append(col)
-            i = i + 1
-        print(rowname)
+        # 模块1： 上市公司_主力持仓_机构持股汇总
+        item['listedCompany_svzl_institutionholdSummary'] = list()
+        th_list = response.xpath("//div[@class='m_tab_content']//thead/tr/th")
+        # 根据表达的数量进行遍历取值
+        # 因为有一个是行头，所以需要-1
+        for i in range(0, len(th_list)-1):
+            td_dict = dict()
+            td_dict['listedCompany_svzl_institutionholdSummary_reportingPeriod'] = response.xpath("//div[@class='m_tab_content']//thead/tr/th[{}]/text()".format(i+2)).get().strip()
+            td_dict['listedCompany_svzl_institutionholdSummary_organizationNumber'] = response.xpath("//div[@class='m_tab_content']//tbody/tr[1]/td[{}]/text()".format(i+1)).get().strip()
+            td_dict['listedCompany_svzl_institutionholdSummary_accumulatedHoldingQuantity'] = response.xpath("//div[@class='m_tab_content']//tbody/tr[2]/td[{}]/text()".format(i+1)).get().strip()
+            td_dict['listedCompany_svzl_institutionholdSummary_totalMarketValue'] = response.xpath("//div[@class='m_tab_content']//tbody/tr[3]/td[{}]/text()".format(i+1)).get().strip()
+            td_dict['listedCompany_svzl_institutionholdSummary_positionRatio'] = response.xpath("//div[@class='m_tab_content']//tbody/tr[4]/td[{}]/text()".format(i+1)).get().strip()
+            # 较上期变化可能为空，空时源码发生变动，需要判断
+            if response.xpath("//div[@class='m_tab_content']//tbody/tr[5]/td[{}]/span/text()".format(i+1)).get():
+                td_dict['listedCompany_svzl_institutionholdSummary_comparedPreviousPeriodChange'] = response.xpath("//div[@class='m_tab_content']//tbody/tr[5]/td[{}]/span/text()".format(i+1)).get().strip()
+            else:
+                td_dict['listedCompany_svzl_institutionholdSummary_comparedPreviousPeriodChange'] = response.xpath("//div[@class='m_tab_content']//tbody/tr[5]/td[{}]/text()".format(i+1)).get().strip()
+            # 把字典对象插入列表中
+            item['listedCompany_svzl_institutionholdSummary'].append(td_dict)
 
-        yield company_svzl
+
+        # 模块2： 上市公司_主力持仓_机构持股明细
+        item['listedCompany_svzl_institutionholdDetail'] = list()
+        # 日期数等于日期对应的div数目 len(holdetail_dates) = len(holdetail_divs)
+        holdetail_dates = response.xpath("//div[@id='holdetail']//a[@class='fdate']/text()").getall()
+        holdetail_divs = response.xpath("//div[@id='holdetail']//div[@class='m_tab_content clearfix pagination gssj_scroll_position']")
+        for i in range(0, len(holdetail_divs)):
+            # holdetail_div(每个日期)里面有N个invest_tr(1个invest_trs列表)
+            holdetail_trs = holdetail_divs[i].xpath("./table[1]/tbody/tr")
+            for holdetail_tr in holdetail_trs:
+                # 通过字典来封装对象
+                holdetail_dict = dict()
+                # 日期 与 其他字段有所不同，直接从 invest_dates 列表 根据下标取就行
+                holdetail_dict['listedCompany_svzl_institutionholdDetail_date'] = holdetail_dates[i]
+                holdetail_dict['listedCompany_svzl_institutionholdDetail_organizationOrFundName'] = holdetail_tr.xpath("./th/span/text()").get().strip()
+                holdetail_dict['listedCompany_svzl_institutionholdDetail_organizationType'] = holdetail_tr.xpath("./td[1]/text()").get().strip()
+                holdetail_dict['listedCompany_svzl_institutionholdDetail_quantityHeld'] = holdetail_tr.xpath("./td[2]/text()").get().strip()
+                holdetail_dict['listedCompany_svzl_institutionholdDetail_marketValue'] = holdetail_tr.xpath("./td[3]/text()").get().strip()
+                holdetail_dict['listedCompany_svzl_institutionholdDetail_circulationSharesProportion'] = holdetail_tr.xpath("./td[4]/text()").get().strip()
+                # 增减情况 不同情况源码不同，也需要判断
+                 # 情况一：不发生增减
+                if not holdetail_tr.xpath("./td[5]/span"):
+                    holdetail_dict['listedCompany_svzl_institutionholdDetail_increaseOrDecrease'] = holdetail_tr.xpath("./td[5]/text()[2]").get().strip()
+                # 情况二：发生增减
+                else:
+                    holdetail_dict['listedCompany_svzl_institutionholdDetail_increaseOrDecrease'] = holdetail_tr.xpath("./td[5]/span/text()").get().strip()
+                # 基金收益排行 有的日期没有这个栏目，所以需要判断
+                if holdetail_tr.xpath("./td[6]/text()"):
+                    holdetail_dict['listedCompany_svzl_institutionholdDetail_fundIncomeRanking'] = holdetail_tr.xpath("./td[6]/text()").get().strip()
+                else:
+                    holdetail_dict['listedCompany_svzl_institutionholdDetail_fundIncomeRanking'] = '--'
+                # 将封装好的对象添加到该模块的列表中
+                item['listedCompany_svzl_institutionholdDetail'].append(holdetail_dict)
+
+
+        # 模块3： 上市公司_主力持仓_IPO获配机构
+        item['listedCompany_svzl_ipoInstitution'] = list()
+        trs = response.xpath("//div[@class='bd pr']//tbody/tr")
+        for tr in trs:
+            tr_dict = dict()
+            #tr_dict['listedCompany_svzl_ipoInstitution_id'] = tr.xpath("./th/text()").get()
+            tr_dict['listedCompany_svzl_ipoInstitution_organizationName'] = tr.xpath("./td[@class='tl']/text()").get()
+            tr_dict['listedCompany_svzl_ipoInstitution_allottedQuantity'] = tr.xpath("./td[2]/text()").get()
+            tr_dict['listedCompany_svzl_ipoInstitution_applyPurchasingQuantity'] = tr.xpath("./td[3]/text()").get()
+            tr_dict['listedCompany_svzl_ipoInstitution_lockupPeriod'] = tr.xpath("./td[@class='tc']/text()").get()
+            tr_dict['listedCompany_svzl_ipoInstitution_organizationType'] = tr.xpath("./td[@class='tl']/text()").getall()[1]
+            # 把字典对象插入列表中
+            item['listedCompany_svzl_ipoInstitution'].append(tr_dict)
+
+        yield item
+
 
 
