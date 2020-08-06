@@ -15,15 +15,22 @@ class JqkaEquitystrucItem(scrapy.Item):
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
 
-    listedCompany_shareholderResearch_shareholderNum_time = scrapy.Field()
-    listedCompany_shareholderResearch_shareholderNum_totalShareholdersNumber = scrapy.Field()
-    listedCompany_shareholderResearch_shareholderNum_comparedPreviousPeriodChange = scrapy.Field()
-    listedCompany_shareholderResearch_shareholderNum_perCapitaCirculatingShares = scrapy.Field()
-    listedCompany_shareholderResearch_shareholderNum_perCapitaCirculationChanges = scrapy.Field()
-    listedCompany_shareholderResearch_shareholderNum_industryAverage = scrapy.Field()
+
+    # 股东人数模块
+    listedCompany_shareholderResearch_shareholderNum = scrapy.Field()
+    # listedCompany_shareholderResearch_shareholderNum_time = scrapy.Field()
+    # listedCompany_shareholderResearch_shareholderNum_totalShareholdersNumber = scrapy.Field()
+    # listedCompany_shareholderResearch_shareholderNum_comparedPreviousPeriodChange = scrapy.Field()
+    # listedCompany_shareholderResearch_shareholderNum_perCapitaCirculatingShares = scrapy.Field()
+    # listedCompany_shareholderResearch_shareholderNum_perCapitaCirculationChanges = scrapy.Field()
+    # listedCompany_shareholderResearch_shareholderNum_industryAverage = scrapy.Field()
+
+    # 十大流通股东模块
     listedCompany_shareholderResearch_topTenCurrentShareholders_time = scrapy.Field()
     listedCompany_shareholderResearch_topTenCurrentShareholders = scrapy.Field()
     listedCompany_shareholderResearch_topTenCurrentShareholders_increaseOrDecrease = scrapy.Field()
+
+    # 十大股东 模块
     listedCompany_shareholderResearch_topTenShareholders = scrapy.Field()
 
-    pass
+
