@@ -54,9 +54,75 @@ class JqkaBaSpider(scrapy.Spider):
         return
 
     def detail_ni(self, response):
-        global set
         company_ba = response.meta['company_ba']
-        dict1 = dict()
+        # dict1 = dict()
+        # =====================主营构成分析======================
+        list1=list()
+        listedCompany_businessAnalysis_mainBusinessCompositionAnalysis=list()
+        root = response.xpath("//div[@id='analysis']/div[@class='bd pt5']/div[@class='m_tab mt15']/ul/li")
+        for x in range(len(root)):
+            x = x + 1
+            print(x)
+            root2 = response.xpath("//div[@id='analysis']/div[@class='bd pt5']/div[{}]".format(x + 3))
+            print(root2)
+            root3 = root2.xpath("./table/tbody/tr")
+            list0=list()
+            listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_time = response.xpath("//div[@id='analysis']/div[@class='bd pt5']/div[@class='m_tab mt15']/ul/li[{}]/a/text()".format(x)).getall()
+            listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_time = ''.join(listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_time).strip()
+            print(listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_time)
+            sin=dict()
+            sin['listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_time']=listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_time
+            list1.append(sin)
+            for rot3 in root3:
+                single=dict()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_bussinessName = rot3.xpath("./td[1]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_bussinessName = ''.join(
+                    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_bussinessName).strip()
+                single['listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_bussinessName']=listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_bussinessName
+
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingIncome = rot3.xpath("./td[2]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingIncome = ''.join(
+                    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingIncome).strip()
+                single[
+                    'listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingIncome'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingIncome
+
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_incomeRatio = rot3.xpath("./td[3]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_incomeRatio = ''.join(
+                    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_incomeRatio).strip()
+                single[
+                    'listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_incomeRatio'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_incomeRatio
+
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingCosts = rot3.xpath("./td[4]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingCosts = ''.join(
+                    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingCosts).strip()
+                single[
+                    'listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingCosts'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_operatingCosts
+
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_costRatio = rot3.xpath("./td[5]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_costRatio = ''.join(
+                    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_costRatio).strip()
+                single[
+                    'listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_costRatio'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_costRatio
+
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_percentageOfProfit = rot3.xpath("./td[6]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_percentageOfProfit = ''.join(
+                    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_percentageOfProfit).strip()
+                single[
+                    'listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_percentageOfProfit'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_percentageOfProfit
+
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_rateOfMargin = rot3.xpath("./td[7]/text()").getall()
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_rateOfMargin = ''.join(
+                listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_rateOfMargin).strip()
+                single[
+                    'listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_rateOfMargin'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis_rateOfMargin
+                list0.append(single)
+            list1.append(list0)
+        listedCompany_businessAnalysis_mainBusinessCompositionAnalysis.append(list1)
+        print(listedCompany_businessAnalysis_mainBusinessCompositionAnalysis)
+        company_ba['listedCompany_businessAnalysis_mainBusinessCompositionAnalysis'] = listedCompany_businessAnalysis_mainBusinessCompositionAnalysis
+
+
+
         # print(response.text)
         # root = response.xpath("//div[@class='m_box i_hover_box'][@id='analysis']/div[@class='bd pt5']")
         # zuixingonggaoriqi = response.xpath("//div[@class='m_box gqtz i_hover_box'][@id='invest']//div[@class='m_tab mt15 clearfix']/div/span/text()").getall()
@@ -84,158 +150,163 @@ class JqkaBaSpider(scrapy.Spider):
         # print(yewumingc)
         # y4 = root.xpath("./div[5]/table/tbody/tr[1]/td[4]/text()").get()
         # print(y4)
-        listedCompany_mainBusiness = dict()
+
+        # ==========================主营介绍=========================
+        listedCompany_businessAnalysis_mainBusiness = dict()
         root2 = response.xpath("//div[@class='content page_event_content']/div[@class='m_box main_intro i_hover_box']")
         # print(root2)
         cont1 = root2.xpath("./div[@class='bd pt5']/div[@class='mt15']/ul/li[1]/p/text()").getall()
         cont1 = ''.join(cont1).strip()
-        listedCompany_mainBusiness['listedCompany_mainBusinessIntro_mainBusiness '] = cont1
+        listedCompany_businessAnalysis_mainBusiness['listedCompany_businessAnalysis_mainBusinessIntro_mainBusiness '] = cont1
         cont2 = root2.xpath("./div[@class='bd pt5']/div[@class='mt15']/ul/li[2]/p/text()").getall()
         cont2 = ''.join(cont2).strip()
-        listedCompany_mainBusiness['listedCompany_mainBusinessIntro_productType '] = cont2
+        listedCompany_businessAnalysis_mainBusiness['listedCompany_businessAnalysis_mainBusinessIntro_productType '] = cont2
         cont3 = root2.xpath("./div[@class='bd pt5']/div[@class='mt15']/ul/li[3]/p/text()").getall()
         cont3 = ''.join(cont3).strip()
-        listedCompany_mainBusiness['listedCompany_mainBusinessIntro_productName '] = cont3
+        listedCompany_businessAnalysis_mainBusiness['listedCompany_businessAnalysis_mainBusinessIntro_productName '] = cont3
         cont4 = root2.xpath("./div[@class='bd pt5']/div[@class='mt15']/ul/li[4]/p/text()").getall()
-        listedCompany_mainBusiness['listedCompany_mainBusinessIntro_businessScope'] = cont4
+        listedCompany_businessAnalysis_mainBusiness['listedCompany_businessAnalysis_mainBusinessIntro_businessScope'] = cont4
+        company_ba['listedCompany_businessAnalysis_mainBusiness'] = listedCompany_businessAnalysis_mainBusiness
+
 
         # root = response.xpath("//div[@class='m_box i_hover_box'][@id='analysis']/div[@class='bd pt5']/div[@class='m_tab mt15']")
-        root11 = response.xpath("//div[@class='m_box i_hover_box'][@id='analysis']/div[@class='bd pt5']/div[@class='m_tab mt15']")
-        root = response.xpath("//div[@class='m_box i_hover_box'][@id='analysis']/div[@class='bd pt5']")
-        root_trs = root.xpath("./div[@class='m_tab_content'][1]/table/tbody/tr")
-        list1 = list()
-        listedCompany_mainBusinessCompositionAnalysis_1 = dict()
-        for root_tr in root_trs:
-            cont1 = root_tr.xpath("./td[1]/text()").getall()
-            cont1 = ''.join(cont1).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_bussinessName'] = cont1
-            cont2 = root_tr.xpath("./td[2]/text()").getall()
-            cont2 = ''.join(cont2).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_operatingIncome'] = cont2
-            cont3 = root_tr.xpath("./td[3]/text()").getall()
-            cont3 = ''.join(cont3).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_incomeRatio'] = cont3
-            cont4 = root_tr.xpath("./td[4]/text()").getall()
-            cont4 = ''.join(cont4).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_operatingCosts'] = cont4
-            cont5 = root_tr.xpath("./td[5]/text()").getall()
-            cont5 = ''.join(cont5).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_costRatio'] = cont5
-            cont6 = root_tr.xpath("./td[6]/text()").getall()
-            cont6 = ''.join(cont6).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_percentageOfProfit'] = cont6
-            cont7 = root_tr.xpath("./td[7]/text()").getall()
-            cont7 = ''.join(cont7).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_rateOfMargin'] = cont7
-            listedCompany_mainBusinessCompositionAnalysis_1_time = root11.xpath("./ul/li[1]/a/text()").getall()
-            listedCompany_mainBusinessCompositionAnalysis_1_time = ''.join(listedCompany_mainBusinessCompositionAnalysis_1_time).strip()
-            listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_time'] = listedCompany_mainBusinessCompositionAnalysis_1_time
-            list1.append(listedCompany_mainBusinessCompositionAnalysis_1)
-        company_ba['listedCompany_mainBusinessCompositionAnalysis_1'] = list1
-
-        root_trs1 = root.xpath("./div[@class='m_tab_content'][2]/table/tbody/tr")
-        list2 = list()
-        listedCompany_mainBusinessCompositionAnalysis_2 = dict()
-        for root_tr in root_trs1:
-            cont1 = root_tr.xpath("./td[1]/text()").getall()
-            cont1 = ''.join(cont1).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_bussinessName'] = cont1
-            cont2 = root_tr.xpath("./td[2]/text()").getall()
-            cont2 = ''.join(cont2).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_operatingIncome'] = cont2
-            cont3 = root_tr.xpath("./td[3]/text()").getall()
-            cont3 = ''.join(cont3).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_incomeRatio'] = cont3
-            cont4 = root_tr.xpath("./td[4]/text()").getall()
-            cont4 = ''.join(cont4).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_operatingCosts'] = cont4
-            cont5 = root_tr.xpath("./td[5]/text()").getall()
-            cont5 = ''.join(cont5).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_costRatio'] = cont5
-            cont6 = root_tr.xpath("./td[6]/text()").getall()
-            cont6 = ''.join(cont6).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_percentageOfProfit'] = cont6
-            cont7 = root_tr.xpath("./td[7]/text()").getall()
-            cont7 = ''.join(cont7).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_rateOfMargin'] = cont7
-            listedCompany_mainBusinessCompositionAnalysis_2_time = root11.xpath("./ul/li[2]/a/text()").getall()
-            listedCompany_mainBusinessCompositionAnalysis_2_time = ''.join(
-                listedCompany_mainBusinessCompositionAnalysis_2_time).strip()
-            listedCompany_mainBusinessCompositionAnalysis_2[
-                'listedCompany_mainBusinessCompositionAnalysis_time'] = listedCompany_mainBusinessCompositionAnalysis_2_time
-            list2.append(listedCompany_mainBusinessCompositionAnalysis_2)
-        company_ba['listedCompany_mainBusinessCompositionAnalysis_2'] = list2
-
-        root_trs2 = root.xpath("./div[@class='m_tab_content'][3]/table/tbody/tr")
-        list3 = list()
-        listedCompany_mainBusinessCompositionAnalysis_3 = dict()
-        for root_tr in root_trs2:
-            cont1 = root_tr.xpath("./td[1]/text()").getall()
-            cont1 = ''.join(cont1).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_bussinessName'] = cont1
-            cont2 = root_tr.xpath("./td[2]/text()").getall()
-            cont2 = ''.join(cont2).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_operatingIncome'] = cont2
-            cont3 = root_tr.xpath("./td[3]/text()").getall()
-            cont3 = ''.join(cont3).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_incomeRatio'] = cont3
-            cont4 = root_tr.xpath("./td[4]/text()").getall()
-            cont4 = ''.join(cont4).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_operatingCosts'] = cont4
-            cont5 = root_tr.xpath("./td[5]/text()").getall()
-            cont5 = ''.join(cont5).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_costRatio'] = cont5
-            cont6 = root_tr.xpath("./td[6]/text()").getall()
-            cont6 = ''.join(cont6).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_percentageOfProfit'] = cont6
-            cont7 = root_tr.xpath("./td[7]/text()").getall()
-            cont7 = ''.join(cont7).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_rateOfMargin'] = cont7
-            listedCompany_mainBusinessCompositionAnalysis_3_time = root11.xpath("./ul/li[3]/a/text()").getall()
-            listedCompany_mainBusinessCompositionAnalysis_3_time = ''.join(
-                listedCompany_mainBusinessCompositionAnalysis_3_time).strip()
-            listedCompany_mainBusinessCompositionAnalysis_3[
-                'listedCompany_mainBusinessCompositionAnalysis_time'] = listedCompany_mainBusinessCompositionAnalysis_3_time
-            list3.append(listedCompany_mainBusinessCompositionAnalysis_3)
-        company_ba['listedCompany_mainBusinessCompositionAnalysis_3'] = list3
-        # dict1['time1']=time1
-        # yewumingcheng = root.xpath("./tbody/tr[1]/td[1]/text()").get()
-        # print(yewumingcheng)
-        # dict1['yewumingcheng'] = yewumingcheng
-        # pingfangmi = root.xpath("./tbody/tr[1]/td[2]/text()").get()
-        # print(pingfangmi)
-        # dict1['pingfangmi'] = pingfangmi
-        # print(dict1)
-        company_ba['listedCompany_mainBusiness'] = listedCompany_mainBusiness
-
-
-        root21 = response.xpath("//div[@class='content page_event_content']/div[@class='m_box'][@id='observe']/div[@class='bd']")
-        root211 = root21.xpath("./div[@class='m_tab']/ul/li[1]/a/text()").getall()
-
-        root212 = root21.xpath("./div[@class='m_tab_content m_tab_content2']/p[2]/text()").getall()
+        # root11 = response.xpath("//div[@class='m_box i_hover_box'][@id='analysis']/div[@class='bd pt5']/div[@class='m_tab mt15']")
+        # root = response.xpath("//div[@class='m_box i_hover_box'][@id='analysis']/div[@class='bd pt5']")
+        # root_trs = root.xpath("./div[@class='m_tab_content'][1]/table/tbody/tr")
+        # list1 = list()
+        # listedCompany_mainBusinessCompositionAnalysis_1 = dict()
+        # for root_tr in root_trs:
+        #     cont1 = root_tr.xpath("./td[1]/text()").getall()
+        #     cont1 = ''.join(cont1).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_bussinessName'] = cont1
+        #     cont2 = root_tr.xpath("./td[2]/text()").getall()
+        #     cont2 = ''.join(cont2).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_operatingIncome'] = cont2
+        #     cont3 = root_tr.xpath("./td[3]/text()").getall()
+        #     cont3 = ''.join(cont3).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_incomeRatio'] = cont3
+        #     cont4 = root_tr.xpath("./td[4]/text()").getall()
+        #     cont4 = ''.join(cont4).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_operatingCosts'] = cont4
+        #     cont5 = root_tr.xpath("./td[5]/text()").getall()
+        #     cont5 = ''.join(cont5).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_costRatio'] = cont5
+        #     cont6 = root_tr.xpath("./td[6]/text()").getall()
+        #     cont6 = ''.join(cont6).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_percentageOfProfit'] = cont6
+        #     cont7 = root_tr.xpath("./td[7]/text()").getall()
+        #     cont7 = ''.join(cont7).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_rateOfMargin'] = cont7
+        #     listedCompany_mainBusinessCompositionAnalysis_1_time = root11.xpath("./ul/li[1]/a/text()").getall()
+        #     listedCompany_mainBusinessCompositionAnalysis_1_time = ''.join(listedCompany_mainBusinessCompositionAnalysis_1_time).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_1['listedCompany_mainBusinessCompositionAnalysis_time'] = listedCompany_mainBusinessCompositionAnalysis_1_time
+        #     list1.append(listedCompany_mainBusinessCompositionAnalysis_1)
+        # company_ba['listedCompany_mainBusinessCompositionAnalysis_1'] = list1
+        #
+        # root_trs1 = root.xpath("./div[@class='m_tab_content'][2]/table/tbody/tr")
+        # list2 = list()
+        # listedCompany_mainBusinessCompositionAnalysis_2 = dict()
+        # for root_tr in root_trs1:
+        #     cont1 = root_tr.xpath("./td[1]/text()").getall()
+        #     cont1 = ''.join(cont1).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_bussinessName'] = cont1
+        #     cont2 = root_tr.xpath("./td[2]/text()").getall()
+        #     cont2 = ''.join(cont2).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_operatingIncome'] = cont2
+        #     cont3 = root_tr.xpath("./td[3]/text()").getall()
+        #     cont3 = ''.join(cont3).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_incomeRatio'] = cont3
+        #     cont4 = root_tr.xpath("./td[4]/text()").getall()
+        #     cont4 = ''.join(cont4).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_operatingCosts'] = cont4
+        #     cont5 = root_tr.xpath("./td[5]/text()").getall()
+        #     cont5 = ''.join(cont5).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_costRatio'] = cont5
+        #     cont6 = root_tr.xpath("./td[6]/text()").getall()
+        #     cont6 = ''.join(cont6).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_percentageOfProfit'] = cont6
+        #     cont7 = root_tr.xpath("./td[7]/text()").getall()
+        #     cont7 = ''.join(cont7).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_rateOfMargin'] = cont7
+        #     listedCompany_mainBusinessCompositionAnalysis_2_time = root11.xpath("./ul/li[2]/a/text()").getall()
+        #     listedCompany_mainBusinessCompositionAnalysis_2_time = ''.join(
+        #         listedCompany_mainBusinessCompositionAnalysis_2_time).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_2[
+        #         'listedCompany_mainBusinessCompositionAnalysis_time'] = listedCompany_mainBusinessCompositionAnalysis_2_time
+        #     list2.append(listedCompany_mainBusinessCompositionAnalysis_2)
+        # company_ba['listedCompany_mainBusinessCompositionAnalysis_2'] = list2
+        #
+        # root_trs2 = root.xpath("./div[@class='m_tab_content'][3]/table/tbody/tr")
+        # list3 = list()
+        # listedCompany_mainBusinessCompositionAnalysis_3 = dict()
+        # for root_tr in root_trs2:
+        #     cont1 = root_tr.xpath("./td[1]/text()").getall()
+        #     cont1 = ''.join(cont1).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_bussinessName'] = cont1
+        #     cont2 = root_tr.xpath("./td[2]/text()").getall()
+        #     cont2 = ''.join(cont2).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_operatingIncome'] = cont2
+        #     cont3 = root_tr.xpath("./td[3]/text()").getall()
+        #     cont3 = ''.join(cont3).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_incomeRatio'] = cont3
+        #     cont4 = root_tr.xpath("./td[4]/text()").getall()
+        #     cont4 = ''.join(cont4).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_operatingCosts'] = cont4
+        #     cont5 = root_tr.xpath("./td[5]/text()").getall()
+        #     cont5 = ''.join(cont5).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_costRatio'] = cont5
+        #     cont6 = root_tr.xpath("./td[6]/text()").getall()
+        #     cont6 = ''.join(cont6).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_percentageOfProfit'] = cont6
+        #     cont7 = root_tr.xpath("./td[7]/text()").getall()
+        #     cont7 = ''.join(cont7).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_rateOfMargin'] = cont7
+        #     listedCompany_mainBusinessCompositionAnalysis_3_time = root11.xpath("./ul/li[3]/a/text()").getall()
+        #     listedCompany_mainBusinessCompositionAnalysis_3_time = ''.join(
+        #         listedCompany_mainBusinessCompositionAnalysis_3_time).strip()
+        #     listedCompany_mainBusinessCompositionAnalysis_3[
+        #         'listedCompany_mainBusinessCompositionAnalysis_time'] = listedCompany_mainBusinessCompositionAnalysis_3_time
+        #     list3.append(listedCompany_mainBusinessCompositionAnalysis_3)
+        # company_ba['listedCompany_mainBusinessCompositionAnalysis_3'] = list3
+        # # dict1['time1']=time1
+        # # yewumingcheng = root.xpath("./tbody/tr[1]/td[1]/text()").get()
+        # # print(yewumingcheng)
+        # # dict1['yewumingcheng'] = yewumingcheng
+        # # pingfangmi = root.xpath("./tbody/tr[1]/td[2]/text()").get()
+        # # print(pingfangmi)
+        # # dict1['pingfangmi'] = pingfangmi
+        # # print(dict1)
+        # company_ba['listedCompany_mainBusiness'] = listedCompany_mainBusiness
+        #
+        #
+        # root21 = response.xpath("//div[@class='content page_event_content']/div[@class='m_box'][@id='observe']/div[@class='bd']")
+        # root211 = root21.xpath("./div[@class='m_tab']/ul/li[1]/a/text()").getall()
+        #
+        # root212 = root21.xpath("./div[@class='m_tab_content m_tab_content2']/p[2]/text()").getall()
         # root212 = ''.join(root212).strip()
         # print(root212)
         # print(" ".join(str(i) for i in root212))
 
+
         # 去除列表中多余字符串以及换行
-        lists = [x.strip() for x in root212]
-        set = list(set(lists))
-        set.sort(key=lists.index)
-        set.remove('')
-        print(set)
+        # lists = [x.strip() for x in root212]
+        # set = list(set(lists))
+        # set.sort(key=lists.index)
+        # set.remove('')
+        # print(set)
 
         yield company_ba

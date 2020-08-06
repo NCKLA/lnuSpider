@@ -15,4 +15,4 @@ class JqkaNewsItem(scrapy.Item):
     news_url = scrapy.Field()
     news_tag = scrapy.Field()
     news_date = scrapy.Field()
-
+    news_url0 = scrapy.Field()

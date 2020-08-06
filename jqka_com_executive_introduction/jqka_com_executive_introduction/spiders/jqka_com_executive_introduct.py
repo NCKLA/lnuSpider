@@ -76,13 +76,13 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         for content in contents:
             single = dict()
             content_1 = content.xpath("./td[1]/a/text()").getall()
-            single['listedCompany_executiveInfor_name'] = "".join(content_1).strip()
+            single['listedCompany_enterpriseInfor_executiveInfor_name'] = "".join(content_1).strip()
             content_2 = content.xpath("./td[2]/text()").getall()
-            single['listedCompany_executiveInfor_position'] = "".join(content_2).strip()
+            single['listedCompany_enterpriseInfor_executiveInfor_position'] = "".join(content_2).strip()
             content_3 = content.xpath("./td[3]//span/text()").getall()
-            single['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
+            single['listedCompany_enterpriseInfor_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
             content_4 = content.xpath("./td[4]//span/text()").getall()
-            single['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
+            single['listedCompany_enterpriseInfor_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
             company_content1.append(single)
         company_detail['company_content1'] = company_content1
 
@@ -90,13 +90,13 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         for content in contents:
             single1 = dict()
             content_5 = content.xpath("./td[5]/a/text()").getall()
-            single1['listedCompany_executiveInfor_name'] = "".join(content_5).strip()
+            single1['listedCompany_enterpriseInfor_executiveInfor_name'] = "".join(content_5).strip()
             content_6 = content.xpath("./td[6]/text()").getall()
-            single1['listedCompany_executiveInfor_position'] = "".join(content_6).strip()
+            single1['listedCompany_enterpriseInfor_executiveInfor_position'] = "".join(content_6).strip()
             content_7 = content.xpath("./td[7]//span/text()").getall()
-            single1['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
+            single1['listedCompany_enterpriseInfor_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
             content_8 = content.xpath("./td[8]//span/text()").getall()
-            single1['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
+            single1['listedCompany_enterpriseInfor_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
             company_content2.append(single1)
         company_detail['company_content2'] = company_content2
 
@@ -107,13 +107,13 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         for content in contents1:
             single2 = dict()
             content_1 = content.xpath("./td[1]/a/text()").getall()
-            single2['listedCompany_executiveInfor_name'] = "".join(content_1).strip()
+            single2['listedCompany_enterpriseInfor_executiveInfor_name'] = "".join(content_1).strip()
             content_2 = content.xpath("./td[2]/text()").getall()
-            single2['listedCompany_executiveInfor_position'] = "".join(content_2).strip()
+            single2['listedCompany_enterpriseInfor_executiveInfor_position'] = "".join(content_2).strip()
             content_3 = content.xpath("./td[3]//span/text()").getall()
-            single2['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
+            single2['listedCompany_enterpriseInfor_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
             content_4 = content.xpath("./td[4]//span/text()").getall()
-            single2['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
+            single2['listedCompany_enterpriseInfor_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
             company_content3.append(single2)
         company_detail['company_content3'] = company_content3
 
@@ -121,13 +121,13 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         for content in contents1:
             single3 = dict()
             content_5 = content.xpath("./td[5]/a/text()").getall()
-            single3['listedCompany_executiveInfor_name'] = "".join(content_5).strip()
+            single3['listedCompany_enterpriseInfor_executiveInfor_name'] = "".join(content_5).strip()
             content_6 = content.xpath("./td[6]/text()").getall()
-            single3['listedCompany_executiveInfor_position'] = "".join(content_6).strip()
+            single3['listedCompany_enterpriseInfor_executiveInfor_position'] = "".join(content_6).strip()
             content_7 = content.xpath("./td[7]//span/text()").getall()
-            single3['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
+            single3['listedCompany_enterpriseInfor_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
             content_8 = content.xpath("./td[8]//span/text()").getall()
-            single3['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
+            single3['listedCompany_enterpriseInfor_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
             company_content4.append(single3)
         company_detail['company_content4'] = company_content4
 
@@ -138,13 +138,13 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         for content in contents3:
             single4 = dict()
             content_1 = content.xpath("./td[1]/a/text()").getall()
-            single4['listedCompany_executiveInfor_name'] = "".join(content_1).strip()
+            single4['listedCompany_enterpriseInfor_executiveInfor_name'] = "".join(content_1).strip()
             content_2 = content.xpath("./td[2]/text()").getall()
-            single4['listedCompany_executiveInfor_position'] = "".join(content_2).strip()
+            single4['listedCompany_enterpriseInfor_executiveInfor_position'] = "".join(content_2).strip()
             content_3 = content.xpath("./td[3]//span/text()").getall()
-            single4['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
+            single4['listedCompany_enterpriseInfor_executiveInfor_direcShareNumbers'] = "".join(content_3).strip()
             content_4 = content.xpath("./td[4]//span/text()").getall()
-            single4['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
+            single4['listedCompany_enterpriseInfor_executiveInfor_indirecShareNumbers'] = "".join(content_4).strip()
             company_content5.append(single4)
         company_detail['company_content5'] = company_content5
 
@@ -152,13 +152,13 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         for content in contents3:
             single5 = dict()
             content_5 = content.xpath("./td[5]/a/text()").getall()
-            single5['listedCompany_executiveInfor_name'] = "".join(content_5).strip()
+            single5['listedCompany_enterpriseInfor_executiveInfor_name'] = "".join(content_5).strip()
             content_6 = content.xpath("./td[6]/text()").getall()
-            single5['listedCompany_executiveInfor_position'] = "".join(content_6).strip()
+            single5['listedCompany_enterpriseInfor_executiveInfor_position'] = "".join(content_6).strip()
             content_7 = content.xpath("./td[7]//span/text()").getall()
-            single5['listedCompany_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
+            single5['listedCompany_enterpriseInfor_executiveInfor_direcShareNumbers'] = "".join(content_7).strip()
             content_8 = content.xpath("./td[8]//span/text()").getall()
-            single5['listedCompany_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
+            single5['listedCompany_enterpriseInfor_executiveInfor_indirecShareNumbers'] = "".join(content_8).strip()
             company_content6.append(single5)
         company_detail['company_content6'] = company_content6
 
