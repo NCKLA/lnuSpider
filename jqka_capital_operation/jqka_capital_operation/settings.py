@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Scrapy settings for jqka_svzl project
+# Scrapy settings for jqka_capital_operation project
 #
 # For simplicity, this file contains only settings considered important or
 # commonly used. You can find more settings consulting the documentation:
@@ -9,14 +9,14 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
-BOT_NAME = 'jqka_svzl'
+BOT_NAME = 'jqka_capital_operation'
 
-SPIDER_MODULES = ['jqka_svzl.spiders']
-NEWSPIDER_MODULE = 'jqka_svzl.spiders'
+SPIDER_MODULES = ['jqka_capital_operation.spiders']
+NEWSPIDER_MODULE = 'jqka_capital_operation.spiders'
 
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
-#USER_AGENT = 'jqka_svzl (+http://www.yourdomain.com)'
+#USER_AGENT = 'jqka_capital_operation (+http://www.yourdomain.com)'
 
 # Obey robots.txt rules
 ROBOTSTXT_OBEY = False
@@ -40,21 +40,21 @@ DOWNLOAD_DELAY = 1
 
 # Override the default request headers:
 DEFAULT_REQUEST_HEADERS = {
-  'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
-  'Accept-Language': 'en',
-  'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'
+    'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8',
+    'Accept-Language': 'en',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 6.3; Win64; x64; rv:74.0) Gecko/20100101 Firefox/74.0'
 }
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 #SPIDER_MIDDLEWARES = {
-#    'jqka_svzl.middlewares.JqkaSvzlSpiderMiddleware': 543,
+#    'jqka_capital_operation.middlewares.JqkaCapitalOperationSpiderMiddleware': 543,
 #}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'jqka_svzl.middlewares.JqkaSvzlDownloaderMiddleware': 543,
+     'jqka_capital_operation.middlewares.JqkaCapitalOperationDownloaderMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -66,7 +66,7 @@ DOWNLOADER_MIDDLEWARES = {
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'jqka_svzl.pipelines.JqkaSvzlPipeline': 300,
+    'jqka_capital_operation.pipelines.JqkaCapitalOperationPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)
