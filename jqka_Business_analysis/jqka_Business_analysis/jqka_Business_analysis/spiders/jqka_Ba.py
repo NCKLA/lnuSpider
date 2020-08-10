@@ -309,4 +309,25 @@ class JqkaBaSpider(scrapy.Spider):
         # set.remove('')
         # print(set)
 
+        # 董事会经营评述 模块 2020-08-10 -- myh
+        listedCompany_businessAnalysis_reviewOfBoardOperation = list()
+        # 日期列表
+        date_list = response.xpath("//div[@id='observe']//div[@class='m_tab']//a/text()").getall()
+        # 日期对应的p列表
+        p_list = response.xpath("//p[@class='f14 none clearfix pr']")
+        print(len(p_list))
+        for i in range(0, len(date_list)):
+            content_dict = dict()
+            # 1.日期
+            content_dict['listedCompany_businessAnalysis_reviewOfBoardOperation_date'] = date_list[i]
+            # 2.内容
+            content_list = p_list[i].xpath("./text()").getall()
+            # 去空格等空字符
+            content_list = [content.replace("\r", "").strip() for content in content_list]
+            content_dict['listedCompany_businessAnalysis_reviewOfBoardOperation_content'] = "".join(content_list)
+            # 将字典对象加入该模块的列表
+            listedCompany_businessAnalysis_reviewOfBoardOperation.append(content_dict)
+        # 将该列表 传递到item对应的字段
+        company_ba['listedCompany_businessAnalysis_reviewOfBoardOperation'] = listedCompany_businessAnalysis_reviewOfBoardOperation
+
         yield company_ba
