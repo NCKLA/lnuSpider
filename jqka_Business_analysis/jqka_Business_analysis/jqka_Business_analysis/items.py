@@ -14,6 +14,7 @@ class JqkaBusinessAnalysisItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
+    listedCompany_fullName = scrapy.Field()
     # 主营介绍
     listedCompany_businessAnalysis_mainBusiness = scrapy.Field()
     # 主营构成分析
