@@ -14,7 +14,7 @@ class JqkaSvzlItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
-
+    listedCompany_fullName = scrapy.Field()
     listedCompany_svzl_institutionholdSummary = scrapy.Field()  # 上市公司_主力持仓_机构持股汇总 模块
     # listedCompany_svzl_institutionholdSummary_reportingPeriod = scrapy.Field()               # 上市公司_主力持仓_机构持股汇总_主力进出\报告期
     # listedCompany_svzl_institutionholdSummary_organizationNumber = scrapy.Field()            # 上市公司_主力持仓_机构持股汇总_机构数量
