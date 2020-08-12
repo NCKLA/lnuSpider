@@ -58,7 +58,7 @@ class JqkaLrSpider(scrapy.Spider):
             listedCompany_name = data3[i - 1]
             company_lr['listedCompany_name'] = listedCompany_name
             listedCompany_fullName = data4[i - 1]
-            company_lr['listedCompany_fullName'] = listedCompany_fullName 
+            company_lr['listedCompany_fullName'] = listedCompany_fullName
             # print(response.text)
             #
             yield scrapy.Request(company_lr['listedCompany_url'],
