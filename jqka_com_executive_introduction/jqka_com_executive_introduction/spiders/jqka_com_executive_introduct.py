@@ -32,11 +32,15 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         data = []
         data1 = []
         data2 = []
+        data3 = []
+        data4 = []
         row_num = 1
         while row_num <= 3:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
+            data3.append(sheet.cell(row=row_num, column=2).value)
+            data4.append(sheet.cell(row=row_num, column=4).value)
             data2.append(row_num)
             row_num = row_num + 1
         for i in data2:
@@ -47,6 +51,10 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
             company_detail['listedCompany_url'] = listedCompany_url
             listedCompany_id = data1[i - 1]
             company_detail['listedCompany_id'] = listedCompany_id
+            listedCompany_name = data3[i - 1]
+            company_detail['listedCompany_name'] = listedCompany_name
+            listedCompany_fullName = data4[i - 1]
+            company_detail['listedCompany_fullName'] = listedCompany_fullName
             # print(response.text)
             yield scrapy.Request(company_detail['listedCompany_url'],
                                  meta={'company_detail': company_detail}, callback=self.detail_ni, dont_filter=True)
@@ -58,9 +66,6 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         company_detail = response.meta['company_detail']
         root = response.xpath("//div[@class='content page_event_content']")[0]
 
-        listedCompany_name = root.xpath("//div[@stat][@id='detail']//table[@class='m_table']//tr[1]""//td[2]//spa"
-                                  "n/text()")[0].extract()
-        company_detail['listedCompany_name'] = listedCompany_name
 
         print("=====高管信息准备完毕，休息一下嘻嘻====")
         root1 = response.xpath("//div[@id='manager'][@stat='company_manag"
