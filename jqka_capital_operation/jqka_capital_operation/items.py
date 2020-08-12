@@ -14,7 +14,7 @@ class JqkaCapitalOperationItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
-
+    listedCompany_fullName = scrapy.Field()
     listedCompany_capitalOperation_fundRaisingSource = scrapy.Field()   # 1.募集资金来源 模块
 
     listedCompany_capitalOperation_projectInvestment = scrapy.Field()    # 2.项目投资 模块
