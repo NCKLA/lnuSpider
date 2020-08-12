@@ -15,6 +15,7 @@ class JqkaLssuanceRelatedItem(scrapy.Item):
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
     listedCompany_name = scrapy.Field()
+    listedCompany_fullName = scrapy.Field()
 
     listedCompany_enterpriseInfor_issueRelated_establishmentDate = scrapy.Field()
     listedCompany_enterpriseInfor_issueRelated_issueNumber = scrapy.Field()
