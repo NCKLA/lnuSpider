@@ -20,6 +20,7 @@ class JqkaComDetailItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
+    listedCompany_fullName = scrapy.Field()
     company_content2_1 = scrapy.Field()
     company_content2_2 = scrapy.Field()
     listedCompany_enterpriseInfor_detailInfor_companyProfile = scrapy.Field()
