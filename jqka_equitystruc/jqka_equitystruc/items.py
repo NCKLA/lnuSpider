@@ -14,7 +14,7 @@ class JqkaEquitystrucItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
-
+    listedCompany_fullName = scrapy.Field()
 
     # 股东人数模块
     listedCompany_shareholderResearch_shareholderNum = scrapy.Field()

@@ -33,12 +33,14 @@ class JqkaEsSpider(scrapy.Spider):
         data1 = []
         data2 = []
         data3 = []
+        data4 = []
         row_num = 1
         while row_num <= 3815:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
             data3.append(sheet.cell(row=row_num, column=2).value)
+            data4.append(sheet.cell(row=row_num, column=4).value)
             data2.append(row_num)
             row_num = row_num + 1
         for i in data2:
@@ -52,6 +54,8 @@ class JqkaEsSpider(scrapy.Spider):
             company_es['listedCompany_id'] = listedCompany_id
             listedCompany_name = data3[i - 1]
             company_es['listedCompany_name'] = listedCompany_name
+            listedCompany_fullName = data4[i - 1]
+            company_es['listedCompany_fullName'] = listedCompany_fullName
             # print(listedCompany_id)
             # pandas读取表格
             # res_elements = etree.HTML(response.text)
