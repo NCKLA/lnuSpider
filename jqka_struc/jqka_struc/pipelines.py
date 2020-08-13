@@ -14,6 +14,7 @@ class JqkaStrucPipeline:
         self.exporter = JsonLinesItemExporter(self.fp, ensure_ascii=False)
         # self.http = urllib3.PoolManager()
 
+
     def open_spider(self, spider):
         print("=====爬虫开始了=====")
 

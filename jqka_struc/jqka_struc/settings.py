@@ -9,6 +9,7 @@
 #     https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 #     https://docs.scrapy.org/en/latest/topics/spider-middleware.html
 
+
 BOT_NAME = 'jqka_struc'
 
 SPIDER_MODULES = ['jqka_struc.spiders']

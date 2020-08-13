@@ -15,6 +15,7 @@ class JqkaStrucSpiderSpider(scrapy.Spider):
     allowed_domains = ['basic.10.jqka.com']
     start_urls = ['http://basic.10jqka.com.cn/603221/equity.html']
 
+
     def parse(self, response):
         # 读取excel表格
         book = load_workbook(filename=r"C:\python\lnuSpider\data\exel\com_list.xlsx")
