@@ -21,12 +21,14 @@ class JqkaCapitalOperationSpiderSpider(scrapy.Spider):
         data1 = []
         data2 = []
         data3 = []
+        data4 = []
         row_num = 1
         while row_num <= 3815:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
             data3.append(sheet.cell(row=row_num, column=2).value)
+            data4.append(sheet.cell(row=row_num, column=4).value)
             data2.append(row_num)
             row_num = row_num + 1
         for i in data2:
@@ -38,6 +40,8 @@ class JqkaCapitalOperationSpiderSpider(scrapy.Spider):
             company_co['listedCompany_id'] = listedCompany_id
             listedCompany_name = data3[i - 1]
             company_co['listedCompany_name'] = listedCompany_name
+            listedCompany_fullName = data4[i - 1]
+            company_co['listedCompany_fullName'] = listedCompany_fullName
             yield scrapy.Request(company_co['listedCompany_url'], meta={'company_co': company_co}, callback=self.detail_ni, dont_filter=True)
 
     def detail_ni(self, response):
@@ -49,6 +53,7 @@ class JqkaCapitalOperationSpiderSpider(scrapy.Spider):
         item['listedCompany_id'] = company_co['listedCompany_id']
         item['listedCompany_name'] = company_co['listedCompany_name']
         item['listedCompany_url'] = company_co['listedCompany_url']
+        item['listedCompany_fullName'] = company_co['listedCompany_fullName']
 
         # 1.募集资金来源 模块
         # listedCompany_capitalOperation_fundRaisingSource
@@ -127,7 +132,7 @@ class JqkaCapitalOperationSpiderSpider(scrapy.Spider):
                 invest_dict['listedCompany_capitalOperation_equityInvestment_accumulatedInitialInvestment'] = invest_tr.xpath("./td[3]/text()").get().strip()
                 invest_dict['listedCompany_capitalOperation_equityInvestment_cumulativeEndingFaceValue'] = invest_tr.xpath("./td[4]/text()").get().strip()
                 invest_dict['listedCompany_capitalOperation_equityInvestment_quarterEndedProfitAndLoss'] = invest_tr.xpath("./td[5]/span/text()").get().strip()
-                invest_dict['listedCompany_capitalOperation_equityInvestment_performanceImpact'] = invest_tr.xpath("./td[6]/text()").get().strip()
+                invest_dict['listedCompany_capitalOperation_equityInvestment_performanceImpact'] = invest_tr.xpath("./td[6]/text()").get()
                 # 将封装好的对象添加到该模块的列表中
                 item['listedCompany_capitalOperation_equityInvestment'].append(invest_dict)
 

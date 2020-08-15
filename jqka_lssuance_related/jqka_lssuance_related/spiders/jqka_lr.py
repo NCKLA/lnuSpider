@@ -35,12 +35,14 @@ class JqkaLrSpider(scrapy.Spider):
         data1 = []
         data2 = []
         data3 = []
+        data4 = []
         row_num = 1
         while row_num <= 3:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
             data3.append(sheet.cell(row=row_num, column=2).value)
+            data4.append(sheet.cell(row=row_num, column=4).value)
             data2.append(row_num)
             row_num = row_num + 1
 
@@ -55,6 +57,8 @@ class JqkaLrSpider(scrapy.Spider):
             company_lr['listedCompany_id'] = listedCompany_id
             listedCompany_name = data3[i - 1]
             company_lr['listedCompany_name'] = listedCompany_name
+            listedCompany_fullName = data4[i - 1]
+            company_lr['listedCompany_fullName'] = listedCompany_fullName
             # print(response.text)
             #
             yield scrapy.Request(company_lr['listedCompany_url'],

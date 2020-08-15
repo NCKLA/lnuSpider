@@ -8,16 +8,17 @@
 import scrapy
 
 
-class JqkaBusinessAnalysisItem(scrapy.Item):
+class JqkaCompanyEventItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     listedCompany_name = scrapy.Field()
     listedCompany_url = scrapy.Field()
     listedCompany_id = scrapy.Field()
     listedCompany_fullName = scrapy.Field()
-    # 主营介绍
-    listedCompany_businessAnalysis_mainBusiness = scrapy.Field()
-    # 主营构成分析
-    listedCompany_businessAnalysis_mainBusinessCompositionAnalysis = scrapy.Field()
-    # 董事会经营评述
-    listedCompany_businessAnalysis_reviewOfBoardOperation = scrapy.Field()
+
+    # 1.违规处理 模块
+    listedCompany_companyEvent_handofViolation = scrapy.Field()
+    # 2.高管持股变动 模块
+    listedCompany_companyEvent_executiveShareholdingchanges = scrapy.Field()
+    # 3.股东持股变动模块
+    listedCompany_companyEvent_shareholderholdingchanges = scrapy.Field()

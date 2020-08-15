@@ -30,12 +30,14 @@ class JqkaBaSpider(scrapy.Spider):
         data1 = []
         data2 = []
         data3 = []
+        data4 = []
         row_num = 1
         while row_num <= 1:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
             data3.append(sheet.cell(row=row_num, column=2).value)
+            data4.append(sheet.cell(row=row_num, column=4).value)
             data2.append(row_num)
             row_num = row_num + 1
         for i in data2:
@@ -48,6 +50,8 @@ class JqkaBaSpider(scrapy.Spider):
             company_ba['listedCompany_id'] = listedCompany_id
             listedCompany_name = data3[i - 1]
             company_ba['listedCompany_name'] = listedCompany_name
+            listedCompany_fullName = data4[i - 1]
+            company_ba['listedCompany_fullName'] = listedCompany_fullName
             # print(listedCompany_id)
             yield scrapy.Request(company_ba['listedCompany_url'],
                                  meta={'company_ba': company_ba}, callback=self.detail_ni, dont_filter=True)
@@ -308,5 +312,26 @@ class JqkaBaSpider(scrapy.Spider):
         # set.sort(key=lists.index)
         # set.remove('')
         # print(set)
+
+        # 董事会经营评述 模块 2020-08-10 -- myh
+        listedCompany_businessAnalysis_reviewOfBoardOperation = list()
+        # 日期列表
+        date_list = response.xpath("//div[@id='observe']//div[@class='m_tab']//a/text()").getall()
+        # 日期对应的p列表
+        p_list = response.xpath("//p[@class='f14 none clearfix pr']")
+        print(len(p_list))
+        for i in range(0, len(date_list)):
+            content_dict = dict()
+            # 1.日期
+            content_dict['listedCompany_businessAnalysis_reviewOfBoardOperation_date'] = date_list[i]
+            # 2.内容
+            content_list = p_list[i].xpath("./text()").getall()
+            # 去空格等空字符
+            content_list = [content.replace("\r", "").strip() for content in content_list]
+            content_dict['listedCompany_businessAnalysis_reviewOfBoardOperation_content'] = "".join(content_list)
+            # 将字典对象加入该模块的列表
+            listedCompany_businessAnalysis_reviewOfBoardOperation.append(content_dict)
+        # 将该列表 传递到item对应的字段
+        company_ba['listedCompany_businessAnalysis_reviewOfBoardOperation'] = listedCompany_businessAnalysis_reviewOfBoardOperation
 
         yield company_ba
