@@ -33,7 +33,7 @@ class JqkaComExecutiveIntroductSpider(scrapy.Spider):
         data1 = []
         data2 = []
         row_num = 1
-        while row_num <= 3:
+        while row_num <= 1:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)

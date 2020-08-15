@@ -20,3 +20,6 @@ class JqkaComOverviewItem(scrapy.Item):
     listedCompany_latestNews_comBrief_industryPopularityRanking = scrapy.Field()
     listedCompany_latestNews_comBrief_mainBusiness = scrapy.Field()
     listedCompany_latestNews_comBrief_shenwanIndustry = scrapy.Field()
+    listedCompany_latestNews_comBrief_conceptFitRanking = scrapy.Field()
+    listedCompany_latestNews_comBrief_domesticMarketsComparableCompanies = scrapy.Field()
+    listedCompany_latestNews_comBrief_foreignMarketsComparableCompanies = scrapy.Field()
