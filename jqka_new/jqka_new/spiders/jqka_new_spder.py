@@ -7,12 +7,20 @@ from scrapy.http import Request
 from openpyxl import load_workbook
 from selenium import webdriver
 import scrapy
-
+from selenium.webdriver.chrome.options import Options
 
 class JqkaNewSpderSpider(scrapy.Spider):
     name = 'jqka_new_spder'
     allowed_domains = ['http://basic.10jqka.com.cn/000056/news.html']
     start_urls = ['http://http://basic.10jqka.com.cn/000056/news.html/']
+
+    def __init__(self):
+        options = webdriver.FirefoxOptions()
+        options.add_argument("--headless")  # 设置火狐为headless无界面模式
+        options.add_argument("--disable-gpu")
+        self.driver_path = r"D:\project\geckodriver.exe"
+        self.driver = webdriver.Firefox(executable_path=self.driver_path, firefox_options=options)
+
     def start_requests(self):
         yield Request("http://basic.10jqka.com.cn/603221/news.html",
                       headers={
@@ -28,7 +36,7 @@ class JqkaNewSpderSpider(scrapy.Spider):
         data3 = []
         data4 = []
         row_num = 1
-        while row_num <= 1:
+        while row_num <= 3815:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
             data1.append(sheet.cell(row=row_num, column=1).value)
@@ -40,7 +48,6 @@ class JqkaNewSpderSpider(scrapy.Spider):
             # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
             # print(data[i-1])
             a = str(data[i - 1])
-            print(type(a))
             listedCompany_url = 'http://basic.10jqka.com.cn/' + a + '/news.html'
             company_news = JqkaNewItem()
             company_news['listedCompany_url'] = listedCompany_url
@@ -51,74 +58,44 @@ class JqkaNewSpderSpider(scrapy.Spider):
             listedCompany_fullName = data4[i - 1]
             company_news['listedCompany_fullName'] = listedCompany_fullName
             # print(listedCompany_id)
-            yield scrapy.Request(company_news['listedCompany_url'],
-                                 meta={'company_news': company_news}, callback=self.detail_ni, dont_filter=True)
-        return
+            yield scrapy.Request(company_news['listedCompany_url'],meta={'company_news': company_news}, callback=self.detail_ni, dont_filter=True)
+
 
     def detail_ni(self, response):
         company_news = response.meta['company_news']
-        # root = response.xpath("//div[@class='content page_event_content']"
-        #                       "/div[@class='m_box subnews'][@id='pub'][@stat='pub_pub']"
-        #                       "/div[@class='bd']/div[@class='m_tab_content']/*").getall()
-        # print(root)
-        # root1 = response.xpath("//div[@class='m_dlbox'][@id='pull_all']/dl")
-        # print(type(root1))
-        # print(root1)
 
-        options = webdriver.FirefoxOptions()
-        options.add_argument("--headless")  # 设置火狐为headless无界面模式
-        options.add_argument("--disable-gpu")
+        self.driver.get(company_news['listedCompany_url'])
+        time.sleep(1)
 
-        driver_path = r"D:\project\geckodriver.exe"
-        driver = webdriver.Firefox(executable_path=driver_path, firefox_options=options)
-        driver.get(company_news['listedCompany_url'])
-
+        # 公告列表模块
+        company_news['listedCompany_news_announceList'] = list()
         while True:
-            # c = driver.find_element_by_xpath("//div[@class='m_dlbox'][@id='pull_all']")
-            # print(c.get_attribute('innerHTML'))
-            root1 = driver.find_elements_by_xpath("//div[@class='m_dlbox'][@id='pull_all']//dl")
-
-            # root1.get_attribute('innerHTML')
-            # print(root1)
+            root1 = self.driver.find_elements_by_xpath("//div[@class='m_dlbox'][@id='pull_all']//dl")
             for root2 in root1:
+                news_dict = dict()
+                # 1.日期
                 news_date = root2.find_element_by_xpath("./dt/span[@class='date']")
-                # print(news_date.text)
                 news_date = news_date.text
+                # 2.标签
                 news_tag = root2.find_element_by_xpath("./dt/span[@class='title']/a/strong")
-                # print(news_tag.text)
                 news_tag = news_tag.text
-                news_url = root2.find_element_by_xpath("./dt/span[@class='title']/a")
-                # print(news_url.get_attribute("href"))
-                # print(news_tag)
-                # print(news_url)
-                # company_news['news_url'] = news_url.get_attribute("href")
-                yield scrapy.Request(news_url.get_attribute("href"),
-                                     meta={"news_url": news_url.get_attribute("href"), "url": company_news['listedCompany_url']
-                                         , "news_date": news_date, "news_tag": news_tag, 'company_news': company_news},
-                                     callback=self.detail_ni1,
-                                     dont_filter=True)
+                # 封装字典
+                news_dict['listedCompany_news_announceList_tag'] = news_tag
+                news_dict['listedCompany_news_announceList_date'] = news_date
+                # 将字典加入列表
+                company_news['listedCompany_news_announceList'].append(news_dict)
 
-            ul = driver.find_element_by_css_selector("[class='splpager clearfix light-theme simple-pagination']")
-            li_label_s = ul.find_elements_by_xpath('./ul/li')
-            # print("测试 'innerHTML ："+li_label_s[-1].get_attribute('innerHTML'))
-            xia_yi_ye = li_label_s[-1].get_attribute('innerHTML')
-            if "下一页</a>" in xia_yi_ye:
-                print("是a!")
-                element = driver.find_element_by_css_selector("[class='page-link next']")
-                element.click()
-                time.sleep(3)
-            elif "下一页</span>" in xia_yi_ye:
-                print("是span!")
+            # 下一页按钮 对象
+            next_ele = self.driver.find_element_by_xpath("//div[@id='pub']//div[@class='splpager clearfix light-theme simple-pagination']//li[last()]")
+            print(next_ele.get_attribute("class")+"~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~")
+            # 是最后一页 则跳出循环
+            if next_ele.get_attribute("class") == "disabled":
+                # 该结束了
                 break
+            # 不是最后一页 则翻页
+            else:
+                print("翻页")
+                next_ele.click()
+                time.sleep(1)
 
-    def detail_ni1(self, response):
-        print("======进入内页======")
-        company_news = JqkaNewItem()
-        company_news = response.meta['company_news']
-        # company_news['listedCompany_news_announceList_url0'] = response.meta['news_url']
-        # print(company_news['news_url0'])
-        # company_news['listedCompany_news_announceList_url'] = response.meta['url']
-        company_news['listedCompany_news_announceList_tag'] = response.meta['news_tag']
-        company_news['listedCompany_news_announceList_date'] = response.meta['news_date']
-        time.sleep(random.randint(1, 2))
         yield company_news
