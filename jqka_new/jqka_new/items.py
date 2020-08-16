@@ -16,7 +16,10 @@ class JqkaNewItem(scrapy.Item):
     listedCompany_name = scrapy.Field()
     listedCompany_fullName = scrapy.Field()
     # listedCompany_news_announceList__url = scrapy.Field()
-    listedCompany_news_announceList_tag = scrapy.Field()
-    listedCompany_news_announceList_date = scrapy.Field()
     # listedCompany_news_announceList__url0 = scrapy.Field()
-    pass
+
+    # 公告列表
+    listedCompany_news_announceList = scrapy.Field()
+    # listedCompany_news_announceList_tag = scrapy.Field()
+    # listedCompany_news_announceList_date = scrapy.Field()
+
