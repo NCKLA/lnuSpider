@@ -106,17 +106,35 @@ class JqkaNewsSpiderSpider(scrapy.Spider):
         book = load_workbook(filename=r"C:\python\lnuSpider\data\exel\com_list.xlsx")
         sheet = book.active
         data = []
+        data1 = []
+        data2 = []
+        data3 = []
+        data4 = []
         row_num = 1
-        while row_num <= 2:
+        while row_num <= 1:
             # 将表中第一列的1-100行数据写入data数组中
             data.append(sheet.cell(row=row_num, column=3).value)
+            data1.append(sheet.cell(row=row_num, column=1).value)
+            data3.append(sheet.cell(row=row_num, column=2).value)
+            data4.append(sheet.cell(row=row_num, column=4).value)
+            data2.append(row_num)
             row_num = row_num + 1
-        for i in data:
+        for i in data2:
+            # url = 'http://basic.10jqka.com.cn/'+data[i]+'/company.html'
+            # print(data[i-1])
+            a = str(data[i - 1])
+            print(type(a))
+            listedCompany_url = 'http://basic.10jqka.com.cn/' + a + '/company.html'
             company_news = JqkaNewsItem()
-            com_url = 'http://basic.10jqka.com.cn/%s' % i + '/news.html'
-            company_news['url'] = com_url
-            # print(response.text)
-            yield scrapy.Request(company_news['url'],
+            company_news['listedCompany_url'] = listedCompany_url
+            listedCompany_id = data1[i - 1]
+            company_news['listedCompany_id'] = listedCompany_id
+            listedCompany_name = data3[i - 1]
+            company_news['listedCompany_name'] = listedCompany_name
+            listedCompany_fullName = data4[i - 1]
+            company_news['listedCompany_fullName'] = listedCompany_fullName
+            # print(listedCompany_id)
+            yield scrapy.Request(company_news['listedCompany_url'],
                                  meta={'company_news': company_news}, callback=self.detail_ni, dont_filter=True)
         return
 
@@ -179,19 +197,20 @@ class JqkaNewsSpiderSpider(scrapy.Spider):
     def detail_ni1(self, response):
         print("======进入内页======")
         company_news = JqkaNewsItem()
-        company_news['news_url0'] = response.meta['news_url']
-        print(company_news['news_url0'])
-        company_news['url'] = response.meta['url']
-        company_news['news_tag'] = response.meta['news_tag']
-        company_news['news_date'] = response.meta['news_date']
-        time.sleep(random.randint(1, 3))
-        yield scrapy.Request(company_news['news_url0'],
-                             meta={'company_news': company_news}, callback=self.detail_ni2, dont_filter=True)
-
-    def detail_ni2(self, response):
-        company_news = response.meta['company_news']
-        print("======进入下载页======")
-        news_url = response.xpath("//div[@id='defaultView']/div[2]/a/@href").getall()
-        news_url = ''.join(news_url).strip()
-        company_news['news_url'] = news_url
+        # company_news['listedCompany_news_announceList_url0'] = response.meta['news_url']
+        # print(company_news['news_url0'])
+        # company_news['listedCompany_news_announceList_url'] = response.meta['url']
+        company_news['listedCompany_news_announceList_tag'] = response.meta['news_tag']
+        company_news['listedCompany_news_announceList_date'] = response.meta['news_date']
+        time.sleep(random.randint(1, 2))
         yield company_news
+        # yield scrapy.Request(company_news['listedCompany_news_announceList_url0'],
+        #                      meta={'company_news': company_news}, callback=self.detail_ni2, dont_filter=True)
+
+    # def detail_ni2(self, response):
+    #     #     company_news = response.meta['company_news']
+    #     #     print("======进入下载页======")
+    #     #     news_url = response.xpath("//div[@id='defaultView']/div[2]/a/@href").getall()
+    #     #     news_url = ''.join(news_url).strip()
+    #     #     company_news['news_url'] = news_url
+    #     #     yield company_news

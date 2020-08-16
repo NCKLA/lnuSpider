@@ -47,14 +47,14 @@ DEFAULT_REQUEST_HEADERS = {
 
 # Enable or disable spider middlewares
 # See https://docs.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'jqka_news.middlewares.JqkaNewsSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+   'jqka_news.middlewares.JqkaNewsSpiderMiddleware': 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
 DOWNLOADER_MIDDLEWARES = {
-   'jqka_news.middlewares.JqkaNewsDownloaderMiddleware': 543,
+   'jqka_news.middlewares.JqkaNewsSpiderMiddleware': 543,
 }
 
 # Enable or disable extensions
@@ -68,7 +68,7 @@ DOWNLOADER_MIDDLEWARES = {
 ITEM_PIPELINES = {
    'jqka_news.pipelines.JqkaNewsPipeline': 300,
 }
-FILES_STORE = './/PDF文件//'
+# FILES_STORE = './/PDF文件//'
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html
